@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import contactBanner from "@/assets/contact-banner.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
