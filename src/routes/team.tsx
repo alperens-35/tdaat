@@ -54,9 +54,9 @@ const team = [
     social: { github: "#", linkedin: "#" },
   },
   {
-    name: "Deniz Aydın",
-    role: "PR ve Sosyal Medya",
-    bio: "2. sınıf iletişim. İçerik üretimi ve topluluk iletişimi.",
+    name: "Ömer Faruk İyigören",
+    role: "Organizasyon Birimi",
+    bio: "2. sınıf işletme. Organizasyon ve operasyon yönetimi.",
     color: "bg-violet-100 text-violet-700",
     social: { twitter: "#", linkedin: "#" },
   },
