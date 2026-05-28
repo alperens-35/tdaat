@@ -28,7 +28,7 @@ export const Route = createFileRoute("/events")({
 
 const upcoming = [
   {
-    title: "Kariyer Günü: Sektör Buluşması",
+    title: "Tanışma Etkinliği: Turan Toyu",
     date: "22 Aralık 2024",
     time: "10:00 - 16:00",
     location: "Konferans Salonu",
