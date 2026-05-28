@@ -130,7 +130,16 @@ export function Footer() {
                   egeturkduyasitoplulugu@gmail.com
                 </a>
               </li>
-              <li>İzmir, Türkiye</li>
+              <li>
+                <a
+                  href="https://www.google.com/maps/place/Ege+%C3%9Cniversitesi/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-primary"
+                >
+                  İzmir, Türkiye
+                </a>
+              </li>
             </ul>
           </div>
         </div>
