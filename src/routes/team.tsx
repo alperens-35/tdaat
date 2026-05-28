@@ -67,6 +67,13 @@ const team = [
     color: "bg-pink-100 text-pink-700",
     social: { twitter: "#", linkedin: "#" },
   },
+  {
+    name: "Dilek Bozkurt",
+    role: "Sponsorluk",
+    bio: "3. sınıf işletme. Sponsorluk görüşmeleri ve kurumsal ilişkiler.",
+    color: "bg-orange-100 text-orange-700",
+    social: { linkedin: "#", twitter: "#" },
+  },
 ];
 
 function TeamPage() {
