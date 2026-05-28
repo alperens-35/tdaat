@@ -101,7 +101,10 @@ function Index() {
                 <span className="text-primary">ARAŞTIRMALAR</span>
                 <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-blue-400" />
               </span>
-              <span className="block text-primary">TOPLULUĞU</span>
+              <span className="flex items-center gap-3 text-primary">
+                <span>TOPLULUĞU</span>
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-blue-400" />
+              </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
               Üniversite öğrencilerinin öğrenme, üretme ve büyüme
