@@ -34,9 +34,8 @@ function AboutPage() {
             Hakkımızda
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Türk Dünyası Akademik Araştırmalar Topluluğu, 2023 yılında bir grup üniversite öğrencisi tarafından kurulan,
-            öğrencilerin bir araya gelerek öğrendiklerini paylaştığı, birlikte projeler
-            ürettiği ve kariyerlerine değer katan bir topluluktur.
+            Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu (TDAAT) 2025 yılında üniversitemiz bünyesinde kurulmuştur.
+            Dede Korkut'un sesiyle, Yusuf Has Hacip'in öğüdüyle, Bilge Kağan'ın izinde; kültürümüzü tanımak, yaşatmak ve paylaşmak için bir aradayız.
           </p>
         </div>
       </section>
