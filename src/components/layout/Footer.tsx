@@ -92,10 +92,10 @@ export function Footer() {
               <a
                 href="#"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-                aria-label="LinkedIn"
+                aria-label="Facebook"
               >
-                <Linkedin className="h-4 w-4" />
-                LinkedIn
+                <Facebook className="h-4 w-4" />
+                Facebook
               </a>
               <a
                 href="#"
