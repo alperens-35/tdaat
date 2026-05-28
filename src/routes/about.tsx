@@ -104,7 +104,7 @@ function AboutPage() {
               <div className="mt-2 text-sm text-muted-foreground">Düzenlenen Etkinlik</div>
             </div>
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">30+</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">2</div>
               <div className="mt-2 text-sm text-muted-foreground">Tamamlanan Proje</div>
             </div>
           </div>
