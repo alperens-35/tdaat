@@ -1,0 +1,159 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Github, Linkedin, Twitter } from "lucide-react";
+
+export const Route = createFileRoute("/team")({
+  head: () => ({
+    meta: [
+      { title: "Ekibimiz — lovelabdan" },
+      {
+        name: "description",
+        content:
+          "lovelabdan topluluğunun yönetim kurulu ve lider ekibiyle tanışın.",
+      },
+      {
+        property: "og:title",
+        content: "Ekibimiz — lovelabdan",
+      },
+      {
+        property: "og:description",
+        content:
+          "lovelabdan topluluğunun yönetim kurulu ve lider ekibiyle tanışın.",
+      },
+    ],
+  }),
+  component: TeamPage,
+});
+
+const team = [
+  {
+    name: "Elif Yılmaz",
+    role: "Başkan",
+    bio: "4. sınıf bilgisayar mühendisliği öğrencisi. Yapay zeka ve topluluk yönetimi tutkunu.",
+    color: "bg-rose-100 text-rose-700",
+    social: { linkedin: "#", twitter: "#" },
+  },
+  {
+    name: "Can Özdemir",
+    role: "Genel Sekreter",
+    bio: "3. sınıf endüstri mühendisliği. Operasyon ve organizasyon uzmanı.",
+    color: "bg-blue-100 text-blue-700",
+    social: { linkedin: "#", github: "#" },
+  },
+  {
+    name: "Zeynep Kaya",
+    role: "Etkinlik Koordinatörü",
+    bio: "3. sınıf işletme. Sosyal etkinlikler ve network organizasyonları.",
+    color: "bg-amber-100 text-amber-700",
+    social: { linkedin: "#", twitter: "#" },
+  },
+  {
+    name: "Burak Şen",
+    role: "Teknik Lider",
+    bio: "4. sınıf bilgisayar mühendisliği. Full-stack geliştirme ve mentörlük.",
+    color: "bg-emerald-100 text-emerald-700",
+    social: { github: "#", linkedin: "#" },
+  },
+  {
+    name: "Deniz Aydın",
+    role: "PR ve Sosyal Medya",
+    bio: "2. sınıf iletişim. İçerik üretimi ve topluluk iletişimi.",
+    color: "bg-violet-100 text-violet-700",
+    social: { twitter: "#", linkedin: "#" },
+  },
+  {
+    name: "Mert Korkmaz",
+    role: "Mentor Koordinatörü",
+    bio: "4. sınıf yazılım mühendisliği. Öğrenci-mentor eşleştirme ve kariyer desteği.",
+    color: "bg-sky-100 text-sky-700",
+    social: { linkedin: "#", github: "#" },
+  },
+];
+
+function TeamPage() {
+  return (
+    <div className="flex flex-col">
+      {/* Header */}
+      <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="max-w-3xl text-center mx-auto">
+          <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            Ekibimiz
+          </h1>
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            Topluluğu büyütmek için çalışan, tutkulu ve çeşitli bir ekiple tanış.
+            Her biri farklı bir alanda yetkin, birlikte daha güçlüyüz.
+          </p>
+        </div>
+      </section>
+
+      {/* Team Grid */}
+      <section className="w-full border-y border-border/50 bg-accent/20 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map((member) => (
+              <div
+                key={member.name}
+                className="flex flex-col rounded-xl border border-border/60 bg-background p-6 text-center transition-all hover:shadow-md"
+              >
+                <div
+                  className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full ${member.color} text-xl font-bold`}
+                >
+                  {member.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </div>
+                <h3 className="mt-4 font-[var(--font-heading)] text-base font-semibold text-foreground">
+                  {member.name}
+                </h3>
+                <p className="text-xs font-medium text-primary">{member.role}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {member.bio}
+                </p>
+                <div className="mt-auto flex items-center justify-center gap-2 pt-4">
+                  {member.social.linkedin && (
+                    <a
+                      href={member.social.linkedin}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="h-3.5 w-3.5" />
+                    </a>
+                  )}
+                  {member.social.twitter && (
+                    <a
+                      href={member.social.twitter}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      aria-label="Twitter"
+                    >
+                      <Twitter className="h-3.5 w-3.5" />
+                    </a>
+                  )}
+                  {member.social.github && (
+                    <a
+                      href={member.social.github}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                      aria-label="GitHub"
+                    >
+                      <Github className="h-3.5 w-3.5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Join CTA */}
+      <section className="mx-auto w-full max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          Sen de aramıza katıl!
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-muted-foreground">
+          Gönüllü olarak ekibe dahil olmak, farklı bir rolda yer almak
+          veya topluluğa katkı sağlamak istiyorsan bize ulaş.
+        </p>
+      </section>
+    </div>
+  );
+}
