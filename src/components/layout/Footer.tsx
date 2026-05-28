@@ -84,7 +84,9 @@ export function Footer() {
                 Twitter
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ege.turkdunyasitoplulugu?igsh=b2JoeXVlZDV5eWN1"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 aria-label="Instagram"
               >
