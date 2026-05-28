@@ -40,7 +40,7 @@ const team = [
     social: { linkedin: "#", github: "#" },
   },
   {
-    name: "Zeynep Kaya",
+    name: "Alparslan Cengiz",
     role: "Etkinlik Koordinatörü",
     bio: "3. sınıf işletme. Sosyal etkinlikler ve network organizasyonları.",
     color: "bg-amber-100 text-amber-700",
