@@ -94,7 +94,9 @@ export function Footer() {
                 Instagram
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/share/1FtUp8x9cA/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 aria-label="Facebook"
               >
