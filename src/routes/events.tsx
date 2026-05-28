@@ -28,16 +28,6 @@ export const Route = createFileRoute("/events")({
 
 const upcoming = [
   {
-    title: "Makale Okuması",
-    date: "2 Ekim 2026",
-    time: "16:00 - 17:30",
-    location: "Eğitim+Spor Kafe",
-    category: "Eğitim",
-    description:
-      "Yapay zeka temellerini öğren: makine öğrenmesi, derin öğrenme ve günlük hayatta kullanım alanları.",
-    status: "yaklasan",
-  },
-  {
     title: "Kariyer Günü: Sektör Buluşması",
     date: "22 Aralık 2024",
     time: "10:00 - 16:00",
@@ -45,6 +35,16 @@ const upcoming = [
     category: "Network",
     description:
       "Sektör liderleri ile yüz yüze tanış, kariyer yolculuğunda ipuçları al.",
+    status: "yaklasan",
+  },
+  {
+    title: "Makale Okuması",
+    date: "2 Ekim 2026",
+    time: "16:00 - 17:30",
+    location: "Eğitim+Spor Kafe",
+    category: "Eğitim",
+    description:
+      "Yapay zeka temellerini öğren: makine öğrenmesi, derin öğrenme ve günlük hayatta kullanım alanları.",
     status: "yaklasan",
   },
   {
