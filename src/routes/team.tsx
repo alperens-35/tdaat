@@ -47,13 +47,6 @@ const team = [
     social: { linkedin: "#", twitter: "#" },
   },
   {
-    name: "Burak Şen",
-    role: "Teknik Lider",
-    bio: "4. sınıf bilgisayar mühendisliği. Full-stack geliştirme ve mentörlük.",
-    color: "bg-emerald-100 text-emerald-700",
-    social: { github: "#", linkedin: "#" },
-  },
-  {
     name: "Ömer Faruk İyigören",
     role: "Organizasyon Birimi",
     bio: "2. sınıf işletme. Organizasyon ve operasyon yönetimi.",

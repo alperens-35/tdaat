@@ -69,7 +69,7 @@ const teamPreview = [
   { name: "Muharrem Turgut", role: "Başkan", initial: "MT" },
   { name: "Abdurrahman Gülle", role: "Başkan Yardımcısı", initial: "AG" },
   { name: "Alparslan Cengiz", role: "Etkinlik Koordinatörü", initial: "AC" },
-  { name: "Burak Şen", role: "Teknik Lider", initial: "BŞ" },
+  { name: "Ömer Faruk İyigören", role: "Organizasyon Birimi", initial: "ÖFİ" },
 ];
 
 function Index() {
