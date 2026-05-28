@@ -30,7 +30,7 @@ const upcoming = [
   {
     title: "Tanışma Etkinliği: Turan Toyu",
     date: "27 Eylül 2026",
-    time: "10:00 - 16:00",
+    time: "13:00 - 15:30",
     location: "Konferans Salonu",
     category: "Eğlence",
     description:
