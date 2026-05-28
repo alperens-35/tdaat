@@ -81,7 +81,7 @@ function AboutPage() {
           <ValueCard
             icon={Eye}
             title="Vizyon"
-            description="Üniversiteden mezun olmadan sektör deneyimi kazanmış, projeler üretmiş öğrenciler yetiştirmek."
+            description="Vizyonumuz; Türk dünyasına dair meselelerde söz söyleyen, düşünen ve üreten bir gençlik inşa etmektir. Akademik birikimi gençliğin dinamizmiyle buluşturarak ortak Türk kimliğini çağın ihtiyaçları doğrultusunda yeniden anlamlandıran, örnek bir öğrenci topluluğu olmaktır."
           />
           <ValueCard
             icon={Heart}
