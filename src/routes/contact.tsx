@@ -87,7 +87,7 @@ function ContactPage() {
                       Lokasyon
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      İstanbul, Türkiye
+                      İzmir, Türkiye
                     </p>
                   </div>
                 </div>
