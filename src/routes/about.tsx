@@ -46,18 +46,14 @@ function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
               <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
-                Hikayemiz
+                Hakkımızda
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Üniversitede geçen sıradan bir günde, ders arasında bir grup arkadaş
-                “neden öğrenciler olarak kendi başımıza bir şeyler yapamıyoruz?”
-                diye sormaya başladı. Bu soru, TDAAT'ın ilk tohumu oldu.
+                Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu (TDAAT) 2025 yılında üniversitemiz bünyesinde kurulmuştur.
+                Dede Korkut'un sesiyle, Yusuf Has Hacip'in öğüdüyle, Bilge Kağan'ın izinde; kültürümüzü tanımak, yaşatmak ve paylaşmak için bir aradayız.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Kısa sürede küçük workshoplar, ardından ilk hackathonumuz ve şimdi
-                ise her hafta düzenlenen etkinliklerle büyüyen bir topluluğa
-                dönüştük. Amacımız net: öğrencilerin bir arada daha güçlü oldukları
-                bir ortam yaratmak.
+                Panellerden sempozyumlara, kültürel gezilerden yayın çalışmalarına kadar birçok faaliyette Türk Dünyası'nın izini sürüyoruz.
               </p>
             </div>
             <div className="flex items-center justify-center">
