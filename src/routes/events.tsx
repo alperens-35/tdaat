@@ -50,7 +50,7 @@ const upcoming = [
   {
     title: "3. Gelenksel Mangala Turnuvası",
     date: "21 Ekim 2026",
-    time: "Tüm gün",
+    time: "13:30 - 15:00",
     location: "Innovasyon Merkezi",
     category: "Yarışma",
     description:
