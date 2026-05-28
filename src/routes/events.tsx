@@ -51,7 +51,7 @@ const upcoming = [
     title: "3. Gelenksel Mangala Turnuvası",
     date: "21 Ekim 2026",
     time: "13:30 - 15:00",
-    location: "Innovasyon Merkezi",
+    location: "Kış Bahçesi Kafe",
     category: "Yarışma",
     description:
       "48 saat süren yaratıcılık maratonu. Mentor desteği, ödüller ve network.",
