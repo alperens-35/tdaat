@@ -46,8 +46,7 @@ function ContactPage() {
             İletişim
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Soruların, önerilerin veya işbirliği tekliflerin mi var? Bize ulaş,
-            en kısa sürede dönüş yapalım.
+            egeturkduyasitoplulugu@gmail.com · İzmir, Türkiye
           </p>
         </div>
       </section>
