@@ -99,7 +99,7 @@ function Index() {
               <span className="block">TÜRK DÜNYASI AKADEMİK</span>
               <span className="flex items-center gap-3">
                 <span className="text-primary">ARAŞTIRMALAR</span>
-                <span aria-hidden="true" className="h-[0.5em] self-center flex-1 bg-blue-400" />
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-blue-400" />
               </span>
               <span className="block text-primary">TOPLULUĞU</span>
             </h1>
