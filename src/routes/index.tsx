@@ -224,7 +224,7 @@ function Index() {
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-base opacity-90">
             Fikirlerin var, projeler yapmak istiyorsun ama yanında bir ekip arıyorsun.
-            lovelabdan'da yerin hazır.
+            Topluluğumuzda yerin hazır.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button
