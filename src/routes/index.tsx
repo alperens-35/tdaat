@@ -99,11 +99,11 @@ function Index() {
               <span className="block">TÜRK DÜNYASI AKADEMİK</span>
               <span className="flex items-center gap-3">
                 <span className="text-primary">ARAŞTIRMALAR</span>
-                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-blue-400" />
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-[#00AFCA]" />
               </span>
               <span className="flex items-center gap-3 text-primary">
                 <span>TOPLULUĞU</span>
-                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-blue-400" />
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-[#00AFCA]" />
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
