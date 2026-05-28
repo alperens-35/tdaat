@@ -31,7 +31,7 @@ const upcoming = [
     title: "Makale Okuması",
     date: "2 Ekim 2026",
     time: "16:00",
-    location: "Kampüs Amfi",
+    location: "Eğitim+Spor Kafe",
     category: "Eğitim",
     description:
       "Yapay zeka temellerini öğren: makine öğrenmesi, derin öğrenme ve günlük hayatta kullanım alanları.",
