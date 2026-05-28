@@ -32,7 +32,7 @@ const upcoming = [
     date: "22 Aralık 2024",
     time: "10:00 - 16:00",
     location: "Konferans Salonu",
-    category: "Network",
+    category: "Eğlence",
     description:
       "Sektör liderleri ile yüz yüze tanış, kariyer yolculuğunda ipuçları al.",
     status: "yaklasan",
