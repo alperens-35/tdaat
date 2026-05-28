@@ -91,29 +91,33 @@ function Index() {
 
         <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-7xl items-center px-4 py-24 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-              <Sparkles className="h-4 w-4" />
-              Öğren · Üret · Büyü
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
+              <Sparkles className="h-3.5 w-3.5" />
+              Üniversite Öğrenci Topluluğu
             </div>
-            <h1 className="mt-6 font-[var(--font-heading)] text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Türk Dünyası Akademik
-              <span className="block text-primary">
-                <span className="inline-flex items-center gap-3">
-                  ARAŞTIRMALAR
-                  <span className="inline-block h-4 w-8 rounded bg-primary" />
-                  TOPLULUĞU
-                  <span className="inline-block h-4 w-8 rounded bg-primary" />
-                </span>
+            <h1 className="mt-6 font-[var(--font-heading)] text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              <span className="block">TÜRK DÜNYASI AKADEMİK</span>
+              <span className="flex items-center gap-3">
+                <span className="text-primary">ARAŞTIRMALAR</span>
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-[#00AFCA]" />
+              </span>
+              <span className="flex items-center gap-3 text-primary">
+                <span>TOPLULUĞU</span>
+                <span aria-hidden="true" className="h-[1em] self-center flex-1 bg-[#00AFCA]" />
               </span>
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk.
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+              Üniversite öğrencilerinin öğrenme, üretme ve büyüme
+              yolculuğunda birlikte güçlendikleri bir topluluk.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" asChild>
-                <Link to="/events">Etkinlikleri Keşfet</Link>
+              <Button asChild size="lg" className="font-[var(--font-heading)]">
+                <Link to="/events">
+                  Etkinlikleri Keşfet
+                  <ArrowRight className="ml-1.5 h-4 w-4" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button variant="outline" asChild size="lg" className="font-[var(--font-heading)]">
                 <Link to="/about">Hakkımızda</Link>
               </Button>
             </div>
