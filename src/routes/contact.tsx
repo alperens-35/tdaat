@@ -75,7 +75,7 @@ function ContactPage() {
                     <h3 className="font-[var(--font-heading)] text-sm font-semibold text-foreground">
                       E-posta
                     </h3>
-                    <p className="text-sm text-muted-foreground">hello@tdaat.org</p>
+                    <p className="text-sm text-muted-foreground">egeturkduyasitoplulugu@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
