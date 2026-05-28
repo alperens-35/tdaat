@@ -31,7 +31,7 @@ const upcoming = [
     title: "Tanışma Etkinliği: Turan Toyu",
     date: "27 Eylül 2026",
     time: "13:00 - 15:30",
-    location: "Konferans Salonu",
+    location: "İnciraltı Kent Ormanı",
     category: "Eğlence",
     description:
       "Sektör liderleri ile yüz yüze tanış, kariyer yolculuğunda ipuçları al.",
