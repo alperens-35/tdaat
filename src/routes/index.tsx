@@ -49,19 +49,19 @@ const features = [
 
 const upcomingEvents = [
   {
-    title: "Yapay Zeka 101: Başlangıç Eğitimi",
-    date: "15 Aralık 2024",
-    location: "Kampüs Amfi",
+    title: "Tanışma Etkinliği: Turan Toyu",
+    date: "27 Eylül 2026",
+    location: "İnciraltı Kent Ormanı",
   },
   {
-    title: "Kariyer Günü: Sektör Buluşması",
-    date: "22 Aralık 2024",
-    location: "Konferans Salonu",
+    title: "Makale Okuması",
+    date: "2 Ekim 2026",
+    location: "Eğitim+Spor Kafe",
   },
   {
-    title: "Kış Hackathonu",
-    date: "5-7 Ocak 2025",
-    location: "Innovasyon Merkezi",
+    title: "3. Gelenksel Mangala Turnuvası",
+    date: "21 Ekim 2026",
+    location: "Kış Bahçesi Kafe",
   },
 ];
 
