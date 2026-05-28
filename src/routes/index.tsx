@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, Lightbulb, ArrowRight, Sparkles, Clock, MapPin } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Calendar, Users, Lightbulb, ArrowRight, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
@@ -54,27 +53,18 @@ const upcomingEvents = [
     date: "27 Eylül 2026",
     time: "13:00 - 15:30",
     location: "İnciraltı Kent Ormanı",
-    category: "Eğlence",
-    description:
-      "Sektör liderleri ile yüz yüze tanış, kariyer yolculuğunda ipuçları al.",
   },
   {
     title: "Makale Okuması",
     date: "2 Ekim 2026",
     time: "16:00 - 17:30",
     location: "Eğitim+Spor Kafe",
-    category: "Eğitim",
-    description:
-      "Yapay zeka temellerini öğren: makine öğrenmesi, derin öğrenme ve günlük hayatta kullanım alanları.",
   },
   {
     title: "3. Gelenksel Mangala Turnuvası",
     date: "21 Ekim 2026",
     time: "13:30 - 15:00",
     location: "Kış Bahçesi Kafe",
-    category: "Yarışma",
-    description:
-      "48 saat süren yaratıcılık maratonu. Mentor desteği, ödüller ve network.",
   },
 ];
 
@@ -175,38 +165,15 @@ function Index() {
             {upcomingEvents.map((event) => (
               <div
                 key={event.title}
-                className="flex flex-col rounded-xl border border-border/60 bg-background p-6 transition-all hover:shadow-md"
+                className="rounded-xl border border-border/60 bg-background p-6 transition-all hover:shadow-md"
               >
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="text-xs">
-                    {event.category}
-                  </Badge>
-                  <span className="text-xs text-emerald-600 font-medium">Yaklaşıyor</span>
-                </div>
-                <h3 className="mt-4 font-[var(--font-heading)] text-lg font-semibold text-foreground">
+                <h3 className="font-[var(--font-heading)] text-lg font-semibold text-foreground">
                   {event.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {event.description}
-                </p>
-                <div className="mt-5 flex flex-col gap-2 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {event.date}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-3.5 w-3.5" />
-                    {event.time}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-3.5 w-3.5" />
-                    {event.location}
-                  </div>
-                </div>
-                <div className="mt-auto pt-5">
-                  <Button size="sm" className="w-full font-[var(--font-heading)]">
-                    Katıl <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                  </Button>
+                <div className="mt-3 space-y-1 text-sm text-muted-foreground">
+                  <p>{event.date}</p>
+                  <p>{event.time}</p>
+                  <p>{event.location}</p>
                 </div>
               </div>
             ))}
