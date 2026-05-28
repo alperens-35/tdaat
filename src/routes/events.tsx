@@ -28,7 +28,7 @@ export const Route = createFileRoute("/events")({
 
 const upcoming = [
   {
-    title: "Yapay Zeka 101: Başlangıç Eğitimi",
+    title: "Makale Okuması",
     date: "15 Aralık 2024",
     time: "14:00 - 17:00",
     location: "Kampüs Amfi",
