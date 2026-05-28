@@ -29,7 +29,7 @@ export const Route = createFileRoute("/events")({
 const upcoming = [
   {
     title: "Tanışma Etkinliği: Turan Toyu",
-    date: "22 Aralık 2024",
+    date: "27 Eylül 2026",
     time: "10:00 - 16:00",
     location: "Konferans Salonu",
     category: "Eğlence",
