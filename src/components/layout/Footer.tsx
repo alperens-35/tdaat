@@ -104,7 +104,9 @@ export function Footer() {
                 Facebook
               </a>
               <a
-                href="#"
+                href="https://youtube.com/@egeuniversitesiturkdunyasi?si=dxE6gGUKM5ut7nRY"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 aria-label="YouTube"
               >
