@@ -52,7 +52,7 @@ const upcoming = [
     date: "5-7 Ocak 2025",
     time: "Tüm gün",
     location: "Innovasyon Merkezi",
-    category: "Hackathon",
+    category: "Yarışma",
     description:
       "48 saat süren yaratıcılık maratonu. Mentor desteği, ödüller ve network.",
     status: "yaklasan",
