@@ -61,11 +61,11 @@ const team = [
     social: { twitter: "#", linkedin: "#" },
   },
   {
-    name: "Mert Korkmaz",
-    role: "Mentor Koordinatörü",
-    bio: "4. sınıf yazılım mühendisliği. Öğrenci-mentor eşleştirme ve kariyer desteği.",
-    color: "bg-sky-100 text-sky-700",
-    social: { linkedin: "#", github: "#" },
+    name: "Şevval Sağcan",
+    role: "Sosyal Medya",
+    bio: "3. sınıf halkla ilişkiler ve tanıtım. Sosyal medya yönetimi ve içerik üretimi.",
+    color: "bg-pink-100 text-pink-700",
+    social: { twitter: "#", linkedin: "#" },
   },
 ];
 
