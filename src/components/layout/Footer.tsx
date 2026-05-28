@@ -100,8 +100,8 @@ export function Footer() {
               İletişim
             </h3>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-              <li>hello@tdaat.org</li>
-              <li>İstanbul, Türkiye</li>
+              <li>egeturkduyasitoplulugu@gmail.com</li>
+              <li>İzmir, Türkiye</li>
             </ul>
           </div>
         </div>
