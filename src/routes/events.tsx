@@ -90,8 +90,8 @@ function EventsPage() {
             Etkinlikler
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Workshoplar, hackathonlar, eğitimler ve network günleri. Kendini geliştir,
-            yeni insanlar tanı, deneyim kazan.
+            Konferanslar, paneller, makale okumaları, Türk sporları ve daha niceleri seni bekliyor.
+            Kendini geliştir, yeni insanlar tanı, deneyim kazan.
           </p>
         </div>
       </section>
