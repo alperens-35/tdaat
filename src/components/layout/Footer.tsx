@@ -13,9 +13,9 @@ export function Footer() {
               className="flex items-center gap-2 font-[var(--font-heading)] text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary"
             >
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-                L
+                T
               </span>
-              lovelabdan
+              Türk Dünyası Akademik Araştırmalar Topluluğu
             </Link>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground leading-relaxed">
               Üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda
@@ -100,14 +100,14 @@ export function Footer() {
               İletişim
             </h3>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-              <li>hello@lovelabdan.org</li>
+              <li>hello@tdaat.org</li>
               <li>İstanbul, Türkiye</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-10 border-t border-border/50 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} lovelabdan. Tüm hakları saklıdır.
+          © {new Date().getFullYear()} TDAAT. Tüm hakları saklıdır.
         </div>
       </div>
     </footer>

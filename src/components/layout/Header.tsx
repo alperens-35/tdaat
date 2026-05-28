@@ -21,9 +21,9 @@ export function Header() {
           className="flex items-center gap-2 font-[var(--font-heading)] text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary"
         >
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-            L
+            T
           </span>
-          <span className="hidden sm:inline">lovelabdan</span>
+          <span className="hidden sm:inline">TDAAT</span>
         </Link>
 
         {/* Desktop nav */}
