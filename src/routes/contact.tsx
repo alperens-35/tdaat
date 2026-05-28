@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import contactBanner from "@/assets/contact-banner.png";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -39,6 +40,15 @@ function ContactPage() {
 
   return (
     <div className="flex flex-col">
+      {/* Banner */}
+      <section className="relative w-full h-64 sm:h-80 lg:h-96 overflow-hidden">
+        <img
+          src={contactBanner}
+          alt="Dilde, Fikirde, İşte Birlik"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </section>
+
       {/* Header */}
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
