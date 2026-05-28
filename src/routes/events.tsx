@@ -30,7 +30,7 @@ const upcoming = [
   {
     title: "Makale Okuması",
     date: "2 Ekim 2026",
-    time: "16:00",
+    time: "16:00 - 17:30",
     location: "Eğitim+Spor Kafe",
     category: "Eğitim",
     description:
