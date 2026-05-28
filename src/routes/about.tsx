@@ -76,7 +76,7 @@ function AboutPage() {
           <ValueCard
             icon={Target}
             title="Misyon"
-            description="Üniversite öğrencilerine öğrenme, üretme ve network kurma fırsatı sunarak onları geleceğe hazırlamak."
+            description="Türk Dünyası Akademik Araştırmalar Topluluğu’nun misyonu; üniversite gençliğini Türk dünyasının ortak tarih, kültür, dil ve medeniyet mirası etrafında bilinçlendirmek, düşünmeye ve üretmeye teşvik etmektir. Gençlerin akademik, entelektüel ve kültürel gelişimine katkı sağlayarak ortak Türk kimliği bilincini canlı tutmayı ve gelecek nesillere aktarmayı amaçlamaktadır."
           />
           <ValueCard
             icon={Eye}
