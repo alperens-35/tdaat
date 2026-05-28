@@ -100,7 +100,7 @@ function AboutPage() {
               <div className="mt-2 text-sm text-muted-foreground">Aktif Üye</div>
             </div>
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">50+</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">65+</div>
               <div className="mt-2 text-sm text-muted-foreground">Düzenlenen Etkinlik</div>
             </div>
             <div>
