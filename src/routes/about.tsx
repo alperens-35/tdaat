@@ -96,7 +96,7 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 sm:grid-cols-3 text-center">
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">200+</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">130+</div>
               <div className="mt-2 text-sm text-muted-foreground">Aktif Üye</div>
             </div>
             <div>
