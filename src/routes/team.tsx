@@ -74,6 +74,13 @@ const team = [
     color: "bg-teal-100 text-teal-700",
     social: { linkedin: "#", twitter: "#" },
   },
+  {
+    name: "Firdevs Tekke",
+    role: "Sanat Birimi",
+    bio: "2. sınıf rehberlik ve psikolojik danışmanlık. Kültürel etkinlikler ve sanatsal faaliyetler.",
+    color: "bg-fuchsia-100 text-fuchsia-700",
+    social: { linkedin: "#", twitter: "#" },
+  },
 ];
 
 function TeamPage() {
