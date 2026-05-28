@@ -74,7 +74,9 @@ export function Footer() {
             </h3>
             <div className="mt-3 flex flex-col gap-2">
               <a
-                href="#"
+                href="https://x.com/egeturkdunyasi"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 aria-label="Twitter"
               >
