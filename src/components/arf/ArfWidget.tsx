@@ -44,16 +44,33 @@ export function ArfWidget() {
     if (!open || !userId || threadId) return;
     const key = `${STORAGE_KEY}:${userId}`;
     const existing = typeof window !== "undefined" ? localStorage.getItem(key) : null;
+
+    const createNew = () =>
+      createArfThread({})
+        .then((t) => {
+          localStorage.setItem(key, t.id);
+          setThreadId(t.id);
+        })
+        .catch((e) => toast.error(e.message || "Sohbet başlatılamadı"));
+
     if (existing) {
-      setThreadId(existing);
+      // Verify the stored thread still exists (it may have been deleted)
+      supabase
+        .from("arf_threads")
+        .select("id")
+        .eq("id", existing)
+        .maybeSingle()
+        .then(({ data }) => {
+          if (data?.id) {
+            setThreadId(data.id);
+          } else {
+            localStorage.removeItem(key);
+            createNew();
+          }
+        });
       return;
     }
-    createArfThread({})
-      .then((t) => {
-        localStorage.setItem(key, t.id);
-        setThreadId(t.id);
-      })
-      .catch((e) => toast.error(e.message || "Sohbet başlatılamadı"));
+    createNew();
   }, [open, userId, threadId]);
 
   const transport = useMemo(
