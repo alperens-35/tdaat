@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ArfWidget } from "@/components/arf/ArfWidget";
 
 function NotFoundComponent() {
   return (
@@ -126,6 +127,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <ArfWidget />
       </div>
     </QueryClientProvider>
   );
