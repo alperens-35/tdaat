@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import ReactMarkdown from "react-markdown";
-import { MessageCircle, X, Send, Maximize2 } from "lucide-react";
+import { X, Send, Maximize2, Mic, Volume2, VolumeX, Square } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { createArfThread } from "@/lib/arf.functions";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Button } from "@/components/ui/button";
+import { useVoiceChat } from "@/hooks/useVoiceChat";
 import arfAvatar from "@/assets/arf-avatar.png";
 import { toast } from "sonner";
 
@@ -104,6 +105,21 @@ export function ArfWidget() {
 
   const isLoading = status === "submitted" || status === "streaming";
 
+  const voice = useVoiceChat();
+  const lastSpokenIdRef = useRef<string | null>(null);
+
+  // Auto-speak new assistant messages once streaming finishes
+  useEffect(() => {
+    if (!voice.voiceEnabled) return;
+    if (status !== "ready") return;
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== "assistant") return;
+    if (lastSpokenIdRef.current === last.id) return;
+    lastSpokenIdRef.current = last.id;
+    const text = last.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+    if (text.trim()) void voice.speak(text);
+  }, [messages, status, voice]);
+
   // Auto-scroll on new messages
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -116,6 +132,18 @@ export function ArfWidget() {
     if (!text || isLoading || !threadId) return;
     setInput("");
     await sendMessage({ text });
+  };
+
+  const handleMicDown = () => {
+    if (!voice.sttSupported || isLoading || !threadId) return;
+    voice.stopSpeaking();
+    voice.startRecording((finalText) => {
+      if (!finalText) return;
+      void sendMessage({ text: finalText });
+    });
+  };
+  const handleMicUp = () => {
+    if (voice.isRecording) voice.stopRecording();
   };
 
   if (hidden) return null;
@@ -146,6 +174,21 @@ export function ArfWidget() {
               </div>
             </div>
             <div className="flex items-center gap-1">
+              <button
+                onClick={() => {
+                  if (voice.voiceEnabled) voice.stopSpeaking();
+                  voice.setVoiceEnabled(!voice.voiceEnabled);
+                }}
+                aria-label={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                title={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                className={`rounded-md p-1.5 hover:bg-accent hover:text-accent-foreground ${voice.voiceEnabled ? "text-primary" : "text-muted-foreground"}`}
+              >
+                {voice.voiceEnabled ? (
+                  <Volume2 className="h-4 w-4" />
+                ) : (
+                  <VolumeX className="h-4 w-4" />
+                )}
+              </button>
               <button
                 onClick={() => {
                   setOpen(false);
@@ -244,11 +287,38 @@ export function ArfWidget() {
                       handleSubmit(e as unknown as React.FormEvent);
                     }
                   }}
-                  placeholder="Arf'a bir şey sor..."
+                  placeholder={voice.isRecording ? "Dinliyorum..." : "Arf'a bir şey sor..."}
                   rows={1}
                   className="max-h-32 flex-1 resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
                   autoFocus
                 />
+                {voice.isSpeaking ? (
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant="secondary"
+                    onClick={voice.stopSpeaking}
+                    aria-label="Sesi durdur"
+                    title="Sesi durdur"
+                  >
+                    <Square className="h-4 w-4" />
+                  </Button>
+                ) : voice.sttSupported ? (
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant={voice.isRecording ? "destructive" : "secondary"}
+                    onPointerDown={handleMicDown}
+                    onPointerUp={handleMicUp}
+                    onPointerLeave={handleMicUp}
+                    onPointerCancel={handleMicUp}
+                    disabled={isLoading || !threadId}
+                    aria-label="Bas-konuş"
+                    title="Bas-konuş"
+                  >
+                    <Mic className="h-4 w-4" />
+                  </Button>
+                ) : null}
                 <Button
                   type="submit"
                   size="icon-sm"

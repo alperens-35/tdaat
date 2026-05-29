@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, useRouter } from "@tanstack/react-router";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import ReactMarkdown from "react-markdown";
@@ -38,7 +38,8 @@ import {
   PromptInputFooter,
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
-import { Plus, Trash2, LogOut, Menu, X, MoreVertical } from "lucide-react";
+import { Plus, Trash2, LogOut, Menu, X, MoreVertical, Mic, Volume2, VolumeX, Square } from "lucide-react";
+import { useVoiceChat } from "@/hooks/useVoiceChat";
 import arfAvatar from "@/assets/arf-avatar.png";
 import { toast } from "sonner";
 
@@ -104,6 +105,20 @@ function ArfChatPage() {
   const [input, setInput] = useState("");
   const isLoading = status === "submitted" || status === "streaming";
 
+  const voice = useVoiceChat();
+  const lastSpokenIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!voice.voiceEnabled) return;
+    if (status !== "ready") return;
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== "assistant") return;
+    if (lastSpokenIdRef.current === last.id) return;
+    lastSpokenIdRef.current = last.id;
+    const text = last.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+    if (text.trim()) void voice.speak(text);
+  }, [messages, status, voice]);
+
   const handleSubmit = async (
     _msg: unknown,
     e: React.FormEvent<HTMLFormElement>,
@@ -113,6 +128,17 @@ function ArfChatPage() {
     if (!text || isLoading) return;
     setInput("");
     await sendMessage({ text });
+  };
+
+  const handleMicDown = () => {
+    if (!voice.sttSupported || isLoading) return;
+    voice.stopSpeaking();
+    voice.startRecording((finalText) => {
+      if (finalText) void sendMessage({ text: finalText });
+    });
+  };
+  const handleMicUp = () => {
+    if (voice.isRecording) voice.stopRecording();
   };
 
   const handleNewThread = async () => {
@@ -273,11 +299,62 @@ function ArfChatPage() {
             <PromptInputTextarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Arf'a bir şey sor..."
+              placeholder={voice.isRecording ? "Dinliyorum..." : "Arf'a bir şey sor..."}
               autoFocus
             />
-            <PromptInputFooter className="justify-end">
-              <PromptInputSubmit status={status} disabled={!input.trim() || isLoading} />
+            <PromptInputFooter className="justify-between">
+              <div className="flex items-center gap-1">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    if (voice.voiceEnabled) voice.stopSpeaking();
+                    voice.setVoiceEnabled(!voice.voiceEnabled);
+                  }}
+                  aria-label={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                  title={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                  className={voice.voiceEnabled ? "text-primary" : "text-muted-foreground"}
+                >
+                  {voice.voiceEnabled ? (
+                    <Volume2 className="h-4 w-4" />
+                  ) : (
+                    <VolumeX className="h-4 w-4" />
+                  )}
+                </Button>
+                {voice.isSpeaking && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    onClick={voice.stopSpeaking}
+                    aria-label="Sesi durdur"
+                    title="Sesi durdur"
+                  >
+                    <Square className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                {voice.sttSupported && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={voice.isRecording ? "destructive" : "secondary"}
+                    onPointerDown={handleMicDown}
+                    onPointerUp={handleMicUp}
+                    onPointerLeave={handleMicUp}
+                    onPointerCancel={handleMicUp}
+                    disabled={isLoading}
+                    aria-label="Bas-konuş"
+                    title="Bas-konuş (basılı tut)"
+                  >
+                    <Mic className="h-4 w-4" />
+                    {voice.isRecording ? "Dinleniyor" : "Bas-konuş"}
+                  </Button>
+                )}
+                <PromptInputSubmit status={status} disabled={!input.trim() || isLoading} />
+              </div>
             </PromptInputFooter>
           </PromptInput>
         </div>
