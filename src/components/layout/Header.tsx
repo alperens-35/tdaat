@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/events", label: "Etkinlikler" },
   { to: "/blog", label: "Blog" },
   { to: "/team", label: "Ekibimiz" },
+  { to: "/arf", label: "Arf 🤖" },
   { to: "/contact", label: "İletişim" },
 ];
 

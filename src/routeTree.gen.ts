@@ -16,8 +16,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
+import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
 const TurkDunyasiRoute = TurkDunyasiRouteImport.update({
   id: '/turk-dunyasi',
@@ -54,6 +57,10 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -64,6 +71,17 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedArfRoute = AuthenticatedArfRouteImport.update({
+  id: '/arf',
+  path: '/arf',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedArfThreadIdRoute =
+  AuthenticatedArfThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => AuthenticatedArfRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,7 +92,9 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,11 +105,14 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRoute
@@ -97,7 +120,9 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,7 +135,9 @@ export interface FileRouteTypes {
     | '/events'
     | '/team'
     | '/turk-dunyasi'
+    | '/arf'
     | '/api/chat'
+    | '/arf/$threadId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -121,10 +148,13 @@ export interface FileRouteTypes {
     | '/events'
     | '/team'
     | '/turk-dunyasi'
+    | '/arf'
     | '/api/chat'
+    | '/arf/$threadId'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/auth'
     | '/blog'
@@ -132,11 +162,14 @@ export interface FileRouteTypes {
     | '/events'
     | '/team'
     | '/turk-dunyasi'
+    | '/_authenticated/arf'
     | '/api/chat'
+    | '/_authenticated/arf/$threadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRoute
@@ -198,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -212,11 +252,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/arf': {
+      id: '/_authenticated/arf'
+      path: '/arf'
+      fullPath: '/arf'
+      preLoaderRoute: typeof AuthenticatedArfRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/arf/$threadId': {
+      id: '/_authenticated/arf/$threadId'
+      path: '/$threadId'
+      fullPath: '/arf/$threadId'
+      preLoaderRoute: typeof AuthenticatedArfThreadIdRouteImport
+      parentRoute: typeof AuthenticatedArfRoute
+    }
   }
 }
 
+interface AuthenticatedArfRouteChildren {
+  AuthenticatedArfThreadIdRoute: typeof AuthenticatedArfThreadIdRoute
+}
+
+const AuthenticatedArfRouteChildren: AuthenticatedArfRouteChildren = {
+  AuthenticatedArfThreadIdRoute: AuthenticatedArfThreadIdRoute,
+}
+
+const AuthenticatedArfRouteWithChildren =
+  AuthenticatedArfRoute._addFileChildren(AuthenticatedArfRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedArfRoute: typeof AuthenticatedArfRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedArfRoute: AuthenticatedArfRouteWithChildren,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRoute,
@@ -229,3 +307,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
