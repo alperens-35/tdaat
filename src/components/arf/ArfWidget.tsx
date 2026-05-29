@@ -119,13 +119,26 @@ export function ArfWidget() {
                 <div className="text-xs text-muted-foreground">TDAAT yapay zekası</div>
               </div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="Kapat"
-              className="rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-            >
-              <X className="h-4 w-4" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  navigate({ to: "/arf" });
+                }}
+                aria-label="Tam sayfada aç"
+                title="Tam sayfada aç"
+                className="rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              >
+                <Maximize2 className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Kapat"
+                className="rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           {/* Body */}
