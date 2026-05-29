@@ -156,11 +156,18 @@ export function ArfWidget() {
             <>
               <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
                 {messages.length === 0 && (
-                  <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
-                    <p className="text-sm font-medium">Merhaba, ben Arf 👋</p>
-                    <p className="px-4 text-xs text-muted-foreground">
-                      Türk dünyası, kültürümüz veya TDAAT hakkında bana soru sorabilirsin.
-                    </p>
+                  <div className="flex h-full flex-col items-center justify-center gap-3 px-2 text-center">
+                    <img src={arfAvatar} alt="Arf" className="h-12 w-12 rounded-full" />
+                    <p className="text-sm font-medium">Merhaba, ben ARF 👋</p>
+                    <div className="space-y-2 px-2 text-xs text-muted-foreground">
+                      <p>
+                        TDAAT'nin yapay zekâ asistanıyım. Adım, Ord. Prof. Dr. Cahit Arf'ın
+                        1958'de Atatürk Üniversitesi'nde verdiği
+                        <em> "Makine Düşünebilir mi ve Nasıl Düşünebilir?" </em>
+                        konferansından dolayı kendisine ithafen verildi.
+                      </p>
+                      <p>Türk dünyası, kültürümüz veya TDAAT hakkında bana sorabilirsiniz.</p>
+                    </div>
                   </div>
                 )}
                 {messages.map((m) => {
