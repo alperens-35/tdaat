@@ -18,6 +18,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
 import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
@@ -67,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTtsRoute = ApiTtsRouteImport.update({
+  id: '/api/tts',
+  path: '/api/tts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/api/tts': typeof ApiTtsRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/arf/': typeof AuthenticatedArfIndexRoute
 }
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/tts': typeof ApiTtsRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/arf': typeof AuthenticatedArfIndexRoute
 }
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
+  '/api/tts': typeof ApiTtsRoute
   '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/turk-dunyasi'
     | '/arf'
     | '/api/chat'
+    | '/api/tts'
     | '/arf/$threadId'
     | '/arf/'
   fileRoutesByTo: FileRoutesByTo
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/turk-dunyasi'
     | '/api/chat'
+    | '/api/tts'
     | '/arf/$threadId'
     | '/arf'
   id:
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/turk-dunyasi'
     | '/_authenticated/arf'
     | '/api/chat'
+    | '/api/tts'
     | '/_authenticated/arf/$threadId'
     | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   TurkDunyasiRoute: typeof TurkDunyasiRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiTtsRoute: typeof ApiTtsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tts': {
+      id: '/api/tts'
+      path: '/api/tts'
+      fullPath: '/api/tts'
+      preLoaderRoute: typeof ApiTtsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -322,6 +342,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   TurkDunyasiRoute: TurkDunyasiRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiTtsRoute: ApiTtsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
