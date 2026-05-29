@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import ReactMarkdown from "react-markdown";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Maximize2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { createArfThread } from "@/lib/arf.functions";
 import { Shimmer } from "@/components/ai-elements/shimmer";
