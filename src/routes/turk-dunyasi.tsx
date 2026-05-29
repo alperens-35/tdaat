@@ -5,7 +5,7 @@ export const Route = createFileRoute("/turk-dunyasi")({
   head: () => ({
     meta: [
       { title: "Türk Dünyası — TDAAT" },
-      { name: "description", content: "Türk dünyasının zengin kültürü, tarihi ve günümüzdeki gelişmeleri." },
+      { name: "description", content: "Türk dünyasından haberler ve ortak kültürümüze dair içerikler." },
     ],
   }),
 });
@@ -18,7 +18,7 @@ function TurkDunyasiPage() {
           Türk Dünyası
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Türk kültürünün, tarihinin ve günümüzdeki gelişmelerinin merkezi.
+          Türk dünyasından haberler ve ortak kültürümüze dair içerikler burada paylaşılacak.
         </p>
       </div>
 
