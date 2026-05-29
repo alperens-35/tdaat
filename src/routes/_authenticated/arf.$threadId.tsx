@@ -299,11 +299,62 @@ function ArfChatPage() {
             <PromptInputTextarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Arf'a bir şey sor..."
+              placeholder={voice.isRecording ? "Dinliyorum..." : "Arf'a bir şey sor..."}
               autoFocus
             />
-            <PromptInputFooter className="justify-end">
-              <PromptInputSubmit status={status} disabled={!input.trim() || isLoading} />
+            <PromptInputFooter className="justify-between">
+              <div className="flex items-center gap-1">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    if (voice.voiceEnabled) voice.stopSpeaking();
+                    voice.setVoiceEnabled(!voice.voiceEnabled);
+                  }}
+                  aria-label={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                  title={voice.voiceEnabled ? "Sesli yanıtı kapat" : "Sesli yanıtı aç"}
+                  className={voice.voiceEnabled ? "text-primary" : "text-muted-foreground"}
+                >
+                  {voice.voiceEnabled ? (
+                    <Volume2 className="h-4 w-4" />
+                  ) : (
+                    <VolumeX className="h-4 w-4" />
+                  )}
+                </Button>
+                {voice.isSpeaking && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    onClick={voice.stopSpeaking}
+                    aria-label="Sesi durdur"
+                    title="Sesi durdur"
+                  >
+                    <Square className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                {voice.sttSupported && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={voice.isRecording ? "destructive" : "secondary"}
+                    onPointerDown={handleMicDown}
+                    onPointerUp={handleMicUp}
+                    onPointerLeave={handleMicUp}
+                    onPointerCancel={handleMicUp}
+                    disabled={isLoading}
+                    aria-label="Bas-konuş"
+                    title="Bas-konuş (basılı tut)"
+                  >
+                    <Mic className="h-4 w-4" />
+                    {voice.isRecording ? "Dinleniyor" : "Bas-konuş"}
+                  </Button>
+                )}
+                <PromptInputSubmit status={status} disabled={!input.trim() || isLoading} />
+              </div>
             </PromptInputFooter>
           </PromptInput>
         </div>
