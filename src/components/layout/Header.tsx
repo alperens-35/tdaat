@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import arfLogo from "@/assets/arf-avatar.png";
 
 const navLinks = [
   { to: "/", label: "Ana Sayfa" },
