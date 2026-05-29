@@ -287,11 +287,38 @@ export function ArfWidget() {
                       handleSubmit(e as unknown as React.FormEvent);
                     }
                   }}
-                  placeholder="Arf'a bir şey sor..."
+                  placeholder={voice.isRecording ? "Dinliyorum..." : "Arf'a bir şey sor..."}
                   rows={1}
                   className="max-h-32 flex-1 resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-ring"
                   autoFocus
                 />
+                {voice.isSpeaking ? (
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant="secondary"
+                    onClick={voice.stopSpeaking}
+                    aria-label="Sesi durdur"
+                    title="Sesi durdur"
+                  >
+                    <Square className="h-4 w-4" />
+                  </Button>
+                ) : voice.sttSupported ? (
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant={voice.isRecording ? "destructive" : "secondary"}
+                    onPointerDown={handleMicDown}
+                    onPointerUp={handleMicUp}
+                    onPointerLeave={handleMicUp}
+                    onPointerCancel={handleMicUp}
+                    disabled={isLoading || !threadId}
+                    aria-label="Bas-konuş"
+                    title="Bas-konuş"
+                  >
+                    <Mic className="h-4 w-4" />
+                  </Button>
+                ) : null}
                 <Button
                   type="submit"
                   size="icon-sm"
