@@ -5,6 +5,7 @@ import logo from "@/assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "Ana Sayfa" },
+  { to: "/turk-dunyasi", label: "Türk Dünyası" },
   { to: "/about", label: "Hakkımızda" },
   { to: "/events", label: "Etkinlikler" },
   { to: "/blog", label: "Blog" },

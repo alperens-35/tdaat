@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TurkDunyasiRouteImport } from './routes/turk-dunyasi'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -16,6 +17,11 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TurkDunyasiRoute = TurkDunyasiRouteImport.update({
+  id: '/turk-dunyasi',
+  path: '/turk-dunyasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/turk-dunyasi': typeof TurkDunyasiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/turk-dunyasi': typeof TurkDunyasiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +79,36 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
+  '/turk-dunyasi': typeof TurkDunyasiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/blog' | '/contact' | '/events' | '/team'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/events'
+    | '/team'
+    | '/turk-dunyasi'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/contact' | '/events' | '/team'
-  id: '__root__' | '/' | '/about' | '/blog' | '/contact' | '/events' | '/team'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/events'
+    | '/team'
+    | '/turk-dunyasi'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/events'
+    | '/team'
+    | '/turk-dunyasi'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -87,10 +118,18 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   EventsRoute: typeof EventsRoute
   TeamRoute: typeof TeamRoute
+  TurkDunyasiRoute: typeof TurkDunyasiRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/turk-dunyasi': {
+      id: '/turk-dunyasi'
+      path: '/turk-dunyasi'
+      fullPath: '/turk-dunyasi'
+      preLoaderRoute: typeof TurkDunyasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/team': {
       id: '/team'
       path: '/team'
@@ -143,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   EventsRoute: EventsRoute,
   TeamRoute: TeamRoute,
+  TurkDunyasiRoute: TurkDunyasiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
