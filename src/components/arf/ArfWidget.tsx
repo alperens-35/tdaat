@@ -194,7 +194,7 @@ export function ArfWidget() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault;
+                      e.preventDefault();
                       handleSubmit(e as unknown as React.FormEvent);
                     }
                   }}
