@@ -20,6 +20,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
+import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
 import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
 const TurkDunyasiRoute = TurkDunyasiRouteImport.update({
@@ -76,6 +77,11 @@ const AuthenticatedArfRoute = AuthenticatedArfRouteImport.update({
   path: '/arf',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedArfIndexRoute = AuthenticatedArfIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedArfRoute,
+} as any)
 const AuthenticatedArfThreadIdRoute =
   AuthenticatedArfThreadIdRouteImport.update({
     id: '/$threadId',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -105,9 +112,9 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
-  '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/arf': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -123,6 +130,7 @@ export interface FileRoutesById {
   '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -138,6 +146,7 @@ export interface FileRouteTypes {
     | '/arf'
     | '/api/chat'
     | '/arf/$threadId'
+    | '/arf/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -148,9 +157,9 @@ export interface FileRouteTypes {
     | '/events'
     | '/team'
     | '/turk-dunyasi'
-    | '/arf'
     | '/api/chat'
     | '/arf/$threadId'
+    | '/arf'
   id:
     | '__root__'
     | '/'
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/_authenticated/arf'
     | '/api/chat'
     | '/_authenticated/arf/$threadId'
+    | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArfRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/arf/': {
+      id: '/_authenticated/arf/'
+      path: '/'
+      fullPath: '/arf/'
+      preLoaderRoute: typeof AuthenticatedArfIndexRouteImport
+      parentRoute: typeof AuthenticatedArfRoute
+    }
     '/_authenticated/arf/$threadId': {
       id: '/_authenticated/arf/$threadId'
       path: '/$threadId'
@@ -271,10 +288,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedArfRouteChildren {
   AuthenticatedArfThreadIdRoute: typeof AuthenticatedArfThreadIdRoute
+  AuthenticatedArfIndexRoute: typeof AuthenticatedArfIndexRoute
 }
 
 const AuthenticatedArfRouteChildren: AuthenticatedArfRouteChildren = {
   AuthenticatedArfThreadIdRoute: AuthenticatedArfThreadIdRoute,
+  AuthenticatedArfIndexRoute: AuthenticatedArfIndexRoute,
 }
 
 const AuthenticatedArfRouteWithChildren =
@@ -307,3 +326,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
