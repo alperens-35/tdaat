@@ -189,14 +189,22 @@ function ArfChatPage() {
         <Conversation className="flex-1">
           <ConversationContent>
             {messages.length === 0 && (
-              <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
+              <div className="flex h-full flex-col items-center justify-center gap-4 px-6 text-center">
                 <img src={arfAvatar} alt="Arf" width={64} height={64} className="h-16 w-16" />
                 <h2 className="font-[var(--font-heading)] text-xl font-semibold">
-                  Merhaba, ben Arf
+                  Merhaba, ben ARF
                 </h2>
-                <p className="max-w-sm text-sm text-muted-foreground">
-                  Türk dünyası, kültürümüz veya TDAAT etkinlikleri hakkında bana sorabilirsin.
-                </p>
+                <div className="max-w-md space-y-3 text-sm text-muted-foreground">
+                  <p>
+                    TDAAT'nin yapay zekâ asistanıyım. Size adımın neden ARF olduğunu anlatmak isterim:
+                    Ord. Prof. Dr. Cahit Arf'ın 1958 yılında Atatürk Üniversitesi'nde verdiği
+                    <em> "Makine Düşünebilir mi ve Nasıl Düşünebilir?" </em>
+                    konferansından dolayı, kendisine ithafen adım ARF olarak verildi.
+                  </p>
+                  <p>
+                    Türk dünyası, kültürümüz veya TDAAT etkinlikleri hakkında bana sorabilirsiniz.
+                  </p>
+                </div>
               </div>
             )}
             {messages.map((m) => {
