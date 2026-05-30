@@ -24,6 +24,7 @@ export const Route = createFileRoute("/contact")({
         content:
           "Türk Dünyası Akademik Araştırmalar Topluluğu ile iletişime geçin. Sorularınız, önerileriniz ve işbirliği teklifleriniz için buradayız.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/contact" },
     ],
   }),
   component: ContactPage,

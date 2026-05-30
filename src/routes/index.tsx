@@ -9,21 +9,22 @@ export const Route = createFileRoute("/")({
       { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
     ],
     meta: [
-      { title: "Türk Dünyası Akademik Araştırmalar Topluluğu" },
+      { title: "Türk Dünyası Akademik Araştırmalar Topluluğu — Ege Üniversitesi Öğrenci Topluluğu" },
       {
         name: "description",
         content:
-          "Türk Dünyası Akademik Araştırmalar Topluluğu, üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk.",
+          "Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu'na katıl. Etkinlikler, eğitimler ve kültürel faaliyetlerle birlikte üret, öğren ve büyü.",
       },
       {
         property: "og:title",
-        content: "Türk Dünyası Akademik Araştırmalar Topluluğu",
+        content: "Türk Dünyası Akademik Araştırmalar Topluluğu — Ege Üniversitesi Öğrenci Topluluğu",
       },
       {
         property: "og:description",
         content:
-          "Türk Dünyası Akademik Araştırmalar Topluluğu, üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk.",
+          "Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu'na katıl. Etkinlikler, eğitimler ve kültürel faaliyetlerle birlikte üret, öğren ve büyü.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/" },
     ],
   }),
   component: Index,

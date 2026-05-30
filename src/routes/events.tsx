@@ -21,6 +21,7 @@ export const Route = createFileRoute("/events")({
         content:
           "Türk Dünyası Akademik Araştırmalar Topluluğu'nun yaklaşan ve geçmiş etkinlikleri: eğitimler, hackathonlar, network günleri.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/events" },
     ],
   }),
   component: EventsPage,

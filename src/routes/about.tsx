@@ -19,6 +19,7 @@ export const Route = createFileRoute("/about")({
         content:
           "Türk Dünyası Akademik Araştırmalar Topluluğu hakkında: Misyonumuz, vizyonumuz ve topluluğumuzun hikayesi.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/about" },
     ],
   }),
   component: AboutPage,

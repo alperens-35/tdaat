@@ -6,6 +6,9 @@ export const Route = createFileRoute("/turk-dunyasi")({
     meta: [
       { title: "Türk Dünyası — TDAAT" },
       { name: "description", content: "Türk dünyasından haberler ve ortak kültürümüze dair içerikler." },
+      { property: "og:title", content: "Türk Dünyası — TDAAT" },
+      { property: "og:description", content: "Türk dünyasından haberler ve ortak kültürümüze dair içerikler." },
+      { property: "og:url", content: "https://tdaat.lovable.app/turk-dunyasi" },
     ],
   }),
 });

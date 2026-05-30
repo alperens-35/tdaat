@@ -15,6 +15,7 @@ export const Route = createFileRoute("/blog")({
         content:
           "TDAAT blog: Türk dünyası, akademik araştırmalar ve topluluk yazıları.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/blog" },
     ],
   }),
   component: BlogPage,

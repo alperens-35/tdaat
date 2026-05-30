@@ -19,6 +19,7 @@ export const Route = createFileRoute("/team")({
         content:
           "Türk Dünyası Akademik Araştırmalar Topluluğu'nun yönetim kurulu ve lider ekibiyle tanışın.",
       },
+      { property: "og:url", content: "https://tdaat.lovable.app/team" },
     ],
   }),
   component: TeamPage,
