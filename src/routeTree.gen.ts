@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TurkDunyasiRouteImport } from './routes/turk-dunyasi'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -32,6 +33,11 @@ const TurkDunyasiRoute = TurkDunyasiRouteImport.update({
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/arf': typeof AuthenticatedArfRouteWithChildren
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/api/chat': typeof ApiChatRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/team': typeof TeamRoute
   '/turk-dunyasi': typeof TurkDunyasiRoute
   '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/events'
+    | '/sitemap.xml'
     | '/team'
     | '/turk-dunyasi'
     | '/arf'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/events'
+    | '/sitemap.xml'
     | '/team'
     | '/turk-dunyasi'
     | '/api/chat'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/events'
+    | '/sitemap.xml'
     | '/team'
     | '/turk-dunyasi'
     | '/_authenticated/arf'
@@ -197,6 +209,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   EventsRoute: typeof EventsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TeamRoute: typeof TeamRoute
   TurkDunyasiRoute: typeof TurkDunyasiRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   EventsRoute: EventsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TeamRoute: TeamRoute,
   TurkDunyasiRoute: TurkDunyasiRoute,
   ApiChatRoute: ApiChatRoute,
