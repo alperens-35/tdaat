@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/turk-dunyasi")({
   component: TurkDunyasiPage,
   head: () => ({
+    links: [{ rel: "canonical", href: "https://tdaat.lovable.app/turk-dunyasi" }],
     meta: [
       { title: "Türk Dünyası — TDAAT" },
       { name: "description", content: "Türk dünyasından haberler ve ortak kültürümüze dair içerikler." },
