@@ -123,9 +123,9 @@ function TeamPage() {
                     .map((n) => n[0])
                     .join("")}
                 </div>
-                <h3 className="mt-4 font-[var(--font-heading)] text-base font-semibold text-foreground">
+                <h2 className="mt-4 font-[var(--font-heading)] text-base font-semibold text-foreground">
                   {member.name}
-                </h3>
+                </h2>
                 <p className="text-xs font-medium text-primary">{member.role}</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {member.bio}
