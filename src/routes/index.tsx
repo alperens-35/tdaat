@@ -99,6 +99,9 @@ function Index() {
               <span className="block">TÜRK DÜNYASI AKADEMİK</span>
               <span className="block text-primary">ARAŞTIRMALAR</span>
               <span className="block text-primary">TOPLULUĞU</span>
+              <span className="mt-2 block text-xl font-medium text-muted-foreground sm:text-2xl lg:text-3xl">
+                — Üniversite Öğrenci Topluluğu
+              </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
               Üniversite öğrencilerinin öğrenme, üretme ve büyüme
