@@ -3,6 +3,7 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 
 export const Route = createFileRoute("/team")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://tdaat.lovable.app/team" }],
     meta: [
       { title: "Ekibimiz — TDAAT" },
       {
