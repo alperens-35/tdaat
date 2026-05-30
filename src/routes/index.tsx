@@ -7,24 +7,44 @@ export const Route = createFileRoute("/")({
   head: () => ({
     links: [
       { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
+      { rel: "canonical", href: "https://tdaat.lovable.app/" },
     ],
     meta: [
-      { title: "Türk Dünyası Akademik Araştırmalar Topluluğu — Ege Üniversitesi Öğrenci Topluluğu" },
+      { title: "TDAAT — Ege Üniversitesi Türk Dünyası Topluluğu" },
       {
         name: "description",
         content:
-          "Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu'na katıl. Etkinlikler, eğitimler ve kültürel faaliyetlerle birlikte üret, öğren ve büyü.",
+          "Ege Üniversitesi TDAAT: etkinlikler, makale okumaları, Türk sporları ve kültürel buluşmalarla öğren, üret ve birlikte büyü.",
       },
       {
         property: "og:title",
-        content: "Türk Dünyası Akademik Araştırmalar Topluluğu — Ege Üniversitesi Öğrenci Topluluğu",
+        content: "TDAAT — Ege Üniversitesi Türk Dünyası Topluluğu",
       },
       {
         property: "og:description",
         content:
-          "Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu'na katıl. Etkinlikler, eğitimler ve kültürel faaliyetlerle birlikte üret, öğren ve büyü.",
+          "Ege Üniversitesi TDAAT: etkinlikler, makale okumaları, Türk sporları ve kültürel buluşmalarla öğren, üret ve birlikte büyü.",
       },
       { property: "og:url", content: "https://tdaat.lovable.app/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Türk Dünyası Akademik Araştırmalar Topluluğu",
+          alternateName: "TDAAT",
+          url: "https://tdaat.lovable.app/",
+          logo: "https://tdaat.lovable.app/favicon.ico",
+          description:
+            "Ege Üniversitesi öğrenci topluluğu. Türk dünyasının kültür, tarih ve akademik araştırmalarına odaklanır.",
+          parentOrganization: {
+            "@type": "CollegeOrUniversity",
+            name: "Ege Üniversitesi",
+          },
+        }),
+      },
     ],
   }),
   component: Index,
