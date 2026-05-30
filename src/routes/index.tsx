@@ -5,6 +5,9 @@ import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: heroImg, fetchpriority: "high" },
+    ],
     meta: [
       { title: "Türk Dünyası Akademik Araştırmalar Topluluğu" },
       {
@@ -85,6 +88,7 @@ function Index() {
             width={1920}
             height={1080}
             loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/30" />
         </div>
