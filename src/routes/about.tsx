@@ -3,6 +3,7 @@ import { Target, Heart, Eye, BookOpen } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://tdaat.lovable.app/about" }],
     meta: [
       { title: "Hakkımızda — TDAAT" },
       {
