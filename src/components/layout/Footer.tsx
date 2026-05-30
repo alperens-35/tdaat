@@ -15,7 +15,7 @@ export function Footer() {
             >
               <img
                 src={logo}
-                alt="TDAAT Logo"
+                alt="Türk Dünyası Akademik Araştırmalar Topluluğu Logosu"
                 className="h-8 w-auto object-contain"
               />
               Türk Dünyası Akademik Araştırmalar Topluluğu
