@@ -31,10 +31,12 @@ export const Route = createFileRoute("/api/tts")({
 
         const body = (await request.json().catch(() => ({}))) as TtsBody;
         const text = typeof body.text === "string" ? body.text.trim() : "";
-        const voiceId =
+        const rawVoiceId =
           typeof body.voiceId === "string" && body.voiceId.trim()
             ? body.voiceId.trim()
             : DEFAULT_VOICE_ID;
+        // Strict allowlist format: ElevenLabs voice IDs are ~20 alphanumeric chars.
+        const voiceId = /^[A-Za-z0-9]{10,30}$/.test(rawVoiceId) ? rawVoiceId : DEFAULT_VOICE_ID;
 
         if (!text || text.length > 4000) {
           return new Response("Bad request", { status: 400 });
