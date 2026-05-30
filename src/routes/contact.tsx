@@ -8,6 +8,7 @@ import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://tdaat.lovable.app/contact" }],
     meta: [
       { title: "İletişim — TDAAT" },
       {
