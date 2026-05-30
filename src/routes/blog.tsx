@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://tdaat.lovable.app/blog" }],
     meta: [
       { title: "Blog — TDAAT" },
       {
