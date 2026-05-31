@@ -192,7 +192,7 @@ export const academicItems: AcademicItem[] = [
   },
   {
     id: "central-asian-studies",
-    title: "Orta Asya Araştırmaları Dergisi",
+    title: "Türkistan Araştırmaları Dergisi",
     institution: "KazNU (Kazakistan)",
     summary:
       "Kazakistan'dan yayınlanan hakemli dergi, Türk dünyası siyaset bilimi, ekonomisi ve toplumsal yapısı üzerine çalışmaları akademik çevrelere taşıyor.",
