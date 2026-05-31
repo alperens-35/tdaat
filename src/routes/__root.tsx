@@ -85,8 +85,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Türk Dünyası Akademik Araştırmalar Topluluğu" },
       { name: "twitter:description", content: "Türk Dünyası Akademik Araştırmalar Topluluğu, üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4eec6068-58dc-4f5e-ad80-12687e2b7680/id-preview-3b671f81--b508f5c4-6ed9-45c9-b79a-668caf05fa74.lovable.app-1779979674819.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4eec6068-58dc-4f5e-ad80-12687e2b7680/id-preview-3b671f81--b508f5c4-6ed9-45c9-b79a-668caf05fa74.lovable.app-1779979674819.png" },
+      { property: "og:image", content: "https://tdaat.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://tdaat.lovable.app/og-image.jpg" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
