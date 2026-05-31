@@ -110,7 +110,7 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
-              İletişim
+              {t("footer.contact")}
             </h3>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
               <li>
@@ -128,7 +128,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-primary"
                 >
-                  İzmir, Türkiye
+                  {t("footer.location")}
                 </a>
               </li>
             </ul>
@@ -136,7 +136,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border/50 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} TDAAT. Tüm hakları saklıdır.
+          © {new Date().getFullYear()} TDAAT. {t("footer.rights")}
         </div>
       </div>
     </footer>
