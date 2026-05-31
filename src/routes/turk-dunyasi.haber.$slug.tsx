@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, Tag, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { FlagIcon } from "@/components/FlagIcon";
 import { newsItems } from "@/lib/turk-dunya-data";
 
 const categoryLabels: Record<string, string> = {
