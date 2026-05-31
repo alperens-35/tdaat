@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Target, Heart, Eye, BookOpen } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Target, Heart, Eye, BookOpen, Calendar, Globe2, Award, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { pastEvents } from "@/lib/events-data";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
