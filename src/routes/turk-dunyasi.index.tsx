@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FlagIcon } from "@/components/FlagIcon";
+import { CultureIcon } from "@/components/CultureIcon";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
 import { useI18n } from "@/lib/i18n";
 
@@ -142,10 +143,8 @@ function CultureGrid() {
           params={{ slug: item.id }}
           className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-2xl" role="img" aria-label={item.title}>
-              {item.flag}
-            </span>
+          <div className="flex items-center gap-3">
+            <CultureIcon id={item.id} />
             <Badge variant="secondary" className="text-xs">
               {item.origin}
             </Badge>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CultureIcon } from "@/components/CultureIcon";
 import { cultureItems } from "@/lib/turk-dunya-data";
 
 export const Route = createFileRoute("/turk-dunyasi/kultur/$slug")({
@@ -54,7 +55,7 @@ function CultureDetailPage() {
       </Link>
 
       <div className="mt-6 flex items-center gap-3">
-        <span className="text-4xl" role="img" aria-label={item.title}>{item.flag}</span>
+        <CultureIcon id={item.id} size="lg" />
         <Badge variant="secondary" className="text-xs">
           <Globe className="mr-1 h-2.5 w-2.5" />
           {item.origin}
