@@ -19,6 +19,18 @@ export const Route = createFileRoute("/api/chat")({
         if (!Array.isArray(messages) || !threadId) {
           return new Response("Bad request", { status: 400 });
         }
+        if (messages.length > 100) {
+          return new Response("Too many messages", { status: 400 });
+        }
+        let totalChars = 0;
+        for (const m of messages as UIMessage[]) {
+          for (const p of m.parts ?? []) {
+            if (p.type === "text") totalChars += (p.text ?? "").length;
+            if (totalChars > 50000) {
+              return new Response("Payload too large", { status: 413 });
+            }
+          }
+        }
 
         const supabaseUrl = process.env.SUPABASE_URL!;
         const supabaseKey = process.env.SUPABASE_PUBLISHABLE_KEY!;
