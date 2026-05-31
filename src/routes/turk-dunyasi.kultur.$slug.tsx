@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CultureIcon } from "@/components/CultureIcon";
 import { cultureItems } from "@/lib/turk-dunya-data";
 
 export const Route = createFileRoute("/turk-dunyasi/kultur/$slug")({
