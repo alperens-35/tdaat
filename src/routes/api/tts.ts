@@ -70,9 +70,11 @@ export const Route = createFileRoute("/api/tts")({
 
         if (!upstream.ok || !upstream.body) {
           const err = await upstream.text().catch(() => "");
-          return new Response(err || `TTS failed: ${upstream.status}`, {
-            status: upstream.status || 500,
-          });
+          console.error("[tts] ElevenLabs upstream error:", upstream.status, err);
+          const status = upstream.status === 429 ? 429 : 502;
+          const message =
+            status === 429 ? "TTS rate limited" : "TTS service unavailable";
+          return new Response(message, { status });
         }
 
         return new Response(upstream.body, {
