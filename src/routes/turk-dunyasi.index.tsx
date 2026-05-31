@@ -143,10 +143,8 @@ function CultureGrid() {
           params={{ slug: item.id }}
           className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-2xl" role="img" aria-label={item.title}>
-              {item.flag}
-            </span>
+          <div className="flex items-center gap-3">
+            <CultureIcon id={item.id} />
             <Badge variant="secondary" className="text-xs">
               {item.origin}
             </Badge>
