@@ -178,8 +178,8 @@ function AboutPage() {
             {[
               "Ege Üniversitesi Türk Dünyası Araştırmaları Enstitüsü (TDAE)",
               "Ege Üniversitesi Sağlık, Kültür ve Spor Daire Başkanlığı",
+              "T.C. Gençlik ve Spor Bakanlığı",
               "ÜNİDES — Üniversite İletişim Derneği",
-              
               "Ankara Üniversitesi",
               "Akdeniz Üniversitesi",
             ].map((p) => (
