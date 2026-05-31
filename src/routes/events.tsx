@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Calendar, MapPin, Clock, Search, CalendarPlus, Download } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -11,74 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { downloadIcs, googleCalendarUrl, type CalendarEvent } from "@/lib/calendar";
+import { upcomingEvents as upcoming, pastEvents as past, type EventItem } from "@/lib/events-data";
 
-type UpcomingEvent = {
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  category: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-};
+type UpcomingEvent = EventItem;
 
-const upcoming: UpcomingEvent[] = [
-  {
-    title: "Tanışma Etkinliği: Turan Toyu",
-    date: "27 Eylül 2026",
-    time: "13:00 - 15:30",
-    location: "İnciraltı Kent Ormanı",
-    category: "Eğlence",
-    description:
-      "Sektör liderleri ile yüz yüze tanış, kariyer yolculuğunda ipuçları al.",
-    startDate: "2026-09-27T13:00:00+03:00",
-    endDate: "2026-09-27T15:30:00+03:00",
-  },
-  {
-    title: "Makale Okuması",
-    date: "2 Ekim 2026",
-    time: "16:00 - 17:30",
-    location: "Eğitim+Spor Kafe",
-    category: "Eğitim",
-    description:
-      "Yapay zeka temellerini öğren: makine öğrenmesi, derin öğrenme ve günlük hayatta kullanım alanları.",
-    startDate: "2026-10-02T16:00:00+03:00",
-    endDate: "2026-10-02T17:30:00+03:00",
-  },
-  {
-    title: "3. Geleneksel Mangala Turnuvası",
-    date: "21 Ekim 2026",
-    time: "13:30 - 15:00",
-    location: "Kış Bahçesi Kafe",
-    category: "Yarışma",
-    description:
-      "48 saat süren yaratıcılık maratonu. Mentor desteği, ödüller ve network.",
-    startDate: "2026-10-21T13:30:00+03:00",
-    endDate: "2026-10-21T15:00:00+03:00",
-  },
-];
-
-const past = [
-  {
-    title: "Web Geliştirme Bootcamp",
-    date: "Kasım 2024",
-    category: "Eğitim",
-    description: "HTML'den React'a modern web geliştirme yolculuğu.",
-  },
-  {
-    title: "Girişimcilik Sohbetleri",
-    date: "Ekim 2024",
-    category: "Söyleşi",
-    description: "Yerel girişimcilerle samimi sohbetler.",
-  },
-  {
-    title: "Figma Tasarım Workshopu",
-    date: "Eylül 2024",
-    category: "Workshop",
-    description: "UI/UX temelleri ve Figma pratiği.",
-  },
-];
 
 export const Route = createFileRoute("/events")({
   head: () => ({
