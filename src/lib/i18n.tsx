@@ -58,6 +58,13 @@ const translations: Record<Lang, Dict> = {
     "home.ctaTitle": "Birlikte bir şeyler inşa edelim.",
     "home.ctaDesc": "Fikirlerin var, projeler yapmak istiyorsun ama yanında bir ekip arıyorsun. Topluluğumuzda yerin hazır.",
     "home.ctaContact": "Bizimle İletişime Geç",
+
+    "turkWorld.badge": "Türk Dünyası",
+    "turkWorld.subtitle": "Türk dünyasından haberler ve ortak kültürümüze dair içerikler.",
+    "turkWorld.newsTab": "Haberler",
+    "turkWorld.cultureTab": "Kültür",
+    "turkWorld.academicTab": "Akademik",
+    "turkWorld.info": "İçerikler örnek haber ve kültürel bilgilerden oluşmaktadır. Güncel gelişmeleri takip etmek için bültenimize abone olabilirsiniz.",
   },
   az: {
     "nav.home": "Ana Səhifə",
@@ -103,6 +110,13 @@ const translations: Record<Lang, Dict> = {
     "home.ctaTitle": "Birlikdə bir şeylər quraq.",
     "home.ctaDesc": "Fikirlərin var, layihələr etmək istəyirsən amma yanında bir komanda axtarırsan. İcmamızda yerin hazırdır.",
     "home.ctaContact": "Bizimlə Əlaqə Saxla",
+
+    "turkWorld.badge": "Türk Dünyası",
+    "turkWorld.subtitle": "Türk dünyasından xəbərlər və ortaq mədəniyyətimizə dair məzmunlar.",
+    "turkWorld.newsTab": "Xəbərlər",
+    "turkWorld.cultureTab": "Mədəniyyət",
+    "turkWorld.academicTab": "Akademik",
+    "turkWorld.info": "Məzmunlar nümunə xəbər və mədəni məlumatlardan ibarətdir. Aktual inkişafları izləmək üçün bülletenimizə abunə ola bilərsiniz.",
   },
   kk: {
     "nav.home": "Басты бет",
@@ -148,6 +162,13 @@ const translations: Record<Lang, Dict> = {
     "home.ctaTitle": "Бірге бір нәрсе құрайық.",
     "home.ctaDesc": "Идеяларың бар, жобалар жасағың келеді, бірақ қасыңда команда іздейсің. Қауымдастығымызда орның дайын.",
     "home.ctaContact": "Бізбен байланысыңыз",
+
+    "turkWorld.badge": "Түркі Әлемі",
+    "turkWorld.subtitle": "Түркі әлемінен жаңалықтар және ортақ мәдениетімізге арналған материалдар.",
+    "turkWorld.newsTab": "Жаңалықтар",
+    "turkWorld.cultureTab": "Мәдениет",
+    "turkWorld.academicTab": "Академиялық",
+    "turkWorld.info": "Мазмұн үлгі жаңалықтар мен мәдени ақпараттан тұрады. Ағымдағы оқиғаларды бақылау үшін бюллетенімізге жазылыңыз.",
   },
   ky: {
     "nav.home": "Башкы бет",
@@ -193,6 +214,13 @@ const translations: Record<Lang, Dict> = {
     "home.ctaTitle": "Бирге бир нерсе курабыз.",
     "home.ctaDesc": "Идеяларың бар, долбоорлор жасагың келет, бирок жаныңда команда издейсиң. Коомчулугубузда ордуң даяр.",
     "home.ctaContact": "Биз менен байланыш",
+
+    "turkWorld.badge": "Түрк Дүйнөсү",
+    "turkWorld.subtitle": "Түрк дүйнөсүнөн жаңылыктар жана орток маданиятыбыз тууралуу мазмун.",
+    "turkWorld.newsTab": "Жаңылыктар",
+    "turkWorld.cultureTab": "Маданият",
+    "turkWorld.academicTab": "Академиялык",
+    "turkWorld.info": "Мазмун үлгү жаңылыктар жана маданий маалыматтардан турат. Акыркы окуяларды көз салыш үчүн бюллетенибизге жазылыңыз.",
   },
   uz: {
     "nav.home": "Bosh sahifa",
@@ -233,11 +261,18 @@ const translations: Record<Lang, Dict> = {
     "home.seeAll": "Hammasini koʻrish",
     "home.details": "Tafsilotlar",
     "home.team": "Bizning jamoa",
-    "home.teamSub": "Jamoani oʻstirish uchun ishlayotgan ishtiyoqli jamoamiz bilan tanishing.",
+    "home.teamSub": "Jamоani oʻstirish uchun ishlayotgan ishtiyoqli jamoamiz bilan tanishing.",
     "home.seeTeam": "Butun jamoani koʻrish",
     "home.ctaTitle": "Birgalikda nimadir quraylik.",
     "home.ctaDesc": "Gʻoyalaringiz bor, loyihalar qilmoqchisiz, ammo yoningizda jamoa qidiryapsiz. Jamoamizda joyingiz tayyor.",
     "home.ctaContact": "Biz bilan bogʻlaning",
+
+    "turkWorld.badge": "Turk Dunyosi",
+    "turkWorld.subtitle": "Turk dunyosidan yangiliklar va ummumiy madaniyatimiz haqida tarkib.",
+    "turkWorld.newsTab": "Yangiliklar",
+    "turkWorld.cultureTab": "Madaniyat",
+    "turkWorld.academicTab": "Akademik",
+    "turkWorld.info": "Tarkib namunaviy yangiliklar va madaniy maʼlumotlardan iborat. Soʻnggi voqealarni kuzatish uchun byulletenimizga obuna boʻlishingiz mumkin.",
   },
   tk: {
     "nav.home": "Baş sahypa",
@@ -283,6 +318,13 @@ const translations: Record<Lang, Dict> = {
     "home.ctaTitle": "Bilelikde bir zat guralyk.",
     "home.ctaDesc": "Pikiriň bar, taslamalar etmek isleýänsin, ýöne ýanyňda topar gözleýänsin. Jemgyýetimizde ýeriň taýýar.",
     "home.ctaContact": "Biz Bilen Habarlaş",
+
+    "turkWorld.badge": "Türk Dünýäsi",
+    "turkWorld.subtitle": "Türk dünýäsinden habarlar we ortak medeniýetimiz hakda mazmun.",
+    "turkWorld.newsTab": "Habarlar",
+    "turkWorld.cultureTab": "Medeniýet",
+    "turkWorld.academicTab": "Akademik",
+    "turkWorld.info": "Mazmun mysal habarlar we medeni maglumatlardan ybarat. Täze bolýan ýagdaýlary yzarlamak üçin býulletenimize ýazlyň.",
   },
 };
 
