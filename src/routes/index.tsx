@@ -96,9 +96,6 @@ function Index() {
               <span className="block">{t("home.title1")}</span>
               <span className="block text-primary">{t("home.title2")}</span>
               <span className="block text-primary">{t("home.title3")}</span>
-              <span className="mt-2 block text-xl font-medium text-muted-foreground sm:text-2xl lg:text-3xl">
-                {t("home.subtitle")}
-              </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
               {t("home.lede")}
