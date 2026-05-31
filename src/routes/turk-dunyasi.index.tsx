@@ -102,7 +102,7 @@ function NewsGrid() {
           key={item.id}
           to="/turk-dunyasi/haber/$slug"
           params={{ slug: item.id }}
-          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-colors duration-200 hover:border-primary/40"
         >
           <div className="flex items-center justify-between">
             <Badge variant="outline" className="text-xs">
@@ -141,7 +141,7 @@ function CultureGrid() {
           key={item.id}
           to="/turk-dunyasi/kultur/$slug"
           params={{ slug: item.id }}
-          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-colors duration-200 hover:border-primary/40"
         >
           <div className="flex items-center gap-3">
             <CultureIcon id={item.id} />
@@ -173,7 +173,7 @@ function AcademicGrid() {
           key={item.id}
           to="/turk-dunyasi/akademik/$slug"
           params={{ slug: item.id }}
-          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-colors duration-200 hover:border-primary/40"
         >
           <Badge variant="secondary" className="w-fit text-xs">
             {item.field}
