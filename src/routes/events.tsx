@@ -227,9 +227,11 @@ function EventsPage() {
         </h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {past.map((event) => (
-            <div
-              key={event.title}
-              className="rounded-lg border border-border/40 bg-card/50 p-5 opacity-80 transition-opacity hover:opacity-100"
+            <Link
+              key={event.slug}
+              to="/events/$slug"
+              params={{ slug: event.slug }}
+              className="block rounded-lg border border-border/40 bg-card/50 p-5 opacity-80 transition-all hover:opacity-100 hover:border-primary/30"
             >
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-xs">
@@ -241,7 +243,7 @@ function EventsPage() {
                 {event.title}
               </h3>
               <p className="mt-1 text-xs text-muted-foreground">{event.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
