@@ -28,6 +28,7 @@ import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
 import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
+import { Route as TurkDunyasiKulturSlugRouteImport } from './routes/turk-dunyasi.kultur.$slug'
 import { Route as TurkDunyasiHaberSlugRouteImport } from './routes/turk-dunyasi.haber.$slug'
 import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
@@ -125,6 +126,11 @@ const AuthenticatedArfIndexRoute = AuthenticatedArfIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedArfRoute,
 } as any)
+const TurkDunyasiKulturSlugRoute = TurkDunyasiKulturSlugRouteImport.update({
+  id: '/turk-dunyasi/kultur/$slug',
+  path: '/turk-dunyasi/kultur/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TurkDunyasiHaberSlugRoute = TurkDunyasiHaberSlugRouteImport.update({
   id: '/turk-dunyasi/haber/$slug',
   path: '/turk-dunyasi/haber/$slug',
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesByTo {
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/turk-dunyasi': typeof TurkDunyasiIndexRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/arf': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesById {
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
   '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRouteTypes {
@@ -226,6 +235,7 @@ export interface FileRouteTypes {
     | '/turk-dunyasi/'
     | '/arf/$threadId'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/arf/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -247,6 +257,7 @@ export interface FileRouteTypes {
     | '/turk-dunyasi'
     | '/arf/$threadId'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/arf'
   id:
     | '__root__'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/turk-dunyasi/'
     | '/_authenticated/arf/$threadId'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
 }
@@ -290,6 +302,7 @@ export interface RootRouteChildren {
   ApiTtsRoute: typeof ApiTtsRoute
   TurkDunyasiIndexRoute: typeof TurkDunyasiIndexRoute
   TurkDunyasiHaberSlugRoute: typeof TurkDunyasiHaberSlugRoute
+  TurkDunyasiKulturSlugRoute: typeof TurkDunyasiKulturSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArfIndexRouteImport
       parentRoute: typeof AuthenticatedArfRoute
     }
+    '/turk-dunyasi/kultur/$slug': {
+      id: '/turk-dunyasi/kultur/$slug'
+      path: '/turk-dunyasi/kultur/$slug'
+      fullPath: '/turk-dunyasi/kultur/$slug'
+      preLoaderRoute: typeof TurkDunyasiKulturSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/turk-dunyasi/haber/$slug': {
       id: '/turk-dunyasi/haber/$slug'
       path: '/turk-dunyasi/haber/$slug'
@@ -507,7 +527,18 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTtsRoute: ApiTtsRoute,
   TurkDunyasiIndexRoute: TurkDunyasiIndexRoute,
   TurkDunyasiHaberSlugRoute: TurkDunyasiHaberSlugRoute,
+  TurkDunyasiKulturSlugRoute: TurkDunyasiKulturSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
