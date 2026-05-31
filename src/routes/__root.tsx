@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ArfWidget } from "@/components/arf/ArfWidget";
 import { ThemeProvider, themeInitScript } from "@/lib/theme";
+import { I18nProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -128,14 +129,16 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-          <ArfWidget />
-        </div>
+        <I18nProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">
+              <Outlet />
+            </main>
+            <Footer />
+            <ArfWidget />
+          </div>
+        </I18nProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

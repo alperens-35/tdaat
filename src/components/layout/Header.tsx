@@ -4,21 +4,24 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import arfLogo from "@/assets/arf-avatar.png";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-
-const navLinks = [
-  { to: "/", label: "Ana Sayfa" },
-  { to: "/turk-dunyasi", label: "Türk Dünyası" },
-  { to: "/about", label: "Hakkımızda" },
-  { to: "/events", label: "Etkinlikler" },
-  { to: "/blog", label: "Blog" },
-  { to: "/team", label: "Ekibimiz" },
-  { to: "/arf", label: "Arf" },
-  { to: "/contact", label: "İletişim" },
-];
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { useI18n } from "@/lib/i18n";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { t } = useI18n();
+
+  const navLinks = [
+    { to: "/", label: t("nav.home") },
+    { to: "/turk-dunyasi", label: t("nav.turkWorld") },
+    { to: "/about", label: t("nav.about") },
+    { to: "/events", label: t("nav.events") },
+    { to: "/blog", label: t("nav.blog") },
+    { to: "/team", label: t("nav.team") },
+    { to: "/arf", label: t("nav.arf") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => {
     setMobileOpen(false);
@@ -46,7 +49,7 @@ export function Header() {
             >
               {link.to === "/arf" ? (
                 <span className="flex items-center gap-1.5">
-                  Arf
+                  {link.label}
                   <img src={arfLogo} alt="Arf" className="h-4 w-4 rounded-full object-cover" />
                 </span>
               ) : (
@@ -56,13 +59,14 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right side: theme toggle + mobile menu */}
+        {/* Right side */}
         <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           <ThemeToggle />
           <button
             className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menüyü Aç/Kapat"
+            aria-label={t("nav.toggleMenu")}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -83,7 +87,7 @@ export function Header() {
               >
                 {link.to === "/arf" ? (
                   <span className="flex items-center gap-1.5">
-                    Arf
+                    {link.label}
                     <img src={arfLogo} alt="Arf" className="h-4 w-4 rounded-full object-cover" />
                   </span>
                 ) : (

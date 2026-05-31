@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Calendar, Users, Lightbulb, ArrowRight, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,27 +51,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const features = [
-  {
-    icon: Lightbulb,
-    title: "Öğrenme Kültürü",
-    description:
-      "Workshoplar, eğitimler ve peer-learning oturumlarıyla sürekli gelişim.",
-  },
-  {
-    icon: Calendar,
-    title: "Etkinlikler",
-    description:
-      "Sektör uzmanlarıyla buluşmalar, hackathonlar ve sosyal etkinlikler.",
-  },
-  {
-    icon: Users,
-    title: "Topluluk",
-    description:
-      "Benzer ilgi alanlarına sahip öğrencilerle network kur, birlikte üret.",
-  },
-];
-
 const upcomingEvents = [
   {
     title: "Tanışma Etkinliği: Turan Toyu",
@@ -97,6 +77,13 @@ const teamPreview = [
 ];
 
 function Index() {
+  const { t } = useI18n();
+  const features = [
+    { icon: Lightbulb, title: t("home.feat1.title"), description: t("home.feat1.desc") },
+    { icon: Calendar, title: t("home.feat2.title"), description: t("home.feat2.desc") },
+    { icon: Users, title: t("home.feat3.title"), description: t("home.feat3.desc") },
+  ];
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -118,29 +105,28 @@ function Index() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
               <Sparkles className="h-3.5 w-3.5" />
-              Üniversite Öğrenci Topluluğu
+              {t("home.badge")}
             </div>
             <h1 className="mt-6 font-[var(--font-heading)] text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              <span className="block">TÜRK DÜNYASI AKADEMİK</span>
-              <span className="block text-primary">ARAŞTIRMALAR</span>
-              <span className="block text-primary">TOPLULUĞU</span>
+              <span className="block">{t("home.title1")}</span>
+              <span className="block text-primary">{t("home.title2")}</span>
+              <span className="block text-primary">{t("home.title3")}</span>
               <span className="mt-2 block text-xl font-medium text-muted-foreground sm:text-2xl lg:text-3xl">
-                — Üniversite Öğrenci Topluluğu
+                {t("home.subtitle")}
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-              Üniversite öğrencilerinin öğrenme, üretme ve büyüme
-              yolculuğunda birlikte güçlendikleri bir topluluk.
+              {t("home.lede")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="font-[var(--font-heading)]">
                 <Link to="/events">
-                  Etkinlikleri Keşfet
+                  {t("home.ctaEvents")}
                   <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="outline" asChild size="lg" className="font-[var(--font-heading)]">
-                <Link to="/about">Hakkımızda</Link>
+                <Link to="/about">{t("home.ctaAbout")}</Link>
               </Button>
             </div>
           </div>
@@ -175,13 +161,13 @@ function Index() {
           <div className="flex items-end justify-between">
             <div>
               <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                Yaklaşan Etkinlikler
+                {t("home.upcoming")}
               </h2>
-              <p className="mt-2 text-muted-foreground">Kaçırma, sen de yerini al!</p>
+              <p className="mt-2 text-muted-foreground">{t("home.upcomingSub")}</p>
             </div>
             <Button variant="ghost" asChild className="hidden font-[var(--font-heading)] sm:flex">
               <Link to="/events">
-                Tümünü Gör <ArrowRight className="ml-1.5 h-4 w-4" />
+                {t("home.seeAll")} <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -202,7 +188,7 @@ function Index() {
                 <p className="mt-1 text-sm text-muted-foreground">{event.location}</p>
                 <div className="mt-auto pt-4">
                   <Button variant="outline" size="sm" className="w-full font-[var(--font-heading)]">
-                    Detaylar
+                    {t("home.details")}
                   </Button>
                 </div>
               </div>
@@ -215,10 +201,10 @@ function Index() {
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Ekibimiz
+            {t("home.team")}
           </h2>
           <p className="mx-auto mt-2 max-w-md text-muted-foreground">
-            Topluluğu büyütmek için çalışan tutkulu ekibimizle tanış.
+            {t("home.teamSub")}
           </p>
         </div>
 
@@ -239,7 +225,7 @@ function Index() {
         <div className="mt-8 flex justify-center">
           <Button variant="outline" asChild className="font-[var(--font-heading)]">
             <Link to="/team">
-              Tüm Ekibi Gör <ArrowRight className="ml-1.5 h-4 w-4" />
+              {t("home.seeTeam")} <ArrowRight className="ml-1.5 h-4 w-4" />
             </Link>
           </Button>
         </div>
@@ -249,11 +235,10 @@ function Index() {
       <section className="w-full bg-primary py-20 text-primary-foreground">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-            Birlikte bir şeyler inşa edelim.
+            {t("home.ctaTitle")}
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-base opacity-90">
-            Fikirlerin var, projeler yapmak istiyorsun ama yanında bir ekip arıyorsun.
-            Topluluğumuzda yerin hazır.
+            {t("home.ctaDesc")}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button
@@ -261,7 +246,7 @@ function Index() {
               className="bg-primary-foreground font-[var(--font-heading)] text-primary hover:bg-primary-foreground/90"
               asChild
             >
-              <Link to="/contact">Bizimle İletişime Geç</Link>
+              <Link to="/contact">{t("home.ctaContact")}</Link>
             </Button>
           </div>
         </div>

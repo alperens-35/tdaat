@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Youtube, Instagram, Facebook, Twitter } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="border-t border-border/50 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -21,47 +23,36 @@ export function Footer() {
               Türk Dünyası Akademik Araştırmalar Topluluğu
             </Link>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground leading-relaxed">
-              Üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda
-              birlikte güçlendikleri bir topluluk.
+              {t("footer.tagline")}
             </p>
           </div>
+
+
 
           {/* Links */}
           <div>
             <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
-              Sayfalar
+              {t("footer.pages")}
             </h3>
             <ul className="mt-3 flex flex-col gap-2">
               <li>
-                <Link
-                  to="/about"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Hakkımızda
+                <Link to="/about" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/events"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Etkinlikler
+                <Link to="/events" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                  {t("nav.events")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/team"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Ekibimiz
+                <Link to="/team" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                  {t("nav.team")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contact"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  İletişim
+                <Link to="/contact" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                  {t("nav.contact")}
                 </Link>
               </li>
             </ul>
@@ -70,7 +61,7 @@ export function Footer() {
           {/* Social Media */}
           <div>
             <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
-              Sosyal Medya
+              {t("footer.social")}
             </h3>
             <div className="mt-3 flex flex-col gap-2">
               <a
@@ -119,7 +110,7 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
-              İletişim
+              {t("footer.contact")}
             </h3>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
               <li>
@@ -137,7 +128,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-primary"
                 >
-                  İzmir, Türkiye
+                  {t("footer.location")}
                 </a>
               </li>
             </ul>
@@ -145,7 +136,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border/50 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} TDAAT. Tüm hakları saklıdır.
+          © {new Date().getFullYear()} TDAAT. {t("footer.rights")}
         </div>
       </div>
     </footer>
