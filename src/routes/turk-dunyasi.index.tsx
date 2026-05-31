@@ -108,9 +108,7 @@ function NewsGrid() {
               <Tag className="mr-1 h-2.5 w-2.5" />
               {categoryLabels[item.category] ?? item.category}
             </Badge>
-            <span className="text-lg" role="img" aria-label={item.country}>
-              {item.flag}
-            </span>
+            <FlagIcon country={item.flag} />
           </div>
           <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold leading-snug text-foreground group-hover:text-primary">
             {item.title}
