@@ -137,9 +137,11 @@ function CultureGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {cultureItems.map((item) => (
-        <article
+        <Link
           key={item.id}
-          className="flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/30 hover:shadow-md"
+          to="/turk-dunyasi/kultur/$slug"
+          params={{ slug: item.id }}
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
         >
           <div className="flex items-center gap-2">
             <span className="text-2xl" role="img" aria-label={item.title}>
@@ -149,13 +151,17 @@ function CultureGrid() {
               {item.origin}
             </Badge>
           </div>
-          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold text-foreground">
+          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold text-foreground group-hover:text-primary">
             {item.title}
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4">
             {item.description}
           </p>
-        </article>
+          <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary opacity-0 transition-opacity group-hover:opacity-100">
+            Devamını oku
+            <ArrowRight className="h-3 w-3" />
+          </span>
+        </Link>
       ))}
     </div>
   );
@@ -165,22 +171,29 @@ function AcademicGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {academicItems.map((item) => (
-        <article
+        <Link
           key={item.id}
-          className="flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/30 hover:shadow-md"
+          to="/turk-dunyasi/akademik/$slug"
+          params={{ slug: item.id }}
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
         >
           <Badge variant="secondary" className="w-fit text-xs">
             {item.field}
           </Badge>
-          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold text-foreground">
+          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold text-foreground group-hover:text-primary">
             {item.title}
           </h3>
           <p className="mt-1 text-xs text-muted-foreground">{item.institution}</p>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4">
             {item.summary}
           </p>
-        </article>
+          <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary opacity-0 transition-opacity group-hover:opacity-100">
+            Devamını oku
+            <ArrowRight className="h-3 w-3" />
+          </span>
+        </Link>
       ))}
     </div>
   );
 }
+

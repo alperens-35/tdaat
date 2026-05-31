@@ -14,6 +14,7 @@ export type CultureItem = {
   id: string;
   title: string;
   description: string;
+  content: string[];
   origin: string;
   flag: string;
 };
@@ -23,6 +24,7 @@ export type AcademicItem = {
   title: string;
   institution: string;
   summary: string;
+  content: string[];
   field: string;
 };
 
@@ -136,14 +138,26 @@ export const cultureItems: CultureItem[] = [
     title: "Nevruz Bayramı",
     description:
       "21 Mart'ta kutlanan Nevruz, Türk dünyasının en eski ve en yaygın ortak bayramlarından biridir. Doğanın uyanışını, umudu ve dayanışmayı simgeler. Her Türk devletinde farklı geleneklerle kutlanır.",
+    content: [
+      "Nevruz, kelime anlamıyla 'yeni gün' demektir ve binlerce yıldır Türk dünyasının ortak bayramı olarak kutlanmaktadır. 21 Mart'ta, gece ile gündüzün eşitlendiği bahar ekinoksunda kutlanan bu bayram, doğanın yeniden uyanışını, umudu ve toplumsal dayanışmayı simgeler.",
+      "Türk dünyasında Nevruz, farklı isimlerle ve farklı geleneklerle kutlanır: Türkiye'de Nevruz, Azerbaycan'da Novruz Bayramı, Kazakistan'da Nauryz Meyramı, Kırgızistan'da Nooruz, Özbekistan'da Navro'z, Türkmenistan'da Nowruz. Tüm bu kutlamalarda ortak olan; ateş üzerinden atlamak, sofralar kurmak ve doğayla buluşmaktır.",
+      "Kazakistan'da bu bayrama özgü hazırlanan 'Nauryz köje' adlı yedi malzemeli çorba, bolluk ve bereketin simgesidir. Azerbaycan'da ise 'Semeni' adı verilen filizlenmiş buğday, yeniden doğuşu temsil eder.",
+      "2009 yılında UNESCO İnsanlığın Somut Olmayan Kültürel Mirası Listesi'ne alınan Nevruz, Türk dünyasının ortak kültürel mirasının en güçlü ifadelerinden biri olmaya devam etmektedir.",
+    ],
     origin: "Ortak Miras",
     flag: "🌿",
   },
   {
-    id: "bozkır-kültürü",
+    id: "bozkir-kulturu",
     title: "Bozkır Kültürü",
     description:
       "Ata yurdu Türkistan bozkırlarından süzülerek gelen yaşam tarzı, konar-göçer hayat, atçılık ve çadır geleneği. Günümüzde hala Kırgızistan, Kazakistan ve Moğolistan'da canlılığını koruyor.",
+    content: [
+      "Bozkır kültürü, Türk milletinin tarih sahnesine çıktığı andan itibaren şekillendirdiği ve yüzyıllar boyunca taşıdığı bir yaşam biçimidir. Atın ehlîleştirilmesi, demirin işlenmesi ve göçebe yaşam tarzının geliştirilmesi, bu kültürün temel taşlarını oluşturur.",
+      "Konar-göçer yaşam, mevsimlere göre yaylak ve kışlak arasında hareket etmeyi gerektirir. Bu yaşam tarzı, doğayla uyumlu, sade ve fonksiyonel bir kültürün doğmasına neden olmuştur. Yurt (çadır) bu kültürün en somut sembolüdür; sökülüp taşınabilen, dakikalar içinde yeniden kurulabilen mühendislik harikasıdır.",
+      "Atçılık, bozkır kültürünün belkemiğidir. Türkler, atı sadece bir binek değil, savaşta yoldaş, törenlerde kutsal, ekonomide temel kaynak olarak görmüştür. Kımız (mayalanmış kısrak sütü), bu kültürün geleneksel içeceği olarak hâlâ Kazakistan ve Kırgızistan'da yaygın biçimde tüketilmektedir.",
+      "Günümüzde Kırgızistan'ın Yaylım göçleri, Kazakistan'daki at festivalleri ve Moğolistan'ın Nadaam oyunları, bu kadim kültürün yaşayan örnekleridir.",
+    ],
     origin: "Türkistan",
     flag: "🐎",
   },
@@ -152,14 +166,26 @@ export const cultureItems: CultureItem[] = [
     title: "Hat Sanatı",
     description:
       "Arap harfleriyle yazılan güzel yazı sanatı, Türk-İslam medeniyetinin zirvesi olarak kabul edilir. Osmanlı döneminde doruk noktasına ulaşan hat, cami ve medreselerde süsleme unsuru olarak kullanıldı.",
+    content: [
+      "Hat sanatı, Arap harflerinin estetik kurallar çerçevesinde güzel ve dengeli biçimde yazılması sanatıdır. 'Hat' kelimesi Arapça'da 'çizgi' anlamına gelir; ancak Türk-İslam medeniyetinde bu sanat, yalnızca yazıdan öte bir anlam yüklenmiş, ruhun ve maneviyatın görsel ifadesi hâline gelmiştir.",
+      "Osmanlı döneminde hat sanatı altın çağını yaşamıştır. Şeyh Hamdullah, Hafız Osman, Mustafa Râkım ve Mehmed Şefik Bey gibi büyük hattatlar, bugün dünya müzelerinde sergilenen eserler bırakmışlardır. 'Kur'an Mekke'de indi, Mısır'da okundu, İstanbul'da yazıldı' sözü, Türklerin bu sanattaki ustalığını özetler.",
+      "Hat sanatında sülüs, nesih, ta'lik, divani, kufi gibi farklı yazı çeşitleri vardır. Her biri farklı amaçlar için kullanılır: kitabe yazısında celî sülüs, kitaplarda nesih, padişah fermanlarında divani tercih edilmiştir.",
+      "Günümüzde Türkiye, Azerbaycan ve Özbekistan'daki güzel sanatlar akademilerinde hat eğitimi verilmekte; UNESCO 2021'de bu sanatı İnsanlığın Somut Olmayan Kültürel Mirası Listesi'ne dahil etmiştir.",
+    ],
     origin: "Türkiye / Ortak",
     flag: "✒️",
   },
   {
-    id: "aşıklık-geleneği",
+    id: "asiklik-gelenegi",
     title: "Aşıklık Geleneği",
     description:
       "Saz eşliğinde doğaçlama şiir söyleme ve hikâye anlatma geleneği. Azerbaycan aşığı, Kazak akyını, Kırgız manasçısı ve Türk aşığı ortak köklere sahip bu geleneğin farklı dallarıdır.",
+    content: [
+      "Aşıklık geleneği, Türk dünyasının ortak sözlü edebiyat geleneklerinin en güçlü kollarından biridir. Saz (bağlama, kopuz, dombıra) eşliğinde doğaçlama şiir söyleyen, hikâye anlatan ve toplumsal olayları yorumlayan ozanlar yüzyıllardır bu geleneği yaşatmaktadır.",
+      "Türkiye'de 'aşık', Azerbaycan'da 'aşıq', Kazakistan'da 'akın', Kırgızistan'da 'akın' ve 'manasçı', Türkmenistan'da 'bagşı' adıyla bilinen bu ustalar; aynı kökenden gelen bir geleneğin farklı kollarını temsil ederler.",
+      "Karacaoğlan, Aşık Veysel, Pir Sultan Abdal Türkiye'de; Aşıq Ələsgər Azerbaycan'da; Jambıl Jabayev Kazakistan'da; Toktogul Satılganov Kırgızistan'da bu geleneğin unutulmaz isimleridir. 'Manas Destanı' ise Kırgız manasçılarının yüzyıllardır ezberden okuduğu, dünyanın en uzun destanlarından biridir (500.000+ dize).",
+      "Aşıklık geleneği, atışma (deyişme), muamma çözme ve usta-çırak ilişkisi gibi kendine özgü kuralları olan canlı bir kültürdür. UNESCO Azerbaycan aşık sanatını 2009'da, Türk aşıklık geleneğini de farklı tescillerle koruma altına almıştır.",
+    ],
     origin: "Türk Dünyası",
     flag: "🎵",
   },
@@ -168,6 +194,12 @@ export const cultureItems: CultureItem[] = [
     title: "Halıcılık",
     description:
       "Özellikle Türkmenistan, Azerbaycan ve Anadolu'da gelişen halı dokuma sanatı, her bölgenin kendine özgü motifleriyle zengin bir miras sunar. 'Göçmen duvar resmi' olarak da tanımlanır.",
+    content: [
+      "Türk halıcılığı, binlerce yıl öncesine dayanan bir gelenektir. 1949'da Sibirya'nın Pazırık kurganlarında bulunan ve MÖ 5. yüzyıla tarihlenen 'Pazırık Halısı', dünyanın bilinen en eski düğümlü halısıdır ve Türk halıcılığının kökenini Orta Asya bozkırlarına taşır.",
+      "Anadolu'da Selçuklu döneminde Konya halıları, Osmanlı döneminde Uşak, Bergama, Hereke halıları dünyaca tanınmıştır. Avrupalı ressamların tablolarında Türk halılarına sıkça yer verilmesi, bu sanatın uluslararası prestijinin kanıtıdır.",
+      "Türkmenistan'da her boy kendi 'göl' motifini taşır: Tekke, Yomut, Saryk, Ersarı göl motifleri, halıya bakıldığında o halının hangi boya ait olduğunu gösterir. Türkmen bayrağında dahi bu beş göl motifi yer alır.",
+      "Azerbaycan halıcılığı; Kuba, Şirvan, Karabağ, Tebriz, Gence okullarıyla zengindir. UNESCO Azerbaycan halıcılık geleneğini 2010'da, geleneksel Türk halı dokumacılığını da çeşitli tescillerle insanlık mirası listesine almıştır.",
+    ],
     origin: "Türkmenistan / Ortak",
     flag: "🧶",
   },
@@ -176,6 +208,12 @@ export const cultureItems: CultureItem[] = [
     title: "Buzkashi (Oğlak Kapma)",
     description:
       "Özellikle Afganistan, Özbekistan ve Kırgızistan'da oynanan geleneksel atlı spor. Ölü oğlağı hedefe taşıma üzerine kurulan bu oyun, Türk atlı kültürünün güçlü bir ifadesidir.",
+    content: [
+      "Buzkashi, kelime anlamıyla 'oğlak kapma' demektir ve Türk dünyasında 'kökbörü', 'gökbörü', 'ulak tartış' gibi farklı isimlerle bilinir. Atlı sporların atası olarak kabul edilen bu oyun, Türk savaş sanatının ve binicilik geleneğinin canlı bir mirasıdır.",
+      "Oyun, iki takım atlının başı kesilmiş bir oğlağı (veya günümüzde özel hazırlanmış bir nesneyi) kapıp belirlenen hedefe taşımasıyla oynanır. Mücadele oldukça çetin geçer; atların terbiyesi, biniciler arasındaki uyum ve cesaret oyunun belirleyici unsurlarıdır.",
+      "Kırgızistan'da Kök Börü, milli spor olarak kabul edilmiş ve Dünya Göçebe Oyunları'nın resmi disiplinleri arasına alınmıştır. Kazakistan'da kökpar, Özbekistan'da ulak, Türkmenistan'da gökbörü, Afganistan'da buzkashi adıyla aynı geleneğin kolları yaşatılmaktadır.",
+      "Bu spor, sadece bir oyun değil, aynı zamanda bir kültürel kimlik ifadesidir. Türk dünyası, bu geleneği uluslararası alana taşımak için Dünya Göçebe Oyunları'nı düzenlemekte ve genç nesillere aktarılmasına özel önem vermektedir.",
+    ],
     origin: "Türkistan",
     flag: "🏇",
   },
@@ -188,6 +226,12 @@ export const academicItems: AcademicItem[] = [
     institution: "Ankara Üniversitesi",
     summary:
       "Her iki yılda bir düzenlenen kongre, Türk dilleri, tarihi ve etnografyası üzerine güncel araştırmaları bir araya getiriyor. Gelecek kongre 2027'de Ankara'da yapılacak.",
+    content: [
+      "Uluslararası Türkoloji Kongresi, Türk dili, tarihi, edebiyatı, etnografyası ve sanatı üzerine çalışan akademisyenleri her iki yılda bir bir araya getiren prestijli bir bilimsel toplantıdır. Ankara Üniversitesi Dil ve Tarih-Coğrafya Fakültesi'nin ev sahipliğinde düzenlenen kongreye, dünyanın 40'tan fazla ülkesinden bilim insanı katılmaktadır.",
+      "Kongre programı; Eski Türkçe ve Orhun Yazıtları, Çağatayca metinler, Türk lehçelerinin karşılaştırmalı dilbilgisi, Türk halk edebiyatı, Türk müziği ve etnomüzikoloji, mimari ve sanat tarihi gibi geniş bir yelpazede oturumlardan oluşmaktadır.",
+      "Genç araştırmacılar için açılan özel oturumlar, doktora öğrencilerine çalışmalarını uluslararası bir platformda sunma fırsatı tanımaktadır. Kongre bildirileri hakemli bir süreçten geçirilerek 'Türkoloji Araştırmaları Yıllığı' adıyla yayımlanmaktadır.",
+      "2027 kongresinin ana teması 'Dijital Çağda Türkoloji' olarak belirlenmiştir. Yapay zekâ destekli metin analizi, dijital arşivleme ve Türk lehçeleri arasında otomatik çeviri gibi konular gündemin merkezinde olacaktır. Başvurular 2026 Aralık ayı sonuna kadar açıktır.",
+    ],
     field: "Dil ve Tarih",
   },
   {
@@ -196,6 +240,12 @@ export const academicItems: AcademicItem[] = [
     institution: "KazNU (Kazakistan)",
     summary:
       "Kazakistan'dan yayınlanan hakemli dergi, Türk dünyası siyaset bilimi, ekonomisi ve toplumsal yapısı üzerine çalışmaları akademik çevrelere taşıyor.",
+    content: [
+      "Türkistan Araştırmaları Dergisi, Kazakistan'ın en köklü yükseköğretim kurumu olan Al-Farabi Kazak Millî Üniversitesi (KazNU) bünyesinde yayımlanan, çift kör hakemli uluslararası bir akademik dergidir. Dergi, yılda dört sayı olarak Türkçe, Kazakça, İngilizce ve Rusça dillerinde makale kabul etmektedir.",
+      "Yayın politikası; Türk cumhuriyetlerinin siyasi yapıları, bölgesel ekonomik entegrasyon, sosyal değişim, kentleşme, göç hareketleri, eğitim politikaları ve dış ilişkiler gibi konuları kapsamaktadır. Dergi, Scopus ve Web of Science taramalı veri tabanlarında indekslenmektedir.",
+      "Son sayıda yayımlanan dikkat çekici çalışmalar arasında 'Türk Devletleri Teşkilatı'nın Bölgesel Güvenlik Mimarisindeki Yeri', 'Hazar Geçişli Boru Hatları ve Enerji Diplomasisi' ve 'Türk Cumhuriyetlerinde Dijital Dönüşüm Politikalarının Karşılaştırmalı Analizi' başlıklı makaleler yer almaktadır.",
+      "Lisansüstü öğrenciler için ayrı bir 'Genç Araştırmacılar' bölümü bulunmaktadır. Makale başvuruları derginin web sitesi üzerinden çevrim içi olarak yapılmaktadır.",
+    ],
     field: "Sosyal Bilimler",
   },
   {
@@ -204,6 +254,12 @@ export const academicItems: AcademicItem[] = [
     institution: "TDAAT & Ortaklar",
     summary:
       "Türk lehçelerinde ortak kökenli ama farklı anlamlara evrilmiş kelimeleri belgeleyen dijital veri tabanı projesi. Öğrencilerin katkıda bulunabileceği açık bir araştırma.",
+    content: [
+      "Göçebe Sözcükler Projesi, Türk lehçeleri arasında ortak kökenden gelmesine rağmen yüzyıllar içinde farklı anlamlara, kullanımlara ve telaffuzlara evrilmiş kelimeleri belgeleyen, açık erişimli dijital bir veri tabanı çalışmasıdır. Proje, TDAAT'ın koordinasyonunda Türkiye, Azerbaycan, Kazakistan ve Kırgızistan'dan dilbilimcilerin ortak katılımıyla yürütülmektedir.",
+      "Veri tabanı şu anda 12.000'i aşkın kelime kaydı içermektedir. Her kayıt için kelimenin Eski Türkçedeki kökü, günümüz Türk lehçelerindeki karşılıkları, anlam kaymaları, ses değişimleri ve örnek cümleler yer almaktadır. Sesli telaffuz örnekleri de eklenerek lehçeler arasındaki fonetik farkların kavranması kolaylaştırılmıştır.",
+      "Projenin en yenilikçi yönü, açık katılım modelidir. Öğrenciler, akademisyenler ve dil meraklıları sisteme üye olarak yeni kelimeler önerebilir, mevcut kayıtlara katkıda bulunabilir veya kendi lehçelerinden örnekler ekleyebilirler. Tüm katkılar uzman editörlerin onayından geçer.",
+      "Proje verileri Creative Commons lisansı altında yayımlanmaktadır; eğitim materyali, mobil uygulama veya araştırma çalışmalarında serbestçe kullanılabilir. TDAAT, lise ve üniversite öğrencileri için özel atölyeler düzenleyerek projeye genç katılımı teşvik etmektedir.",
+    ],
     field: "Dilbilim",
   },
 ];

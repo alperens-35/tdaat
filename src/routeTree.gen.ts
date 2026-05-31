@@ -28,7 +28,9 @@ import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
 import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
+import { Route as TurkDunyasiKulturSlugRouteImport } from './routes/turk-dunyasi.kultur.$slug'
 import { Route as TurkDunyasiHaberSlugRouteImport } from './routes/turk-dunyasi.haber.$slug'
+import { Route as TurkDunyasiAkademikSlugRouteImport } from './routes/turk-dunyasi.akademik.$slug'
 import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
 const UyeOlRoute = UyeOlRouteImport.update({
@@ -125,9 +127,19 @@ const AuthenticatedArfIndexRoute = AuthenticatedArfIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedArfRoute,
 } as any)
+const TurkDunyasiKulturSlugRoute = TurkDunyasiKulturSlugRouteImport.update({
+  id: '/turk-dunyasi/kultur/$slug',
+  path: '/turk-dunyasi/kultur/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TurkDunyasiHaberSlugRoute = TurkDunyasiHaberSlugRouteImport.update({
   id: '/turk-dunyasi/haber/$slug',
   path: '/turk-dunyasi/haber/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TurkDunyasiAkademikSlugRoute = TurkDunyasiAkademikSlugRouteImport.update({
+  id: '/turk-dunyasi/akademik/$slug',
+  path: '/turk-dunyasi/akademik/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedArfThreadIdRoute =
@@ -156,7 +168,9 @@ export interface FileRoutesByFullPath {
   '/events/$slug': typeof EventsSlugRoute
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesByTo {
@@ -177,7 +191,9 @@ export interface FileRoutesByTo {
   '/events/$slug': typeof EventsSlugRoute
   '/turk-dunyasi': typeof TurkDunyasiIndexRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/arf': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesById {
@@ -201,7 +217,9 @@ export interface FileRoutesById {
   '/events/$slug': typeof EventsSlugRoute
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
   '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
+  '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
   '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRouteTypes {
@@ -225,7 +243,9 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/turk-dunyasi/'
     | '/arf/$threadId'
+    | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/arf/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -246,7 +266,9 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/turk-dunyasi'
     | '/arf/$threadId'
+    | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/arf'
   id:
     | '__root__'
@@ -269,7 +291,9 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/turk-dunyasi/'
     | '/_authenticated/arf/$threadId'
+    | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
+    | '/turk-dunyasi/kultur/$slug'
     | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
 }
@@ -289,7 +313,9 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiTtsRoute: typeof ApiTtsRoute
   TurkDunyasiIndexRoute: typeof TurkDunyasiIndexRoute
+  TurkDunyasiAkademikSlugRoute: typeof TurkDunyasiAkademikSlugRoute
   TurkDunyasiHaberSlugRoute: typeof TurkDunyasiHaberSlugRoute
+  TurkDunyasiKulturSlugRoute: typeof TurkDunyasiKulturSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -427,11 +453,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArfIndexRouteImport
       parentRoute: typeof AuthenticatedArfRoute
     }
+    '/turk-dunyasi/kultur/$slug': {
+      id: '/turk-dunyasi/kultur/$slug'
+      path: '/turk-dunyasi/kultur/$slug'
+      fullPath: '/turk-dunyasi/kultur/$slug'
+      preLoaderRoute: typeof TurkDunyasiKulturSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/turk-dunyasi/haber/$slug': {
       id: '/turk-dunyasi/haber/$slug'
       path: '/turk-dunyasi/haber/$slug'
       fullPath: '/turk-dunyasi/haber/$slug'
       preLoaderRoute: typeof TurkDunyasiHaberSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/turk-dunyasi/akademik/$slug': {
+      id: '/turk-dunyasi/akademik/$slug'
+      path: '/turk-dunyasi/akademik/$slug'
+      fullPath: '/turk-dunyasi/akademik/$slug'
+      preLoaderRoute: typeof TurkDunyasiAkademikSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/arf/$threadId': {
@@ -506,18 +546,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiTtsRoute: ApiTtsRoute,
   TurkDunyasiIndexRoute: TurkDunyasiIndexRoute,
+  TurkDunyasiAkademikSlugRoute: TurkDunyasiAkademikSlugRoute,
   TurkDunyasiHaberSlugRoute: TurkDunyasiHaberSlugRoute,
+  TurkDunyasiKulturSlugRoute: TurkDunyasiKulturSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
