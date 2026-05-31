@@ -24,6 +24,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "İletişim",
     "nav.toggleMenu": "Menüyü Aç/Kapat",
+    "nav.join": "Üye Ol",
     "lang.label": "Dil",
 
     "footer.tagline": "Üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk.",
@@ -68,6 +69,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "Əlaqə",
     "nav.toggleMenu": "Menyunu Aç/Bağla",
+    "nav.join": "Üzv ol",
     "lang.label": "Dil",
 
     "footer.tagline": "Universitet tələbələrinin öyrənmə, istehsal və böyümə yolunda birlikdə güclənən bir icma.",
@@ -112,6 +114,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "Байланыс",
     "nav.toggleMenu": "Мәзірді ашу/жабу",
+    "nav.join": "Мүше болу",
     "lang.label": "Тіл",
 
     "footer.tagline": "Университет студенттерінің үйрену, өндіру және өсу жолында бірге күшейетін қауымдастығы.",
@@ -156,6 +159,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "Байланыш",
     "nav.toggleMenu": "Менюну ачуу/жабуу",
+    "nav.join": "Мүчө болуу",
     "lang.label": "Тил",
 
     "footer.tagline": "Университеттин студенттери үйрөнүү, өндүрүү жана өсүү жолунда бирге чыңалган коомчулук.",
@@ -200,6 +204,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "Aloqa",
     "nav.toggleMenu": "Menyuni ochish/yopish",
+    "nav.join": "A'zo bo'lish",
     "lang.label": "Til",
 
     "footer.tagline": "Universitet talabalarining oʻrganish, ishlab chiqarish va oʻsish yoʻlida birgalikda kuchayadigan jamoasi.",
@@ -244,6 +249,7 @@ const translations: Record<Lang, Dict> = {
     "nav.arf": "Arf",
     "nav.contact": "Habarlaşma",
     "nav.toggleMenu": "Menýuny aç/ýap",
+    "nav.join": "Agza bol",
     "lang.label": "Dil",
 
     "footer.tagline": "Uniwersitet talyplarynyň öwrenmek, öndürmek we ösmek ýolunda bilelikde güýçlenýän jemgyýeti.",
