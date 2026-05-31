@@ -3,6 +3,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import arfLogo from "@/assets/arf-avatar.png";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 const navLinks = [
   { to: "/", label: "Ana Sayfa" },
@@ -55,14 +56,17 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Menüyü Aç/Kapat"
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Right side: theme toggle + mobile menu */}
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <button
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:hidden"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menüyü Aç/Kapat"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}
