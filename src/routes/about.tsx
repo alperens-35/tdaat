@@ -197,10 +197,14 @@ function AboutPage() {
       {/* Stats */}
       <section className="w-full border-t border-border/50 bg-background py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-4 text-center">
+          <div className="grid gap-8 sm:grid-cols-5 text-center">
             <div>
               <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">130+</div>
               <div className="mt-2 text-sm text-muted-foreground">Aktif Üye</div>
+            </div>
+            <div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">60+</div>
+              <div className="mt-2 text-sm text-muted-foreground">Toplam Etkinlik</div>
             </div>
             <div>
               <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">{pastEvents.length}+</div>
