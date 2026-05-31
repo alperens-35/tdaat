@@ -130,20 +130,6 @@ export const pastEvents: EventItem[] = [
     endDate: "2025-11-21T16:00:00+03:00",
   },
   {
-    slug: "tarihi-dilcilik-konferansi-2025",
-    title: "Tarihî Dilcilik ve Türk Birliğinin Dil Modeli",
-    date: "14 Ekim 2025",
-    time: "—",
-    location: "EÜ Türk Dünyası Araştırmaları Enstitüsü",
-    category: "Konferans",
-    description:
-      "Kazakistanlı Prof. Dr. Bekzhan Abdualıulı'nın katılımıyla Türk dillerinin kök birliği üzerine akademik buluşma.",
-    longDescription:
-      "Ege Üniversitesi ile Kazakistan'ın L.N. Gumilev Avrasya Millî Üniversitesi arasındaki ikili ilişkiler kapsamında düzenlenen konferansta Prof. Dr. Bekzhan Abdualıulı; Türk Dünyasında ortak dil birliğinin önemini ve tarihî dilcilik perspektifinden Türk dillerinin kök birliğini ele aldı. Konferansı Prof. Dr. İbrahim Şahin (EÜ TDAE) modere etti; antroponimler ve toponimler üzerinden somut örnekler sunuldu.",
-    startDate: "2025-10-14T14:00:00+03:00",
-    endDate: "2025-10-14T16:00:00+03:00",
-  },
-  {
     slug: "ateizm-deizm-soylesisi-2025",
     title: "Türk Dünyası Bağlamında Ateizm ve Deizm",
     date: "14 Mayıs 2025",
