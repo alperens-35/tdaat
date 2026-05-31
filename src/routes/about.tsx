@@ -50,14 +50,21 @@ function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
               <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
-                Hakkımızda
+                Hikâyemiz
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Ege Üniversitesi Türk Dünyası Akademik Araştırmalar Topluluğu (TDAAT) 2025 yılında üniversitemiz bünyesinde kurulmuştur.
-                Dede Korkut'un sesiyle, Yusuf Has Hacip'in öğüdüyle, Bilge Kağan'ın izinde; kültürümüzü tanımak, yaşatmak ve paylaşmak için bir aradayız.
+                Türk Dünyası Akademik Araştırmalar Topluluğu, Mayıs 2025'te kurucu başkanımız Muharrem Turgut'un öncülüğünde Ege Üniversitesi Sağlık,
+                Kültür ve Spor Daire Başkanlığı'na bağlı bir öğrenci topluluğu olarak kuruldu.
+                Kuruluşumuz, Ege Üniversitesi'nin 70. kuruluş yılına ve öğrenci şehidimiz Fırat Yılmaz Çakıroğlu'nun şehadetinin 10. yılına denk gelen
+                anlamlı bir tevafuktur.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Panellerden sempozyumlara, kültürel gezilerden yayın çalışmalarına kadar birçok faaliyette Türk Dünyası'nın izini sürüyoruz.
+                Dede Korkut'un sesiyle, Yusuf Has Hacip'in öğüdüyle, Bilge Kağan'ın izinde; Türk halklarının ortak tarihi, dili, edebiyatı, kültürü ve
+                toplumsal yapıları üzerine disiplinlerarası araştırmalar yürütüyor; akademik üretimi artırmayı ve genç araştırmacıları teşvik etmeyi amaçlıyoruz.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                Etkinliklerimizin büyük çoğunluğunu Ege Üniversitesi Türk Dünyası Araştırmaları Enstitüsü (TDAE) ile iş birliği içinde gerçekleştiriyoruz.
+                Panellerden konferanslara, söyleşilerden sergi ve kültürel programlara uzanan zengin bir takvimle Türk Dünyası'nın izini sürüyoruz.
               </p>
             </div>
             <div className="flex items-center justify-center">
@@ -80,7 +87,7 @@ function AboutPage() {
           <ValueCard
             icon={Target}
             title="Misyon"
-            description="Türk Dünyası Akademik Araştırmalar Topluluğu’nun misyonu; üniversite gençliğini Türk dünyasının ortak tarih, kültür, dil ve medeniyet mirası etrafında bilinçlendirmek, düşünmeye ve üretmeye teşvik etmektir. Gençlerin akademik, entelektüel ve kültürel gelişimine katkı sağlayarak ortak Türk kimliği bilincini canlı tutmayı ve gelecek nesillere aktarmayı amaçlamaktadır."
+            description="Türk Dünyası Akademik Araştırmalar Topluluğu'nun misyonu; üniversite gençliğini Türk dünyasının ortak tarih, kültür, dil ve medeniyet mirası etrafında bilinçlendirmek, düşünmeye ve üretmeye teşvik etmektir. Gençlerin akademik, entelektüel ve kültürel gelişimine katkı sağlayarak ortak Türk kimliği bilincini canlı tutmayı ve gelecek nesillere aktarmayı amaçlamaktadır."
           />
           <ValueCard
             icon={Eye}
@@ -90,27 +97,130 @@ function AboutPage() {
           <ValueCard
             icon={Heart}
             title="Kültür"
-            description="Paylaşmak, dayanışma ve açık kaynak felsefesiyle birlikte büyümek."
+            description="Paylaşmak, dayanışma ve birlikte üretmek. Geleneksel müzik, dans, mutfak ve el sanatlarımızı yaşatırken; akademik birikimi gençliğin dinamizmiyle buluşturmak."
           />
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="w-full border-t border-border/50 bg-accent/20 py-16">
+      {/* Faaliyet Alanları */}
+      <section className="w-full border-y border-border/50 bg-accent/20 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-3 text-center">
+          <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
+            Faaliyet Alanlarımız
+          </h2>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "Seminer, panel, çalıştay, konferans ve sempozyumlar",
+              "Akademik makale, dergi ve bülten yayımlama",
+              "Türk Dünyası coğrafyasında saha araştırmaları",
+              "Uzman akademisyenlerle söyleşi ve buluşmalar",
+              "Geleneksel müzik, dans, mutfak ve el sanatları etkinlikleri",
+              "Belgesel ve film gösterimleri",
+              "Öğrencilere yönelik proje, sunum ve tematik yarışmalar",
+              "Resim ve kültürel objelerin yer aldığı sergiler",
+              "Türk Dünyası ülkelerinden konukların ağırlanması",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-lg border border-border/60 bg-card p-4 text-sm leading-relaxed text-muted-foreground"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Öne çıkanlar */}
+      <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-2">
+          <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
+            Öne Çıkanlar
+          </h2>
+          <p className="text-muted-foreground">
+            Kuruluşumuzdan bugüne ortaya koyduğumuz bazı dönüm noktaları.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <HighlightCard
+            icon={Calendar}
+            title="İlk etkinlik"
+            description="14 Mayıs 2025'te Prof. Dr. İsmail Yakıt ile 'Türk Dünyası Bağlamında Ateizm ve Deizm' söyleşisi."
+          />
+          <HighlightCard
+            icon={Globe2}
+            title="Uluslararası konuk"
+            description="Kazakistan L.N. Gumilev Avrasya Millî Üniversitesi'nden Prof. Dr. Bekzhan Abdualıulı'nın katıldığı dil konferansı."
+          />
+          <HighlightCard
+            icon={Award}
+            title="Kapsamlı panel"
+            description="EÜ Rektörü Prof. Dr. Musa Alcı'nın katılımıyla 'Türk Dünyasında Ortak Türk Medyası' paneli."
+          />
+          <HighlightCard
+            icon={BookOpen}
+            title="Doğu Türkistan"
+            description="Prof. Dr. Erkin Emet'in konuşmacı olduğu panel ile birlikte Uygur kıyafeti ve resim sergisi."
+          />
+        </div>
+      </section>
+
+      {/* İş birlikleri */}
+      <section className="w-full border-y border-border/50 bg-accent/20 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
+            İş Birliklerimiz
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Akademik üretimimizi güçlendiren ortaklarımız.
+          </p>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "Ege Üniversitesi Türk Dünyası Araştırmaları Enstitüsü (TDAE)",
+              "Ege Üniversitesi Sağlık, Kültür ve Spor Daire Başkanlığı",
+              "ÜNİDES — Üniversite İletişim Derneği",
+              "L.N. Gumilev Avrasya Millî Üniversitesi (Kazakistan)",
+              "Ankara Üniversitesi",
+              "Akdeniz Üniversitesi",
+            ].map((p) => (
+              <li
+                key={p}
+                className="rounded-lg border border-border/60 bg-background px-4 py-3 text-sm font-medium text-foreground"
+              >
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="w-full border-t border-border/50 bg-background py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-4 text-center">
             <div>
               <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">130+</div>
               <div className="mt-2 text-sm text-muted-foreground">Aktif Üye</div>
             </div>
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">60+</div>
-              <div className="mt-2 text-sm text-muted-foreground">Düzenlenen Etkinlik</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">{pastEvents.length}+</div>
+              <div className="mt-2 text-sm text-muted-foreground">Akademik Etkinlik</div>
             </div>
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">2</div>
-              <div className="mt-2 text-sm text-muted-foreground">Tamamlanan Proje</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">6+</div>
+              <div className="mt-2 text-sm text-muted-foreground">Akademik Ortak Kurum</div>
             </div>
+            <div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">2025</div>
+              <div className="mt-2 text-sm text-muted-foreground">Kuruluş Yılı</div>
+            </div>
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Button asChild className="font-[var(--font-heading)]">
+              <Link to="/events">
+                Etkinliklerimizi Gör <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
