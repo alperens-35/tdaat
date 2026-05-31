@@ -207,7 +207,7 @@ function AboutPage() {
               <div className="mt-2 text-sm text-muted-foreground">Akademik Etkinlik</div>
             </div>
             <div>
-              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">6+</div>
+              <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">7+</div>
               <div className="mt-2 text-sm text-muted-foreground">Akademik Ortak Kurum</div>
             </div>
             <div>
