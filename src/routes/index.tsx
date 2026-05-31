@@ -172,8 +172,10 @@ function Index() {
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">{event.location}</p>
                 <div className="mt-auto pt-4">
-                  <Button variant="outline" size="sm" className="w-full font-[var(--font-heading)]">
-                    {t("home.details")}
+                  <Button variant="outline" size="sm" asChild className="w-full font-[var(--font-heading)]">
+                    <Link to="/events/$slug" params={{ slug: event.slug }}>
+                      {t("home.details")}
+                    </Link>
                   </Button>
                 </div>
               </div>
