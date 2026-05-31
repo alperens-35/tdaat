@@ -149,8 +149,8 @@ function AboutPage() {
           />
           <HighlightCard
             icon={Globe2}
-            title="Uluslararası konuk"
-            description="Medya panelimizde EÜ Rektörü Prof. Dr. Musa Alcı, TDAE Müdürü Prof. Dr. Atıf Akgün ve Azerbaycanlı gazeteci Agil Alesger katılımcılar arasındaydı."
+            title="Uluslararası konuklar"
+            description="Medya panelimizin katılımcıları: Gulsum Khalilova (Tercüman Medya Genel Yayın Yönetmeni), Zafer Karatay (Kırım Tatar Millî Meclisi Türkiye Temsilcisi), Gulsum Mustafova (Kuzey Makedonya Büyükelçi Özel Kalemi), Dr. Murtaza Ali (Türkmen TV Genel Yayın Yönetmeni), Meruert Pambetova ve Agil Alesger (Yeni Çağ Medya Grubu Yönetim Kurulu Başkanı)."
           />
           <HighlightCard
             icon={Award}
