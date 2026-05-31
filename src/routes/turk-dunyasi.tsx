@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ChevronRight, Tag } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
 import { useI18n } from "@/lib/i18n";
@@ -96,9 +96,11 @@ function NewsGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {newsItems.map((item) => (
-        <article
+        <Link
           key={item.id}
-          className="flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/30 hover:shadow-md"
+          to="/turk-dunyasi/haber/$slug"
+          params={{ slug: item.id }}
+          className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-all hover:border-primary/40 hover:shadow-md"
         >
           <div className="flex items-center justify-between">
             <Badge variant="outline" className="text-xs">
@@ -109,20 +111,23 @@ function NewsGrid() {
               {item.flag}
             </span>
           </div>
-          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold leading-snug text-foreground">
+          <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold leading-snug text-foreground group-hover:text-primary">
             {item.title}
           </h3>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4">
             {item.summary}
           </p>
-          <div className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1">
               <Calendar className="h-3 w-3" />
               {item.date}
             </span>
-            <span className="truncate">{item.source}</span>
+            <span className="inline-flex items-center gap-1 text-primary opacity-0 transition-opacity group-hover:opacity-100">
+              Devamını oku
+              <ArrowRight className="h-3 w-3" />
+            </span>
           </div>
-        </article>
+        </Link>
       ))}
     </div>
   );
