@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { FlagIcon } from "@/components/FlagIcon";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
 import { useI18n } from "@/lib/i18n";
 
