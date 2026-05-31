@@ -143,8 +143,8 @@ export const cultureItems: CultureItem[] = [
     id: "bozkır-kültürü",
     title: "Bozkır Kültürü",
     description:
-      "Ata yurdu Orta Asya bozkırlarından süzülerek gelen yaşam tarzı, konar-göçer hayat, atçılık ve çadır geleneği. Günümüzde hala Kırgızistan, Kazakistan ve Moğolistan'da canlılığını koruyor.",
-    origin: "Orta Asya",
+      "Ata yurdu Türkistan bozkırlarından süzülerek gelen yaşam tarzı, konar-göçer hayat, atçılık ve çadır geleneği. Günümüzde hala Kırgızistan, Kazakistan ve Moğolistan'da canlılığını koruyor.",
+    origin: "Türkistan",
     flag: "🐎",
   },
   {
