@@ -43,7 +43,7 @@ export const newsItems: NewsItem[] = [
     source: "Türk Devletleri Teşkilatı",
     date: "25 Mayıs 2026",
     country: "Kazakistan",
-    flag: "🇰🇿",
+    flag: "kz",
     category: "education",
   },
   {
@@ -59,7 +59,7 @@ export const newsItems: NewsItem[] = [
     source: "Türkmenistan Kültür Bakanlığı",
     date: "18 Mayıs 2026",
     country: "Türkmenistan",
-    flag: "🇹🇲",
+    flag: "tm",
     category: "culture",
   },
   {
@@ -76,7 +76,7 @@ export const newsItems: NewsItem[] = [
     source: "Azerbaycan Enerji Bakanlığı",
     date: "10 Mayıs 2026",
     country: "Azerbaycan",
-    flag: "🇦🇿",
+    flag: "az",
     category: "economy",
   },
   {
@@ -93,7 +93,7 @@ export const newsItems: NewsItem[] = [
     source: "Kırgızistan Millî Kütüphanesi",
     date: "3 Mayıs 2026",
     country: "Kırgızistan",
-    flag: "🇰🇬",
+    flag: "kg",
     category: "science",
   },
   {
@@ -110,7 +110,7 @@ export const newsItems: NewsItem[] = [
     source: "Özbekistan Turizm Bakanlığı",
     date: "28 Nisan 2026",
     country: "Özbekistan",
-    flag: "🇺🇿",
+    flag: "uz",
     category: "culture",
   },
   {
@@ -127,7 +127,7 @@ export const newsItems: NewsItem[] = [
     source: "İstanbul Kültür ve Turizm Müdürlüğü",
     date: "15 Nisan 2026",
     country: "Türkiye",
-    flag: "🇹🇷",
+    flag: "tr",
     category: "culture",
   },
 ];
