@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/turk-dunyasi")({
+export const Route = createFileRoute("/turk-dunyasi/")({
   component: TurkDunyasiPage,
   head: () => ({
     links: [{ rel: "canonical", href: "https://tdaat.lovable.app/turk-dunyasi" }],
