@@ -28,6 +28,7 @@ import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
 import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
+import { Route as TurkDunyasiHaberSlugRouteImport } from './routes/turk-dunyasi.haber.$slug'
 import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
 const UyeOlRoute = UyeOlRouteImport.update({
@@ -124,6 +125,11 @@ const AuthenticatedArfIndexRoute = AuthenticatedArfIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedArfRoute,
 } as any)
+const TurkDunyasiHaberSlugRoute = TurkDunyasiHaberSlugRouteImport.update({
+  id: '/haber/$slug',
+  path: '/haber/$slug',
+  getParentRoute: () => TurkDunyasiRoute,
+} as any)
 const AuthenticatedArfThreadIdRoute =
   AuthenticatedArfThreadIdRouteImport.update({
     id: '/$threadId',
@@ -142,7 +148,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
   '/team': typeof TeamRoute
-  '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/turk-dunyasi': typeof TurkDunyasiRouteWithChildren
   '/uye-ol': typeof UyeOlRoute
   '/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
@@ -150,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesByTo {
@@ -163,13 +170,14 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
   '/team': typeof TeamRoute
-  '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/turk-dunyasi': typeof TurkDunyasiRouteWithChildren
   '/uye-ol': typeof UyeOlRoute
   '/api/chat': typeof ApiChatRoute
   '/api/tts': typeof ApiTtsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/arf': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesById {
@@ -185,7 +193,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
   '/team': typeof TeamRoute
-  '/turk-dunyasi': typeof TurkDunyasiRoute
+  '/turk-dunyasi': typeof TurkDunyasiRouteWithChildren
   '/uye-ol': typeof UyeOlRoute
   '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
   '/api/chat': typeof ApiChatRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
+  '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRouteTypes {
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/events/$slug'
     | '/arf/$threadId'
+    | '/turk-dunyasi/haber/$slug'
     | '/arf/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -236,6 +246,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/events/$slug'
     | '/arf/$threadId'
+    | '/turk-dunyasi/haber/$slug'
     | '/arf'
   id:
     | '__root__'
@@ -258,6 +269,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/events/$slug'
     | '/_authenticated/arf/$threadId'
+    | '/turk-dunyasi/haber/$slug'
     | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
 }
@@ -273,7 +285,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SssRoute: typeof SssRoute
   TeamRoute: typeof TeamRoute
-  TurkDunyasiRoute: typeof TurkDunyasiRoute
+  TurkDunyasiRoute: typeof TurkDunyasiRouteWithChildren
   UyeOlRoute: typeof UyeOlRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiTtsRoute: typeof ApiTtsRoute
@@ -414,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArfIndexRouteImport
       parentRoute: typeof AuthenticatedArfRoute
     }
+    '/turk-dunyasi/haber/$slug': {
+      id: '/turk-dunyasi/haber/$slug'
+      path: '/haber/$slug'
+      fullPath: '/turk-dunyasi/haber/$slug'
+      preLoaderRoute: typeof TurkDunyasiHaberSlugRouteImport
+      parentRoute: typeof TurkDunyasiRoute
+    }
     '/_authenticated/arf/$threadId': {
       id: '/_authenticated/arf/$threadId'
       path: '/$threadId'
@@ -470,6 +489,18 @@ const EventsRouteChildren: EventsRouteChildren = {
 const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
+interface TurkDunyasiRouteChildren {
+  TurkDunyasiHaberSlugRoute: typeof TurkDunyasiHaberSlugRoute
+}
+
+const TurkDunyasiRouteChildren: TurkDunyasiRouteChildren = {
+  TurkDunyasiHaberSlugRoute: TurkDunyasiHaberSlugRoute,
+}
+
+const TurkDunyasiRouteWithChildren = TurkDunyasiRoute._addFileChildren(
+  TurkDunyasiRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
@@ -482,7 +513,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SssRoute: SssRoute,
   TeamRoute: TeamRoute,
-  TurkDunyasiRoute: TurkDunyasiRoute,
+  TurkDunyasiRoute: TurkDunyasiRouteWithChildren,
   UyeOlRoute: UyeOlRoute,
   ApiChatRoute: ApiChatRoute,
   ApiTtsRoute: ApiTtsRoute,
@@ -490,13 +521,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
