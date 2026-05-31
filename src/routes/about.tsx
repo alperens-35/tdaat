@@ -53,7 +53,7 @@ function AboutPage() {
                 Hikâyemiz
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Türk Dünyası Akademik Araştırmalar Topluluğu, Mayıs 2025'te kurucu başkanımız Muharrem Turgut'un öncülüğünde Ege Üniversitesi Sağlık,
+                Türk Dünyası Akademik Araştırmalar Topluluğu, Mayıs 2025'te Ege Üniversitesi Sağlık,
                 Kültür ve Spor Daire Başkanlığı'na bağlı bir öğrenci topluluğu olarak kuruldu.
                 Kuruluşumuz, Ege Üniversitesi'nin 70. kuruluş yılına ve öğrenci şehidimiz Fırat Yılmaz Çakıroğlu'nun şehadetinin 10. yılına denk gelen
                 anlamlı bir tevafuktur.
