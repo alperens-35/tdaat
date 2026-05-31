@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { upcomingEvents, pastEvents } from "@/lib/events-data";
+import { blogPosts } from "@/lib/blog-data";
 
 const BASE_URL = "https://tdaat.lovable.app";
 
@@ -21,6 +23,19 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/events", changefreq: "weekly", priority: "0.8" },
           { path: "/team", changefreq: "monthly", priority: "0.7" },
           { path: "/turk-dunyasi", changefreq: "monthly", priority: "0.8" },
+          { path: "/uye-ol", changefreq: "monthly", priority: "0.9" },
+          { path: "/galeri", changefreq: "monthly", priority: "0.6" },
+          { path: "/sss", changefreq: "monthly", priority: "0.6" },
+          ...[...upcomingEvents, ...pastEvents].map((e) => ({
+            path: `/events/${e.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
+          ...blogPosts.map((p) => ({
+            path: `/blog/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.6",
+          })),
         ];
 
         const urls = entries.map((e) =>
