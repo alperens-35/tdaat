@@ -51,23 +51,8 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const upcomingEvents = [
-  {
-    title: "Tanışma Etkinliği: Turan Toyu",
-    date: "27 Eylül 2026",
-    location: "İnciraltı Kent Ormanı",
-  },
-  {
-    title: "Makale Okuması",
-    date: "2 Ekim 2026",
-    location: "Eğitim+Spor Kafe",
-  },
-  {
-    title: "3. Geleneksel Mangala Turnuvası",
-    date: "21 Ekim 2026",
-    location: "Kış Bahçesi Kafe",
-  },
-];
+import { upcomingEvents as upcomingEventsData } from "@/lib/events-data";
+const upcomingEvents = upcomingEventsData.slice(0, 3);
 
 const teamPreview = [
   { name: "Muharrem Turgut", role: "Başkan", initial: "MT" },
