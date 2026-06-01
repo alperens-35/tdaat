@@ -68,11 +68,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/takvim" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                  Türk Dünyası Takvimi
-                </Link>
-              </li>
-              <li>
                 <Link to="/uye-ol" className="text-sm font-medium text-primary transition-colors hover:underline">
                   Üye Ol
                 </Link>
