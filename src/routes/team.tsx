@@ -83,13 +83,6 @@ const team = [
     color: "bg-fuchsia-100 text-fuchsia-700",
     social: { linkedin: "#", twitter: "#" },
   },
-  {
-    name: "Yusuf Alperen Kılınçdoğan",
-    role: "Satın Alma",
-    bio: "Satın alma operasyonları ve tedarik zinciri yönetimi.",
-    color: "bg-indigo-100 text-indigo-700",
-    social: { linkedin: "#", twitter: "#" },
-  },
 ];
 
 function TeamPage() {
