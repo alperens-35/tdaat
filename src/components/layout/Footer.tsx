@@ -159,7 +159,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border/50 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} TDAAT. {t("footer.rights")}
+          © {new Date().getFullYear()} TDAAT. {t("footer.rights")} By Y.A.K.
         </div>
       </div>
     </footer>
