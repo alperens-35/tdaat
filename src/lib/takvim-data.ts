@@ -37,6 +37,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "09-13", title: "Sakarya Meydan Muharebesi Zaferi", category: "tarih", description: "13 Eylül 1921'de sona eren ve Kurtuluş Savaşı'nın dönüm noktası olan zafer.", country: "Türkiye" },
   { date: "10-27", title: "Bağımsızlık Günü", category: "bayram", description: "Türkmenistan'ın bağımsızlık günü (1991).", country: "Türkmenistan" },
   { date: "10-29", title: "Cumhuriyet Bayramı", category: "bayram", description: "Türkiye Cumhuriyeti'nin ilanı (1923).", country: "Türkiye" },
+  { date: "11-02", title: "Karaçay Sürgünü'nü Anma Günü", category: "anma", description: "2 Kasım 1943'te Sovyet yönetimi tarafından Karaçay Türklerinin Orta Asya ve Sibirya'ya topyekûn sürgün edilmesinin yıl dönümü.", country: "Karaçay" },
   { date: "11-08", title: "Bayrak Günü", category: "kultur", description: "Azerbaycan Devlet Bayrağı Günü.", country: "Azerbaycan" },
   { date: "11-09", title: "Zafer Günü", category: "tarih", description: "Karabağ Zaferi.", country: "Azerbaycan" },
   { date: "11-10", title: "Atatürk'ü Anma Günü", category: "anma", description: "Mustafa Kemal Atatürk'ün vefatının yıl dönümü.", country: "Türkiye" },
