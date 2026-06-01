@@ -129,9 +129,6 @@ function TeamPage() {
                   {member.name}
                 </h2>
                 <p className="text-xs font-medium text-primary">{member.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {member.bio}
-                </p>
                 <div className="mt-auto flex items-center justify-center gap-2 pt-4">
                   {member.social.linkedin && (
                     <a
