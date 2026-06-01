@@ -142,6 +142,29 @@ function ContactPage() {
                   </div>
                 </div>
               </div>
+
+              {/* SSS */}
+              <div id="sss" className="mt-10">
+                <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground">
+                  Sıkça Sorulan Sorular
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Aklındaki soruların büyük çoğunluğunun cevabı burada.
+                  Bulamadıklarını yandaki form üzerinden bize iletebilirsin.
+                </p>
+                <Accordion type="single" collapsible className="mt-6">
+                  {FAQS.map((f, i) => (
+                    <AccordionItem key={i} value={`item-${i}`}>
+                      <AccordionTrigger className="text-left font-[var(--font-heading)]">
+                        {f.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        {f.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
             </div>
 
             {/* Form */}
