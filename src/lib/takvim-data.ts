@@ -34,7 +34,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "11-08", title: "Bayrak Günü", category: "kultur", description: "Azerbaycan Devlet Bayrağı Günü.", country: "Azerbaycan" },
   { date: "11-09", title: "Zafer Günü", category: "tarih", description: "Karabağ Zaferi.", country: "Azerbaycan" },
   { date: "11-10", title: "Atatürk'ü Anma Günü", category: "anma", description: "Mustafa Kemal Atatürk'ün vefatının yıl dönümü.", country: "Türkiye" },
-  { date: "12-12", title: "Neftçala Cumhuriyeti Günü", category: "tarih", description: "Türk dünyası tarihi anma günü." },
+  
   { date: "12-16", title: "Bağımsızlık Günü", category: "bayram", description: "Kazakistan'ın bağımsızlık günü (1991).", country: "Kazakistan" },
 ];
 
