@@ -36,7 +36,7 @@ export const categoryLabels: Record<CalendarEvent["category"], string> = {
   bayram: "Bayram",
   anma: "Anma",
   kultur: "Kültür",
-  tarih: "Tarih",
+  tarih: "Zafer",
 };
 
 export const categoryColors: Record<CalendarEvent["category"], string> = {
