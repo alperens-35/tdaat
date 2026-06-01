@@ -69,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/takvim" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                  {"\u200B"}
+                  Türk Dünyası Takvimi
                 </Link>
               </li>
               <li>

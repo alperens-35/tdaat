@@ -118,7 +118,7 @@ function CalendarPreview() {
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4 text-primary" />
           <h2 className="font-[var(--font-heading)] text-base font-semibold text-foreground">
-            {"\u200B"}
+            Türk Dünyası Takvimi
           </h2>
         </div>
         <Link
