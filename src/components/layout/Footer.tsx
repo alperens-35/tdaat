@@ -154,6 +154,11 @@ export function Footer() {
                   {t("footer.location")}
                 </a>
               </li>
+              <li>
+                <Link to="/contact" hash="sss" className="transition-colors hover:text-primary">
+                  SSS
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
