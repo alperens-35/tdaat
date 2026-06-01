@@ -19,7 +19,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "03-31", title: "Azerbaycanlıların Soykırımı Günü", category: "anma", description: "31 Mart 1918'de Bakü ve çevresinde Ermeni-Bolşevik kuvvetleri tarafından on binlerce Azerbaycan Türkünün katledildiği soykırımın anma günü.", country: "Azerbaycan" },
   { date: "04-05", title: "Barın Katliamı'nı Anma Günü", category: "anma", description: "5 Nisan 1990'da Doğu Türkistan'ın Barın kasabasında Çin yönetimine karşı ayaklanan Uygur Türklerine yönelik gerçekleştirilen katliam.", country: "Doğu Türkistan" },
   { date: "04-23", title: "Ulusal Egemenlik ve Çocuk Bayramı", category: "bayram", description: "TBMM'nin açılışı ve çocuklara armağan edilen bayram.", country: "Türkiye" },
-  { date: "05-03", title: "Türkçüler Bayramı", category: "bayram", description: "1944 Türkçülük davası ve Türk milliyetçiliği için anma ve kutlama günü." },
+  { date: "05-03", title: "Türkçülük Bayramı", category: "bayram", description: "1944 Türkçülük davası ve Türk milliyetçiliği için anma ve kutlama günü." },
   
   { date: "05-18", title: "Kırım Tatar Sürgünü'nü Anma Günü", category: "anma", description: "1944 Kırım Tatar sürgününün anma günü.", country: "Kırım" },
   { date: "05-19", title: "Atatürk'ü Anma, Gençlik ve Spor Bayramı", category: "bayram", description: "Atatürk'ün Samsun'a çıkışı.", country: "Türkiye" },
