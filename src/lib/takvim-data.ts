@@ -27,7 +27,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "08-31", title: "Bağımsızlık Günü", category: "bayram", description: "Kırgızistan'ın bağımsızlık günü (1991).", country: "Kırgızistan" },
   { date: "09-01", title: "Bağımsızlık Günü", category: "bayram", description: "Özbekistan'ın bağımsızlık günü (1991).", country: "Özbekistan" },
   { date: "04-29", title: "Kut'ül Amare Zaferi", category: "tarih", description: "29 Nisan 1916'da Halil Paşa komutasındaki Osmanlı ordusunun İngiliz kuvvetlerini teslim aldığı büyük zafer.", country: "Türkiye" },
-  { date: "07-23", title: "Talas Savaşı", category: "tarih", description: "751'de Karluk Türklerinin de katılımıyla Çinlilere karşı kazanılan zafer; Türklerin İslam ile buluşmasının yolunu açtı." },
+  
   { date: "09-13", title: "Sakarya Meydan Muharebesi Zaferi", category: "tarih", description: "13 Eylül 1921'de sona eren ve Kurtuluş Savaşı'nın dönüm noktası olan zafer.", country: "Türkiye" },
   { date: "10-27", title: "Bağımsızlık Günü", category: "bayram", description: "Türkmenistan'ın bağımsızlık günü (1991).", country: "Türkmenistan" },
   { date: "10-29", title: "Cumhuriyet Bayramı", category: "bayram", description: "Türkiye Cumhuriyeti'nin ilanı (1923).", country: "Türkiye" },
