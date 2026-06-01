@@ -68,11 +68,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/contact" hash="sss" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                  SSS
-                </Link>
-              </li>
-              <li>
                 <Link to="/uye-ol" className="text-sm font-medium text-primary transition-colors hover:underline">
                   Üye Ol
                 </Link>
@@ -158,6 +153,11 @@ export function Footer() {
                 >
                   {t("footer.location")}
                 </a>
+              </li>
+              <li>
+                <Link to="/contact" hash="sss" className="transition-colors hover:text-primary">
+                  SSS
+                </Link>
               </li>
             </ul>
           </div>
