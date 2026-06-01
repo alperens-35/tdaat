@@ -154,10 +154,17 @@ export function ArfWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Arf'a sor"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-primary/30 transition-transform hover:scale-105"
+          aria-label="Arf'a sor — sesli ya da yazılı"
+          title="Arf'a sor — sesli ya da yazılı"
+          className="group fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-primary/30 transition-transform hover:scale-105"
         >
           <img src={arfAvatar} alt="" className="h-10 w-10 rounded-full" />
+          <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-background text-primary ring-2 ring-primary">
+            <Mic className="h-3 w-3" />
+          </span>
+          <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-background opacity-0 shadow-md transition-opacity group-hover:opacity-100 sm:block">
+            Arf'a sor — sesli de konuşabilirsin
+          </span>
         </button>
       )}
 
