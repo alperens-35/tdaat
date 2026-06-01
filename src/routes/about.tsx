@@ -34,7 +34,7 @@ function AboutPage() {
       {/* Header */}
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl text-left">
             Hakkımızda
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-left">

@@ -49,7 +49,7 @@ function TurkDunyasiPage() {
           <Globe className="mr-1 h-3 w-3" />
           {t("turkWorld.badge")}
         </Badge>
-        <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl text-left">
           {t("nav.turkWorld")}
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

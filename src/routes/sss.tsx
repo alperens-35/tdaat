@@ -67,7 +67,7 @@ const FAQS = [
 function FaqPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+      <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl text-left">
         Sıkça Sorulan Sorular
       </h1>
       <p className="mt-4 text-lg text-muted-foreground">
