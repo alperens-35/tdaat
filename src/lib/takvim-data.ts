@@ -26,6 +26,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "05-28", title: "Cumhuriyet Günü", category: "bayram", description: "Azerbaycan Demokratik Cumhuriyeti'nin ilanı (1918).", country: "Azerbaycan" },
   { date: "05-29", title: "İstanbul'un Fethi", category: "tarih", description: "29 Mayıs 1453'te Fatih Sultan Mehmet tarafından İstanbul'un fethi.", country: "Türkiye" },
   { date: "06-15", title: "Türkmenistan Bilim Günü", category: "kultur", description: "Türkmenistan'da bilim ve eğitim bayramı.", country: "Türkmenistan" },
+  { date: "07-20", title: "Barış ve Özgürlük Bayramı", category: "bayram", description: "20 Temmuz 1974'te Türk Silahlı Kuvvetleri'nin Kıbrıs Barış Harekâtı ile Kıbrıs Türklerini soykırımdan kurtarmasının yıl dönümü.", country: "KKTC" },
   
   { date: "08-23", title: "Preveze Deniz Zaferi", category: "tarih", description: "1538'de Barbaros Hayreddin Paşa komutasındaki Osmanlı donanmasının Haçlı donanmasına karşı kazandığı zafer.", country: "Türkiye" },
   { date: "08-26", title: "Malazgirt Zaferi", category: "tarih", description: "26 Ağustos 1071'de Sultan Alp Arslan'ın Bizans ordusuna karşı kazandığı, Anadolu'nun kapılarını Türklere açan zafer.", country: "Türkiye" },
