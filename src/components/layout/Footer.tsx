@@ -26,12 +26,6 @@ export function Footer() {
             <p className="mt-3 max-w-xs text-sm text-muted-foreground leading-relaxed">
               {t("footer.tagline")}
             </p>
-            <div className="mt-5 max-w-xs">
-              <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
-                Bültenimize abone ol
-              </h3>
-              <NewsletterForm />
-            </div>
           </div>
 
 
@@ -160,6 +154,12 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+            <div className="mt-5 max-w-xs">
+              <h3 className="font-[var(--font-heading)] text-sm font-semibold tracking-wide text-foreground">
+                Bültenimize abone ol
+              </h3>
+              <NewsletterForm />
+            </div>
           </div>
         </div>
 
