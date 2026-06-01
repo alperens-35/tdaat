@@ -13,6 +13,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "03-18", title: "Çanakkale Zaferi", category: "tarih", description: "18 Mart 1915 Çanakkale Deniz Zaferi.", country: "Türkiye" },
   { date: "03-21", title: "Nevruz Bayramı", category: "bayram", description: "Türk dünyasının ortak baharın gelişi bayramı." },
   { date: "04-23", title: "Ulusal Egemenlik ve Çocuk Bayramı", category: "bayram", description: "TBMM'nin açılışı ve çocuklara armağan edilen bayram.", country: "Türkiye" },
+  { date: "05-03", title: "Türkçüler Günü", category: "kultur", description: "1944 Türkçülük davası ve Türk milliyetçiliği için anma ve kutlama günü." },
   { date: "05-09", title: "Zafer Bayramı", category: "bayram", description: "II. Dünya Savaşı zaferi.", country: "Kazakistan / Kırgızistan" },
   { date: "05-18", title: "Kırım Tatar Sürgünü'nü Anma Günü", category: "anma", description: "1944 Kırım Tatar sürgününün anma günü.", country: "Kırım" },
   { date: "05-19", title: "Atatürk'ü Anma, Gençlik ve Spor Bayramı", category: "bayram", description: "Atatürk'ün Samsun'a çıkışı.", country: "Türkiye" },
