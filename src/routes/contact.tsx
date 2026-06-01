@@ -220,28 +220,7 @@ function ContactPage() {
         </div>
       </section>
 
-      {/* SSS */}
-      <section id="sss" className="mx-auto w-full max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
-        <h2 className="font-[var(--font-heading)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Sıkça Sorulan Sorular
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-          Aklındaki soruların büyük çoğunluğunun cevabı burada. Bulamadıklarını
-          yukarıdaki form üzerinden bize iletebilirsin.
-        </p>
-        <Accordion type="single" collapsible className="mt-8">
-          {FAQS.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`}>
-              <AccordionTrigger className="text-left font-[var(--font-heading)]">
-                {f.q}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
-                {f.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </section>
     </div>
   );
 }
+
