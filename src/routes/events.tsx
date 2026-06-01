@@ -120,7 +120,7 @@ function EventsPage() {
           <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Etkinlikler
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-left">
             Konferanslar, paneller, makale okumaları, Türk sporları ve daha niceleri seni bekliyor.
             Kendini geliştir, yeni insanlar tanı, deneyim kazan.
           </p>

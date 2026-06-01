@@ -47,7 +47,7 @@ function ContactPage() {
           <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             İletişim
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-left">
             Soruların, önerilerin veya işbirliği tekliflerin mi var? Bize ulaş,
             en kısa sürede dönüş yapalım.
           </p>
