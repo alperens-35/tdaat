@@ -18,11 +18,16 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "05-18", title: "Kırım Tatar Sürgünü'nü Anma Günü", category: "anma", description: "1944 Kırım Tatar sürgününün anma günü.", country: "Kırım" },
   { date: "05-19", title: "Atatürk'ü Anma, Gençlik ve Spor Bayramı", category: "bayram", description: "Atatürk'ün Samsun'a çıkışı.", country: "Türkiye" },
   { date: "05-28", title: "Cumhuriyet Günü", category: "bayram", description: "Azerbaycan Demokratik Cumhuriyeti'nin ilanı (1918).", country: "Azerbaycan" },
+  { date: "05-29", title: "İstanbul'un Fethi", category: "tarih", description: "29 Mayıs 1453'te Fatih Sultan Mehmet tarafından İstanbul'un fethi.", country: "Türkiye" },
   { date: "06-15", title: "Türkmenistan Bilim Günü", category: "kultur", description: "Türkmenistan'da bilim ve eğitim bayramı.", country: "Türkmenistan" },
+  { date: "07-04", title: "Otlukbeli Zaferi", category: "tarih", description: "1473'te Fatih Sultan Mehmet'in Akkoyunlu hükümdarı Uzun Hasan'a karşı kazandığı zafer.", country: "Türkiye" },
+  { date: "08-23", title: "Preveze Deniz Zaferi", category: "tarih", description: "1538'de Barbaros Hayreddin Paşa komutasındaki Osmanlı donanmasının Haçlı donanmasına karşı kazandığı zafer.", country: "Türkiye" },
+  { date: "08-26", title: "Malazgirt Zaferi", category: "tarih", description: "26 Ağustos 1071'de Sultan Alp Arslan'ın Bizans ordusuna karşı kazandığı, Anadolu'nun kapılarını Türklere açan zafer.", country: "Türkiye" },
   { date: "08-30", title: "Zafer Bayramı", category: "bayram", description: "30 Ağustos 1922 Büyük Taarruz zaferi.", country: "Türkiye" },
   { date: "08-31", title: "Bağımsızlık Günü", category: "bayram", description: "Kırgızistan'ın bağımsızlık günü (1991).", country: "Kırgızistan" },
   { date: "09-01", title: "Bağımsızlık Günü", category: "bayram", description: "Özbekistan'ın bağımsızlık günü (1991).", country: "Özbekistan" },
-  
+  { date: "09-09", title: "Kut'ül Amare Zaferi (Kuruluş)", category: "tarih", description: "Talas Savaşı (751) — Karluk Türklerinin de katılımıyla Çinlilere karşı kazanılan zafer, Türklerin İslam ile buluşmasının yolunu açtı." },
+  { date: "09-13", title: "Sakarya Meydan Muharebesi Zaferi", category: "tarih", description: "13 Eylül 1921'de sona eren ve Kurtuluş Savaşı'nın dönüm noktası olan zafer.", country: "Türkiye" },
   { date: "10-27", title: "Bağımsızlık Günü", category: "bayram", description: "Türkmenistan'ın bağımsızlık günü (1991).", country: "Türkmenistan" },
   { date: "10-29", title: "Cumhuriyet Bayramı", category: "bayram", description: "Türkiye Cumhuriyeti'nin ilanı (1923).", country: "Türkiye" },
   { date: "11-08", title: "Bayrak Günü", category: "kultur", description: "Azerbaycan Devlet Bayrağı Günü.", country: "Azerbaycan" },
@@ -31,6 +36,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "12-12", title: "Neftçala Cumhuriyeti Günü", category: "tarih", description: "Türk dünyası tarihi anma günü." },
   { date: "12-16", title: "Bağımsızlık Günü", category: "bayram", description: "Kazakistan'ın bağımsızlık günü (1991).", country: "Kazakistan" },
 ];
+
 
 export const categoryLabels: Record<CalendarEvent["category"], string> = {
   bayram: "Bayram",
