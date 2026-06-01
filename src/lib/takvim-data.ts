@@ -30,6 +30,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "08-23", title: "Preveze Deniz Zaferi", category: "tarih", description: "1538'de Barbaros Hayreddin Paşa komutasındaki Osmanlı donanmasının Haçlı donanmasına karşı kazandığı zafer.", country: "Türkiye" },
   { date: "08-26", title: "Malazgirt Zaferi", category: "tarih", description: "26 Ağustos 1071'de Sultan Alp Arslan'ın Bizans ordusuna karşı kazandığı, Anadolu'nun kapılarını Türklere açan zafer.", country: "Türkiye" },
   { date: "08-30", title: "Zafer Bayramı", category: "bayram", description: "30 Ağustos 1922 Büyük Taarruz zaferi.", country: "Türkiye" },
+  { date: "09-09", title: "İzmir'in Kurtuluşu", category: "tarih", description: "9 Eylül 1922'de Türk ordusunun İzmir'e girerek şehri Yunan işgalinden kurtarmasının yıl dönümü.", country: "Türkiye" },
   { date: "08-31", title: "Bağımsızlık Günü", category: "bayram", description: "Kırgızistan'ın bağımsızlık günü (1991).", country: "Kırgızistan" },
   { date: "09-01", title: "Bağımsızlık Günü", category: "bayram", description: "Özbekistan'ın bağımsızlık günü (1991).", country: "Özbekistan" },
   { date: "04-29", title: "Kut'ül Amare Zaferi", category: "tarih", description: "29 Nisan 1916'da Halil Paşa komutasındaki Osmanlı ordusunun İngiliz kuvvetlerini teslim aldığı büyük zafer.", country: "Türkiye" },
