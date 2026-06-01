@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag } from "lucide-react";
+import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FlagIcon } from "@/components/FlagIcon";
 import { CultureIcon } from "@/components/CultureIcon";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
+import { calendarEvents, categoryLabels as calCategoryLabels, categoryColors as calCategoryColors } from "@/lib/takvim-data";
 import { useI18n } from "@/lib/i18n";
+
 
 export const Route = createFileRoute("/turk-dunyasi/")({
   component: TurkDunyasiPage,
