@@ -81,10 +81,16 @@ function TurkDunyasiPage() {
 
       {/* Content */}
       <div className="mt-10">
-        {activeTab === "news" && <NewsGrid />}
+        {activeTab === "news" && (
+          <>
+            <NewsGrid />
+            <CalendarPreview />
+          </>
+        )}
         {activeTab === "culture" && <CultureGrid />}
         {activeTab === "academic" && <AcademicGrid />}
       </div>
+
 
       {/* Info box */}
       <div className="mt-16 rounded-xl border border-border bg-muted/30 p-6 text-center">
