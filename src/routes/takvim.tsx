@@ -51,7 +51,7 @@ function TakvimPage() {
       <div className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
           <Calendar className="h-3.5 w-3.5" />
-          Türk Dünyası Takvimi
+          {"\u200B"}
         </div>
         <h1 className="mt-4 font-[var(--font-heading)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Ortak Hafızamızın Günleri
