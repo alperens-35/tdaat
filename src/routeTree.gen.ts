@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UyeOlRouteImport } from './routes/uye-ol'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TakvimRouteImport } from './routes/takvim'
-import { Route as SssRouteImport } from './routes/sss'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as EventsRouteImport } from './routes/events'
@@ -48,11 +47,6 @@ const TeamRoute = TeamRouteImport.update({
 const TakvimRoute = TakvimRouteImport.update({
   id: '/takvim',
   path: '/takvim',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SssRoute = SssRouteImport.update({
-  id: '/sss',
-  path: '/sss',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -171,7 +165,6 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sss': typeof SssRoute
   '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
@@ -197,7 +190,6 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sss': typeof SssRoute
   '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
@@ -224,7 +216,6 @@ export interface FileRoutesById {
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sss': typeof SssRoute
   '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
@@ -252,7 +243,6 @@ export interface FileRouteTypes {
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
-    | '/sss'
     | '/takvim'
     | '/team'
     | '/uye-ol'
@@ -278,7 +268,6 @@ export interface FileRouteTypes {
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
-    | '/sss'
     | '/takvim'
     | '/team'
     | '/uye-ol'
@@ -304,7 +293,6 @@ export interface FileRouteTypes {
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
-    | '/sss'
     | '/takvim'
     | '/team'
     | '/uye-ol'
@@ -332,7 +320,6 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRouteWithChildren
   GaleriRoute: typeof GaleriRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  SssRoute: typeof SssRoute
   TakvimRoute: typeof TakvimRoute
   TeamRoute: typeof TeamRoute
   UyeOlRoute: typeof UyeOlRoute
@@ -365,13 +352,6 @@ declare module '@tanstack/react-router' {
       path: '/takvim'
       fullPath: '/takvim'
       preLoaderRoute: typeof TakvimRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sss': {
-      id: '/sss'
-      path: '/sss'
-      fullPath: '/sss'
-      preLoaderRoute: typeof SssRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -581,7 +561,6 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRouteWithChildren,
   GaleriRoute: GaleriRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  SssRoute: SssRoute,
   TakvimRoute: TakvimRoute,
   TeamRoute: TeamRoute,
   UyeOlRoute: UyeOlRoute,

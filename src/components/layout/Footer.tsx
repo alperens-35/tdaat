@@ -73,7 +73,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/sss" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                <Link to="/contact" hash="sss" className="text-sm text-muted-foreground transition-colors hover:text-primary">
                   SSS
                 </Link>
               </li>

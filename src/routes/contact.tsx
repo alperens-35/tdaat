@@ -4,28 +4,76 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
+
+const FAQS = [
+  {
+    q: "Nasıl üye olabilirim?",
+    a: "Üye Ol sayfasındaki başvuru formunu doldurman yeterli. Başvurunu inceleyip e-posta ile dönüş yapıyoruz.",
+  },
+  {
+    q: "Aidat var mı?",
+    a: "Hayır, TDAAT'a üyelik tamamen ücretsizdir. Bazı özel etkinliklerde sadece organizasyon maliyeti talep edilebilir.",
+  },
+  {
+    q: "Sadece Ege Üniversitesi öğrencileri mi katılabilir?",
+    a: "Resmi üyelik Ege Üniversitesi öğrencilerine yöneliktir, ancak etkinliklerimizin çoğu herkese açıktır.",
+  },
+  {
+    q: "Etkinliklere üye olmadan katılabilir miyim?",
+    a: "Evet. Açık etkinliklerimiz tüm öğrencilere açıktır; bazı kapalı oturumlar yalnızca üyelerimize özeldir.",
+  },
+  {
+    q: "Hangi sıklıkla etkinlik yapıyorsunuz?",
+    a: "Akademik dönem boyunca ortalama her iki haftada bir etkinlik düzenliyoruz: makale okumaları, paneller, kültürel buluşmalar ve sosyal aktiviteler.",
+  },
+  {
+    q: "Topluluğa nasıl katkı sağlayabilirim?",
+    a: "Yayın, organizasyon, sosyal medya gibi birimlerimizde aktif rol alabilir, kendi proje önerilerini getirebilirsin.",
+  },
+  {
+    q: "Topluluğa nasıl ulaşırım?",
+    a: "Aşağıdaki e-posta veya Instagram hesabımız üzerinden bize her zaman ulaşabilirsin.",
+  },
+];
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     links: [{ rel: "canonical", href: "https://tdaat.lovable.app/contact" }],
     meta: [
-      { title: "İletişim — TDAAT" },
+      { title: "İletişim & SSS — TDAAT" },
       {
         name: "description",
         content:
-          "Türk Dünyası Akademik Araştırmalar Topluluğu ile iletişime geçin. Sorularınız, önerileriniz ve işbirliği teklifleriniz için buradayız.",
+          "TDAAT ile iletişime geçin ve sıkça sorulan soruların cevaplarını bulun.",
       },
-      {
-        property: "og:title",
-        content: "İletişim — TDAAT",
-      },
+      { property: "og:title", content: "İletişim & SSS — TDAAT" },
       {
         property: "og:description",
         content:
-          "Türk Dünyası Akademik Araştırmalar Topluluğu ile iletişime geçin. Sorularınız, önerileriniz ve işbirliği teklifleriniz için buradayız.",
+          "TDAAT ile iletişime geçin ve sıkça sorulan soruların cevaplarını bulun.",
       },
       { property: "og:url", content: "https://tdaat.lovable.app/contact" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
     ],
   }),
   component: ContactPage,
@@ -147,6 +195,29 @@ function ContactPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* SSS */}
+      <section id="sss" className="mx-auto w-full max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
+        <h2 className="font-[var(--font-heading)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Sıkça Sorulan Sorular
+        </h2>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          Aklındaki soruların büyük çoğunluğunun cevabı burada. Bulamadıklarını
+          yukarıdaki form üzerinden bize iletebilirsin.
+        </p>
+        <Accordion type="single" collapsible className="mt-8">
+          {FAQS.map((f, i) => (
+            <AccordionItem key={i} value={`item-${i}`}>
+              <AccordionTrigger className="text-left font-[var(--font-heading)]">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
     </div>
   );
