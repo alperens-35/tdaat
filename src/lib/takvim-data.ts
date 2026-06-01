@@ -12,6 +12,7 @@ export const calendarEvents: CalendarEvent[] = [
   { date: "02-26", title: "Hocalı Katliamı'nı Anma Günü", category: "anma", description: "1992 Hocalı Katliamı'nda hayatını kaybedenleri anma günü.", country: "Azerbaycan" },
   { date: "03-18", title: "Çanakkale Zaferi", category: "tarih", description: "18 Mart 1915 Çanakkale Deniz Zaferi.", country: "Türkiye" },
   { date: "03-21", title: "Nevruz Bayramı", category: "bayram", description: "Türk dünyasının ortak baharın gelişi bayramı." },
+  { date: "03-28", title: "Altınköprü Katliamı'nı Anma Günü", category: "anma", description: "28 Mart 1991'de Irak ordusunun Kerkük'e bağlı Altınköprü kasabasında Türkmenlere yönelik gerçekleştirdiği katliam.", country: "Irak Türkmenleri" },
   { date: "04-05", title: "Barın Katliamı'nı Anma Günü", category: "anma", description: "5 Nisan 1990'da Doğu Türkistan'ın Barın kasabasında Çin yönetimine karşı ayaklanan Uygur Türklerine yönelik gerçekleştirilen katliam.", country: "Doğu Türkistan" },
   { date: "04-23", title: "Ulusal Egemenlik ve Çocuk Bayramı", category: "bayram", description: "TBMM'nin açılışı ve çocuklara armağan edilen bayram.", country: "Türkiye" },
   { date: "05-03", title: "Türkçüler Bayramı", category: "bayram", description: "1944 Türkçülük davası ve Türk milliyetçiliği için anma ve kutlama günü." },
