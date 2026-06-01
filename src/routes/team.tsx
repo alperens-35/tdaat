@@ -101,7 +101,7 @@ function TeamPage() {
           <h1 className="font-[var(--font-heading)] text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Ekibimiz
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-left">
             Topluluğu büyütmek için çalışan, tutkulu ve çeşitli bir ekiple tanış.
             Her biri farklı bir alanda yetkin, birlikte daha güçlüyüz.
           </p>
