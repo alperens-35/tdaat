@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UyeOlRouteImport } from './routes/uye-ol'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as TakvimRouteImport } from './routes/takvim'
 import { Route as SssRouteImport } from './routes/sss'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as DestekOlRouteImport } from './routes/destek-ol'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -43,6 +45,11 @@ const TeamRoute = TeamRouteImport.update({
   path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TakvimRoute = TakvimRouteImport.update({
+  id: '/takvim',
+  path: '/takvim',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SssRoute = SssRouteImport.update({
   id: '/sss',
   path: '/sss',
@@ -61,6 +68,11 @@ const GaleriRoute = GaleriRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestekOlRoute = DestekOlRouteImport.update({
+  id: '/destek-ol',
+  path: '/destek-ol',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -155,10 +167,12 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
+  '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
   '/arf': typeof AuthenticatedArfRouteWithChildren
@@ -179,10 +193,12 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
+  '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
   '/api/chat': typeof ApiChatRoute
@@ -204,10 +220,12 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sss': typeof SssRoute
+  '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
   '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
@@ -230,10 +248,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
     | '/sss'
+    | '/takvim'
     | '/team'
     | '/uye-ol'
     | '/arf'
@@ -254,10 +274,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
     | '/sss'
+    | '/takvim'
     | '/team'
     | '/uye-ol'
     | '/api/chat'
@@ -278,10 +300,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
     | '/sss'
+    | '/takvim'
     | '/team'
     | '/uye-ol'
     | '/_authenticated/arf'
@@ -304,10 +328,12 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
+  DestekOlRoute: typeof DestekOlRoute
   EventsRoute: typeof EventsRouteWithChildren
   GaleriRoute: typeof GaleriRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SssRoute: typeof SssRoute
+  TakvimRoute: typeof TakvimRoute
   TeamRoute: typeof TeamRoute
   UyeOlRoute: typeof UyeOlRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -332,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/takvim': {
+      id: '/takvim'
+      path: '/takvim'
+      fullPath: '/takvim'
+      preLoaderRoute: typeof TakvimRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sss': {
@@ -360,6 +393,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destek-ol': {
+      id: '/destek-ol'
+      path: '/destek-ol'
+      fullPath: '/destek-ol'
+      preLoaderRoute: typeof DestekOlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -537,10 +577,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
+  DestekOlRoute: DestekOlRoute,
   EventsRoute: EventsRouteWithChildren,
   GaleriRoute: GaleriRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SssRoute: SssRoute,
+  TakvimRoute: TakvimRoute,
   TeamRoute: TeamRoute,
   UyeOlRoute: UyeOlRoute,
   ApiChatRoute: ApiChatRoute,
@@ -553,13 +595,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
