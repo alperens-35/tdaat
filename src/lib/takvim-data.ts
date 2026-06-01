@@ -9,6 +9,7 @@ export type CalendarEvent = {
 export const calendarEvents: CalendarEvent[] = [
   { date: "01-01", title: "Yılbaşı", category: "kultur", description: "Tüm Türk dünyasında yeni yılın karşılanması." },
   { date: "01-13", title: "Sürgün Anma Günü (Ahıska Türkleri)", category: "anma", description: "1944 Ahıska Türkleri sürgününün anma günü.", country: "Ahıska" },
+  { date: "02-05", title: "Gulca Katliamı'nı Anma Günü", category: "anma", description: "5 Şubat 1997'de Doğu Türkistan'ın Gulca (Kulca) şehrinde Çin güvenlik güçlerinin barışçıl gösteri yapan Uygur Türklerine yönelik gerçekleştirdiği katliam.", country: "Doğu Türkistan" },
   { date: "02-20", title: "Fırat Yılmaz Çakıroğlu'nu Anma Günü", category: "anma", description: "20 Şubat 2015'te Ege Üniversitesi'nde şehit edilen Ülkü Ocakları Ege Üniversitesi Başkanı Fırat Yılmaz Çakıroğlu'nun şehadet yıl dönümü.", country: "Türkiye" },
   { date: "02-26", title: "Hocalı Katliamı'nı Anma Günü", category: "anma", description: "1992 Hocalı Katliamı'nda hayatını kaybedenleri anma günü.", country: "Azerbaycan" },
   { date: "03-18", title: "Çanakkale Zaferi", category: "tarih", description: "18 Mart 1915 Çanakkale Deniz Zaferi.", country: "Türkiye" },
