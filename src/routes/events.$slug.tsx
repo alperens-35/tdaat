@@ -9,7 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { downloadIcs, googleCalendarUrl, type CalendarEvent } from "@/lib/calendar";
-import { findEvent } from "@/lib/events-data";
+import { findEvent, upcomingEvents } from "@/lib/events-data";
+import { EventRegistrationDialog } from "@/components/events/EventRegistrationDialog";
 
 export const Route = createFileRoute("/events/$slug")({
   loader: ({ params }) => {
