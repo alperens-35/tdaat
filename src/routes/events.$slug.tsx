@@ -121,11 +121,22 @@ function EventDetail() {
                 <Calendar className="mr-2 h-4 w-4" /> Google Takvim
               </a>
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={(e) => { e.preventDefault(); downloadIcs(cal); }}>
+            <DropdownMenuItem onSelect={(ev) => { ev.preventDefault(); downloadIcs(cal); }}>
               <Download className="mr-2 h-4 w-4" /> Apple / Outlook (.ics)
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        {upcomingEvents.some((u) => u.slug === event.slug) && (
+          <div className="inline-flex">
+            <EventRegistrationDialog
+              eventSlug={event.slug}
+              eventTitle={event.title}
+              triggerLabel="Etkinliğe Kayıt Ol"
+              triggerSize="default"
+              fullWidth={false}
+            />
+          </div>
+        )}
         <Button variant="outline" asChild className="font-[var(--font-heading)]">
           <Link to="/contact">Sorum Var</Link>
         </Button>
