@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { downloadIcs, googleCalendarUrl, type CalendarEvent } from "@/lib/calendar";
 import { upcomingEvents as upcoming, pastEvents as past, type EventItem } from "@/lib/events-data";
+import { EventRegistrationDialog } from "@/components/events/EventRegistrationDialog";
 
 type UpcomingEvent = EventItem;
 
@@ -124,6 +125,20 @@ function EventsPage() {
             Konferanslar, paneller, makale okumaları, Türk sporları ve daha niceleri seni bekliyor.
             Kendini geliştir, yeni insanlar tanı, deneyim kazan.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{upcoming.length}</div>
+              <div className="text-xs text-muted-foreground">Yaklaşan Etkinlik</div>
+            </div>
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{past.length}</div>
+              <div className="text-xs text-muted-foreground">Geçmiş Etkinlik</div>
+            </div>
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{upcoming.length + past.length}</div>
+              <div className="text-xs text-muted-foreground">Toplam</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -211,6 +226,7 @@ function EventsPage() {
                         Detaylar <ArrowRight className="ml-1 h-3.5 w-3.5" />
                       </Link>
                     </Button>
+                    <EventRegistrationDialog eventSlug={event.slug} eventTitle={event.title} />
                     <AddToCalendar event={event} />
                   </div>
                 </div>
@@ -222,27 +238,50 @@ function EventsPage() {
 
       {/* Past */}
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <h2 className="font-[var(--font-heading)] text-xl font-bold text-foreground">
-          Geçmiş Etkinlikler
-        </h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h2 className="font-[var(--font-heading)] text-xl font-bold text-foreground">
+              Geçmiş Etkinlikler
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Şimdiye kadar {past.length} etkinlik gerçekleştirdik.
+            </p>
+          </div>
+          <Link to="/galeri" className="text-sm font-medium text-primary hover:underline">
+            Tüm galeri →
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {past.map((event) => (
             <Link
               key={event.slug}
               to="/events/$slug"
               params={{ slug: event.slug }}
-              className="block rounded-lg border border-border/40 bg-card/50 p-5 opacity-80 transition-all hover:opacity-100 hover:border-primary/30"
+              className="group flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 transition-all hover:border-primary/40 hover:shadow-md"
             >
-              <div className="flex items-center justify-between">
-                <Badge variant="outline" className="text-xs">
-                  {event.category}
-                </Badge>
-                <span className="text-xs text-muted-foreground">{event.date}</span>
+              <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-accent/40 to-muted/40">
+                <ImageIcon className="h-10 w-10 text-foreground/20" />
+                <span className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground backdrop-blur">
+                  Foto yakında
+                </span>
               </div>
-              <h3 className="mt-3 font-[var(--font-heading)] text-sm font-semibold text-foreground">
-                {event.title}
-              </h3>
-              <p className="mt-1 text-xs text-muted-foreground">{event.description}</p>
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline" className="text-xs">
+                    {event.category}
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">{event.date}</span>
+                </div>
+                <h3 className="mt-3 font-[var(--font-heading)] text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
+                  {event.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted-foreground">
+                  {event.description}
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary">
+                  Özeti oku <ArrowRight className="h-3 w-3" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>
