@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { downloadIcs, googleCalendarUrl, type CalendarEvent } from "@/lib/calendar";
 import { upcomingEvents as upcoming, pastEvents as past, type EventItem } from "@/lib/events-data";
+import { EventRegistrationDialog } from "@/components/events/EventRegistrationDialog";
 
 type UpcomingEvent = EventItem;
 
