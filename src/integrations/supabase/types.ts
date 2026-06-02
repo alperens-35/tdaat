@@ -73,6 +73,39 @@ export type Database = {
         }
         Relationships: []
       }
+      event_registrations: {
+        Row: {
+          created_at: string
+          email: string
+          event_slug: string
+          event_title: string
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_slug: string
+          event_title: string
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_slug?: string
+          event_title?: string
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string | null
+        }
+        Relationships: []
+      }
       membership_applications: {
         Row: {
           created_at: string
