@@ -125,6 +125,20 @@ function EventsPage() {
             Konferanslar, paneller, makale okumaları, Türk sporları ve daha niceleri seni bekliyor.
             Kendini geliştir, yeni insanlar tanı, deneyim kazan.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{upcoming.length}</div>
+              <div className="text-xs text-muted-foreground">Yaklaşan Etkinlik</div>
+            </div>
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{past.length}</div>
+              <div className="text-xs text-muted-foreground">Geçmiş Etkinlik</div>
+            </div>
+            <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
+              <div className="text-2xl font-bold text-foreground">{upcoming.length + past.length}</div>
+              <div className="text-xs text-muted-foreground">Toplam</div>
+            </div>
+          </div>
         </div>
       </section>
 
