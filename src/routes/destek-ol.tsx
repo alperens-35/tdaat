@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Handshake, Users, BookOpen, Megaphone, Check, Mail, ArrowRight } from "lucide-react";
+import { Heart, Handshake, Users, BookOpen, Megaphone, Check, Mail, ArrowRight, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -86,9 +86,24 @@ const tiers = [
 ];
 
 const impact = [
-  { percent: "%40", desc: "Etkinlik organizasyonu (panel, sempozyum, gezi)" },
-  { percent: "%35", desc: "Akademik yayın ve içerik üretimi" },
-  { percent: "%25", desc: "Topluluk altyapısı ve üye desteği" },
+  {
+    icon: Target,
+    percent: "40%",
+    title: "Etkinlikler",
+    desc: "Konferans, panel, atölye, gezi ve kültürel buluşmalar.",
+  },
+  {
+    icon: Megaphone,
+    percent: "35%",
+    title: "İçerik & Yayın",
+    desc: "Makale, dergi, video, podcast ve dijital içerik üretimi.",
+  },
+  {
+    icon: Users,
+    percent: "25%",
+    title: "Topluluk",
+    desc: "Üye gelişimi, eğitim materyalleri ve operasyonel giderler.",
+  },
 ];
 
 function DestekOl() {
@@ -209,36 +224,37 @@ function DestekOl() {
         </div>
       </section>
 
-      {/* Desteğin Nereye Gidiyor */}
+      {/* Katkın Nereye Gidiyor */}
       <section className="w-full border-t border-border/50 bg-accent/30 py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Desteğin Nereye Gidiyor?
-          </h2>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              Katkın Nereye Gidiyor?
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Şeffaflık bizim için önemli. Topluluğa yapılan katkılar şu üç alana yönlendiriliyor.
+            </p>
+          </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {impact.map((i) => (
               <div
                 key={i.percent}
-                className="rounded-xl border border-border/60 bg-card p-6 text-center"
+                className="rounded-2xl border border-border/60 bg-card p-8 text-center"
               >
-                <div className="font-[var(--font-heading)] text-4xl font-bold text-primary">
+                <div className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <i.icon className="h-5 w-5" />
+                </div>
+                <div className="mt-5 font-[var(--font-heading)] text-4xl font-bold text-primary">
                   {i.percent}
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{i.desc}</p>
+                <h3 className="mt-3 font-[var(--font-heading)] text-base font-semibold text-foreground">
+                  {i.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{i.desc}</p>
               </div>
             ))}
           </div>
-
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            Detaylı bilgi ve özel sponsorluk talepleri için bize ulaşın:{" "}
-            <a
-              href="mailto:egeturkduyasitoplulugu@gmail.com"
-              className="font-medium text-primary transition-colors hover:underline"
-            >
-              egeturkduyasitoplulugu@gmail.com
-            </a>
-          </p>
         </div>
       </section>
     </div>
