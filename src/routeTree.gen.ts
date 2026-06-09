@@ -15,6 +15,7 @@ import { Route as TakvimRouteImport } from './routes/takvim'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as DestekOlRouteImport } from './routes/destek-ol'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -61,6 +62,11 @@ const GaleriRoute = GaleriRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestekOlRoute = DestekOlRouteImport.update({
+  id: '/destek-ol',
+  path: '/destek-ol',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -204,6 +212,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/destek-ol': typeof DestekOlRoute
   '/events': typeof EventsRouteWithChildren
   '/galeri': typeof GaleriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -230,6 +239,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/contact'
+    | '/destek-ol'
     | '/events'
     | '/galeri'
     | '/sitemap.xml'
@@ -304,6 +316,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
+  DestekOlRoute: typeof DestekOlRoute
   EventsRoute: typeof EventsRouteWithChildren
   GaleriRoute: typeof GaleriRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destek-ol': {
+      id: '/destek-ol'
+      path: '/destek-ol'
+      fullPath: '/destek-ol'
+      preLoaderRoute: typeof DestekOlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -537,6 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
+  DestekOlRoute: DestekOlRoute,
   EventsRoute: EventsRouteWithChildren,
   GaleriRoute: GaleriRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
