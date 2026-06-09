@@ -261,6 +261,27 @@ function DestekOl() {
           </div>
         </div>
       </section>
+
+      {/* Final CTA */}
+      <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-primary px-6 py-14 text-center text-primary-foreground sm:px-12">
+          <h2 className="font-[var(--font-heading)] text-2xl font-bold tracking-tight sm:text-3xl">
+            Bir sonraki etkinliği birlikte ayağa kaldıralım
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm opacity-90 sm:text-base">
+            Sponsorluk, bağış veya iş birliği için bize yaz. 48 saat içinde geri dönüş yapıyoruz.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-background font-[var(--font-heading)] text-foreground hover:bg-background/90"
+            >
+              <Link to="/contact">İletişime Geç</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
