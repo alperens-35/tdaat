@@ -25,12 +25,13 @@ function ArfPending() {
 
 function ArfError({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
+  console.error("[arf] load error:", error);
 
   return (
     <div className="flex h-[60vh] items-center justify-center px-4">
       <div className="flex max-w-md flex-col items-center gap-3 text-center">
         <p className="font-medium text-destructive">Arf açılamadı</p>
-        <p className="text-sm text-muted-foreground">{error.message}</p>
+        <p className="text-sm text-muted-foreground">Bir sorun oluştu, lütfen sayfayı yenile.</p>
         <button
           onClick={() => {
             router.invalidate();
