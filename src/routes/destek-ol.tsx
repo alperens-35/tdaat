@@ -166,14 +166,6 @@ function DestekOl() {
               </div>
             ))}
           </div>
-                </div>
-                <h3 className="mt-5 font-[var(--font-heading)] text-lg font-semibold text-foreground">
-                  {w.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
