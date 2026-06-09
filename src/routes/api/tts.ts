@@ -44,7 +44,8 @@ export const Route = createFileRoute("/api/tts")({
 
         const apiKey = process.env.ELEVENLABS_API_KEY;
         if (!apiKey) {
-          return new Response("ELEVENLABS_API_KEY is not configured", { status: 500 });
+          console.error("[tts] ELEVENLABS_API_KEY missing");
+          return new Response("Service unavailable", { status: 503 });
         }
 
         const upstream = await fetch(
