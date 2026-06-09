@@ -24,6 +24,9 @@ export const Route = createFileRoute("/api/chat")({
         }
         let totalChars = 0;
         for (const m of messages as UIMessage[]) {
+          if (m?.role !== "user") {
+            return new Response("Bad request", { status: 400 });
+          }
           for (const p of m.parts ?? []) {
             if (p.type === "text") totalChars += (p.text ?? "").length;
             if (totalChars > 50000) {
