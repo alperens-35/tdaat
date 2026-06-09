@@ -87,7 +87,7 @@ const tiers = [
     features: [
       'Tüm "Destekçi Paketi" Avantajları',
       "Tüm etkinliklerde ana sponsor olarak yer alma",
-      "Özel panel / workshop düzenleme imkânı",
+      "​",
       "Yıllık raporda öne çıkan tanıtım",
       "Üyelerimizle özel networking buluşması",
     ],
