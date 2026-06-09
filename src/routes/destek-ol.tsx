@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Handshake, Users, BookOpen, Megaphone, Check, Mail, ArrowRight, Target } from "lucide-react";
+import { Heart, HandCoins, Sparkles, Users, Mail, Megaphone, Check, ArrowRight, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -26,24 +26,32 @@ export const Route = createFileRoute("/destek-ol")({
 
 const ways = [
   {
-    icon: Heart,
+    icon: HandCoins,
     title: "Bağış Yap",
-    desc: "Tek seferlik veya düzenli bağışlarınla etkinliklerimizi sürdürmemize destek ol.",
+    desc: "Tek seferlik veya düzenli bağışlarınla etkinliklerimizi sürdürmemize yardım et.",
+    href: "/contact" as const,
+    label: "İletişime Geç",
   },
   {
-    icon: Handshake,
+    icon: Sparkles,
     title: "Sponsor Ol",
-    desc: "Kurumun veya işletmen adına etkinliklerimize sponsor olarak markanı öğrencilerle buluştur.",
+    desc: "Kurumun adını topluluk etkinliklerimizde görünür kıl, öğrencilere ulaş.",
+    href: "/contact" as const,
+    label: "Sponsorluk Görüş",
   },
   {
     icon: Users,
     title: "Gönüllü Ol",
-    desc: "Zamanını ve yeteneklerini paylaş. Etkinlik organizasyonu, içerik üretimi ve daha fazlası.",
+    desc: "Organizasyon, içerik üretimi ve saha çalışmalarımızda aktif rol al.",
+    href: "/uye-ol" as const,
+    label: "Üye Ol",
   },
   {
-    icon: BookOpen,
-    title: "Bilgi Paylaş",
-    desc: "Konuşmacı, panelist veya akademik danışman olarak topluluğumuza katkı sağla.",
+    icon: Mail,
+    title: "Bilgi Al",
+    desc: "İş birliği, protokol ve etkinlik fikirleri için bizimle iletişime geç.",
+    href: "/contact" as const,
+    label: "İletişim",
   },
 ];
 
