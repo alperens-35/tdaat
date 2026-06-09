@@ -154,7 +154,7 @@ function DestekOl() {
                 className="flex flex-col rounded-xl border border-border/60 bg-card p-6 transition-colors hover:border-primary/20"
               >
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <w.icon className="h-5 w-5" />
+                  <Check className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 font-[var(--font-heading)] text-lg font-semibold text-foreground">
                   {w.title}
