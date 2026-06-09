@@ -72,6 +72,7 @@ const tiers = [
     name: "Destekçi",
     desc: "Küçük işletmeler ve kurumlar için sponsorluk paketi.",
     features: [
+      'Tüm "Dost Paketi" avantajları',
       "Etkinlik afişlerinde logo",
       "Sosyal medyada tanıtım",
       "Web sitesinde sponsor sayfasında yer alma",
@@ -84,6 +85,7 @@ const tiers = [
     name: "Stratejik Ortak",
     desc: "Büyük kurumsal işbirlikleri ve ana sponsorluklar.",
     features: [
+      'Tüm "Destekçi Paketi" Avantajları',
       "Tüm etkinliklerde ana sponsor olarak yer alma",
       "Özel panel / workshop düzenleme imkânı",
       "Yıllık raporda öne çıkan tanıtım",
