@@ -191,16 +191,18 @@ function DestekOl() {
                   : "border-border/60"
               }`}
             >
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <t.icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-[var(--font-heading)] text-xl font-bold text-foreground">
-                    {t.name}
-                  </h3>
+              {t.highlight && (
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  Önerilen
+                </Badge>
+              )}
+              <div className="flex items-center gap-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <t.icon className="h-5 w-5" />
                 </div>
-                {t.highlight && <Badge variant="secondary">Popüler</Badge>}
+                <h3 className="font-[var(--font-heading)] text-xl font-bold text-foreground">
+                  {t.name}
+                </h3>
               </div>
 
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
