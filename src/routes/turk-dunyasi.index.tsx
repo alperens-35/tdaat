@@ -102,6 +102,70 @@ function TurkDunyasiPage() {
   );
 }
 
+function CalendarPreview() {
+  const events = useMemo(() => {
+    const today = new Date();
+    const todayKey = `${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+    const sorted = [...calendarEvents].sort((a, b) => a.date.localeCompare(b.date));
+    const upcoming = sorted.filter((e) => e.date >= todayKey);
+    const list = upcoming.length >= 6 ? upcoming : [...upcoming, ...sorted.filter((e) => e.date < todayKey)];
+    return list.slice(0, 6);
+  }, []);
+
+  return (
+    <section className="mt-12 rounded-xl border border-border/60 bg-card p-5">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Calendar className="h-4 w-4 text-primary" />
+          <h2 className="font-[var(--font-heading)] text-base font-semibold text-foreground">
+            Türk Dünyası Takvimi
+          </h2>
+        </div>
+        <Link
+          to="/takvim"
+          className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+        >
+          Tümünü gör <ArrowRight className="h-3 w-3" />
+        </Link>
+      </div>
+      <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {events.map((ev) => {
+          const day = parseInt(ev.date.slice(3, 5), 10);
+          const month = parseInt(ev.date.slice(0, 2), 10);
+          const monthShort = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"][month - 1];
+          return (
+            <li
+              key={`${ev.date}-${ev.title}`}
+              className="flex gap-2.5 rounded-lg border border-border/60 bg-background p-2.5"
+            >
+              <div className="flex h-10 w-10 flex-shrink-0 flex-col items-center justify-center rounded-md bg-primary/10 text-primary">
+                <div className="text-sm font-bold leading-none">{day}</div>
+                <div className="mt-0.5 text-[9px] uppercase tracking-wide">{monthShort}</div>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <h3 className="truncate text-xs font-semibold text-foreground">{ev.title}</h3>
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 text-[9px] font-medium ring-1 ring-inset ${calCategoryColors[ev.category]}`}
+                  >
+                    {calCategoryLabels[ev.category]}
+                  </span>
+                </div>
+                {ev.country && (
+                  <div className="mt-0.5 inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+                    <MapPin className="h-2.5 w-2.5" />
+                    {ev.country}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
 function NewsGrid() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
