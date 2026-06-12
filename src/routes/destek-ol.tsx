@@ -76,7 +76,7 @@ const tiers = [
       "Etkinlik afişlerinde logo",
       "Sosyal medyada tanıtım",
       "Web sitesinde sponsor sayfasında yer alma",
-      "1 etkinlikte stant hakkı",
+      "\n",
     ],
     highlight: true,
   },
