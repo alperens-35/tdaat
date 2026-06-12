@@ -88,7 +88,7 @@ const tiers = [
       'Tüm "Destekçi Paketi" Avantajları',
       "Tüm etkinliklerde ana sponsor olarak yer alma",
       "Yıllık raporda öne çıkan tanıtım",
-      "Üyelerimizle özel networking buluşması",
+      "\n",
     ],
     highlight: false,
   },
