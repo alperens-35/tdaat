@@ -357,7 +357,7 @@ function LiveNewsSection() {
         ) : error ? (
           <p className="text-sm text-muted-foreground">Haberler şu anda yüklenemedi.</p>
         ) : items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili güncel haber bulunamadı.</p>
+          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili haber bulunamadı.</p>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {items.slice(0, 24).map((item) => (
