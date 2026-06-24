@@ -316,10 +316,10 @@ function LiveNewsSection() {
         <div className="flex items-center gap-2">
           <Radio className="h-4 w-4 text-primary" />
           <h2 className="font-[var(--font-heading)] text-lg font-semibold">
-            Türk Dünyasından Canlı Haberler
+            Türk Dünyasından Haberler
           </h2>
           <Badge variant="outline" className="text-[10px]">
-            Yalnızca Türk dünyası
+            Türk dünyası
           </Badge>
         </div>
         <button
@@ -357,7 +357,7 @@ function LiveNewsSection() {
         ) : error ? (
           <p className="text-sm text-muted-foreground">Haberler şu anda yüklenemedi.</p>
         ) : items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili güncel haber bulunamadı.</p>
+          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili haber bulunamadı.</p>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {items.slice(0, 24).map((item) => (
