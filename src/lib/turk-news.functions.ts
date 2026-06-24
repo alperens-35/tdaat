@@ -134,7 +134,8 @@ async function fetchFeed(feed: Feed, signal: AbortSignal): Promise<LiveNewsItem[
     });
     if (!res.ok) return [];
     const xml = await res.text();
-    return parseRss(xml, feed);
+    const items = parseRss(xml, feed);
+    return feed.requireKeyword ? items.filter(matchesTurkWorld) : items;
   } catch {
     return [];
   }
