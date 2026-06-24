@@ -90,20 +90,16 @@ function EventDetail() {
         {event.category}
       </Badge>
       <h1 className="mt-3 font-[var(--font-heading)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        {event.title} (test)
+        {event.title}
       </h1>
 
       {event.image && (
-        <>
-          <p className="text-xs text-red-500">DEBUG: {JSON.stringify(event.image)}</p>
-          <img
-            src={event.image.url}
-            alt={event.title}
-            className="mt-6 w-full rounded-xl border border-border/60 object-cover shadow-sm"
-          />
-        </>
+        <img
+          src={event.image.url}
+          alt={event.title}
+          className="mt-6 w-full rounded-xl border border-border/60 object-cover shadow-sm"
+        />
       )}
-      {!event.image && <p className="text-xs text-red-500">DEBUG: no image</p>}
 
       <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
