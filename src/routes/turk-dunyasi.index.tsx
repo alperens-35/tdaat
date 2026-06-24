@@ -273,5 +273,121 @@ function AcademicGrid() {
   );
 }
 
+const SOURCE_FILTERS: { key: string; label: string }[] = [
+  { key: "all", label: "Tümü" },
+  { key: "Anadolu Ajansı", label: "AA" },
+  { key: "TRT Haber", label: "TRT Haber" },
+  { key: "TRT Avaz", label: "TRT Avaz" },
+  { key: "AZERTAC", label: "AZERTAC" },
+  { key: "Kazinform", label: "Kazinform" },
+  { key: "UZA", label: "UZA" },
+  { key: "Kabar", label: "Kabar" },
+  { key: "TAK (KKTC)", label: "TAK" },
+  { key: "QHA (Kırım)", label: "QHA" },
+];
 
+function formatRelative(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.round(diff / 60000);
+  if (m < 1) return "şimdi";
+  if (m < 60) return `${m} dk önce`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h} sa önce`;
+  const d = Math.round(h / 24);
+  return `${d} g önce`;
+}
+
+function LiveNewsSection() {
+  const [source, setSource] = useState<string>("all");
+  const { data, isLoading, isFetching, refetch, error } = useQuery({
+    queryKey: ["turk-world-news"],
+    queryFn: () => getTurkWorldNews(),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const items: LiveNewsItem[] = useMemo(() => {
+    const all = data ?? [];
+    return source === "all" ? all : all.filter((i) => i.source === source);
+  }, [data, source]);
+
+  return (
+    <div className="mb-10 rounded-2xl border border-border/60 bg-card/40 p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Radio className="h-4 w-4 text-primary" />
+          <h2 className="font-[var(--font-heading)] text-lg font-semibold">
+            Türk Dünyasından Canlı Haberler
+          </h2>
+          <Badge variant="outline" className="text-[10px]">
+            Yalnızca Türk dünyası
+          </Badge>
+        </div>
+        <button
+          onClick={() => refetch()}
+          className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground"
+        >
+          <RefreshCw className={`h-3 w-3 ${isFetching ? "animate-spin" : ""}`} />
+          Yenile
+        </button>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {SOURCE_FILTERS.map((s) => (
+          <button
+            key={s.key}
+            onClick={() => setSource(s.key)}
+            className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
+              source === s.key
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-5">
+        {isLoading ? (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-24 animate-pulse rounded-lg border border-border/60 bg-muted/30" />
+            ))}
+          </div>
+        ) : error ? (
+          <p className="text-sm text-muted-foreground">Haberler şu anda yüklenemedi.</p>
+        ) : items.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili güncel haber bulunamadı.</p>
+        ) : (
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {items.slice(0, 24).map((item) => (
+              <li key={item.id}>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-full flex-col rounded-lg border border-border/60 bg-background p-3 transition-colors hover:border-primary/40"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                      <FlagIcon country={item.country} />
+                      {item.source}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">{formatRelative(item.pubDate)}</span>
+                  </div>
+                  <p className="mt-1.5 line-clamp-3 text-sm font-medium leading-snug text-foreground group-hover:text-primary">
+                    {item.title}
+                  </p>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-2 text-[11px] text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                    Kaynağa git <ExternalLink className="h-3 w-3" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
 
