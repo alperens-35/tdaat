@@ -273,3 +273,138 @@ function AcademicGrid() {
   );
 }
 
+const SOURCE_FILTERS = [
+  { key: "all", label: "Tümü" },
+  { key: "Anadolu Ajansı", label: "AA" },
+  { key: "TRT Haber", label: "TRT Haber" },
+  { key: "TRT Avaz", label: "TRT Avaz" },
+  { key: "AZERTAC", label: "AZERTAC" },
+  { key: "Kazinform", label: "Kazinform" },
+  { key: "UZA", label: "UZA" },
+  { key: "Kabar", label: "Kabar" },
+  { key: "TAK (KKTC)", label: "TAK" },
+  { key: "QHA (Kırım)", label: "QHA" },
+];
+
+function formatRelative(iso: string): string {
+  const d = new Date(iso).getTime();
+  if (Number.isNaN(d)) return "";
+  const diff = Date.now() - d;
+  const m = Math.round(diff / 60000);
+  if (m < 1) return "az önce";
+  if (m < 60) return `${m} dk önce`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h} sa önce`;
+  const days = Math.round(h / 24);
+  if (days < 7) return `${days} gün önce`;
+  return new Date(iso).toLocaleDateString("tr-TR");
+}
+
+function LiveNewsSection() {
+  const [filter, setFilter] = useState<string>("all");
+  const { data, isLoading, isFetching, refetch, error } = useQuery<LiveNewsItem[]>({
+    queryKey: ["turk-world-live-news"],
+    queryFn: () => getTurkWorldNews(),
+    staleTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
+
+  const items = useMemo(() => {
+    if (!data) return [];
+    return filter === "all" ? data : data.filter((i) => i.source === filter);
+  }, [data, filter]);
+
+  return (
+    <section className="mb-10 rounded-xl border border-border/60 bg-card p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Radio className="h-4 w-4 text-primary" />
+          <h2 className="font-[var(--font-heading)] text-base font-semibold text-foreground">
+            Canlı Haberler
+          </h2>
+          <span className="text-xs text-muted-foreground">Türk dünyası ajanslarından</span>
+        </div>
+        <button
+          onClick={() => refetch()}
+          disabled={isFetching}
+          className="inline-flex items-center gap-1 rounded-md border border-border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground hover:text-foreground disabled:opacity-50"
+        >
+          <RefreshCw className={`h-3 w-3 ${isFetching ? "animate-spin" : ""}`} />
+          Yenile
+        </button>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {SOURCE_FILTERS.map((f) => (
+          <button
+            key={f.key}
+            onClick={() => setFilter(f.key)}
+            className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+              filter === f.key
+                ? "bg-primary text-primary-foreground"
+                : "border border-border bg-background text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      {isLoading && (
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="h-24 animate-pulse rounded-lg border border-border/60 bg-muted/40" />
+          ))}
+        </div>
+      )}
+
+      {error && !isLoading && (
+        <p className="mt-5 text-sm text-muted-foreground">
+          Haberler şu anda yüklenemedi. Lütfen daha sonra tekrar deneyin.
+        </p>
+      )}
+
+      {!isLoading && items.length === 0 && !error && (
+        <p className="mt-5 text-sm text-muted-foreground">Bu kaynak için güncel haber bulunamadı.</p>
+      )}
+
+      {items.length > 0 && (
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {items.slice(0, 24).map((item) => (
+            <li key={item.id}>
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-full flex-col rounded-lg border border-border/60 bg-background p-3 transition-colors hover:border-primary/40"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <Badge variant="outline" className="text-[10px]">
+                    <FlagIcon country={item.country} className="mr-1 text-xs" />
+                    {item.source}
+                  </Badge>
+                  <span className="text-[10px] text-muted-foreground">
+                    {formatRelative(item.pubDate)}
+                  </span>
+                </div>
+                <h3 className="mt-2 text-sm font-semibold leading-snug text-foreground line-clamp-3 group-hover:text-primary">
+                  {item.title}
+                </h3>
+                {item.summary && (
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+                    {item.summary}
+                  </p>
+                )}
+                <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                  Kaynağa git <ExternalLink className="h-3 w-3" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+
