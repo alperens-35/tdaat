@@ -14,13 +14,16 @@ type Feed = {
   source: string;
   country: string;
   url: string;
+  requireKeyword?: boolean;
 };
 
 // Curated RSS endpoints for each requested agency. If any feed is unreachable
 // or returns invalid XML, it is silently skipped so the rest still render.
 const FEEDS: Feed[] = [
-  { source: "Anadolu Ajansı", country: "tr", url: "https://www.aa.com.tr/tr/rss/default?cat=guncel" },
-  { source: "TRT Haber", country: "tr", url: "https://www.trthaber.com/sondakika.rss" },
+  // requireKeyword=true → only keep items mentioning Türk dünyası / Turkic states
+  { source: "Anadolu Ajansı", country: "tr", url: "https://www.aa.com.tr/tr/rss/default?cat=guncel", requireKeyword: true },
+  { source: "TRT Haber", country: "tr", url: "https://www.trthaber.com/sondakika.rss", requireKeyword: true },
+  // The remaining outlets are by mission Türk dünyası focused, so we accept everything.
   { source: "TRT Avaz", country: "tr", url: "https://www.trtavaz.com.tr/rss/anasayfa/tr" },
   { source: "AZERTAC", country: "az", url: "https://azertag.az/tr/rss" },
   { source: "Kazinform", country: "kz", url: "https://www.inform.kz/tr/rss" },
@@ -29,6 +32,38 @@ const FEEDS: Feed[] = [
   { source: "TAK (KKTC)", country: "tr", url: "https://www.tak.gov.ct.tr/rss" },
   { source: "QHA (Kırım)", country: "tr", url: "https://qha.com.tr/rss" },
 ];
+
+// Keywords that mark an item as Türk dünyası related. Lower-cased, diacritic-tolerant
+// matching is applied (see matchesTurkWorld). Keep this list broad enough to cover
+// Turkic states, peoples, institutions and shared cultural references.
+const TURK_WORLD_KEYWORDS = [
+  "turk dunyasi", "turk dunya", "turk devletleri", "tdt", "turk birligi",
+  "turk konseyi", "turk akademisi", "turksoy", "turkpa", "turkic",
+  "turkiye", "anadolu",
+  "azerbaycan", "azeri", "baku", "karabag", "nahcivan",
+  "kazakistan", "kazak", "astana", "almati",
+  "ozbekistan", "ozbek", "taskent", "semerkant", "buhara",
+  "kirgizistan", "kirgiz", "biskek",
+  "turkmenistan", "turkmen", "askabat",
+  "kktc", "kuzey kibris", "lefkosa",
+  "kirim", "tatar", "kirim tatar",
+  "uygur", "dogu turkistan",
+  "gagavuz", "baskurt", "yakut", "saha", "cuvas", "altay", "tuva",
+  "ahiska",
+];
+
+function normalize(s: string): string {
+  return s
+    .toLocaleLowerCase("tr")
+    .replace(/ı/g, "i").replace(/i̇/g, "i")
+    .replace(/ş/g, "s").replace(/ç/g, "c")
+    .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ö/g, "o");
+}
+
+function matchesTurkWorld(item: LiveNewsItem): boolean {
+  const hay = normalize(`${item.title} ${item.summary ?? ""}`);
+  return TURK_WORLD_KEYWORDS.some((k) => hay.includes(k));
+}
 
 function decode(s: string): string {
   return s
@@ -99,7 +134,8 @@ async function fetchFeed(feed: Feed, signal: AbortSignal): Promise<LiveNewsItem[
     });
     if (!res.ok) return [];
     const xml = await res.text();
-    return parseRss(xml, feed);
+    const items = parseRss(xml, feed);
+    return feed.requireKeyword ? items.filter(matchesTurkWorld) : items;
   } catch {
     return [];
   }
