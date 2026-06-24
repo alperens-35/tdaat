@@ -9,6 +9,7 @@ export type EventItem = {
   longDescription: string;
   startDate: string;
   endDate: string;
+  image?: { url: string };
 };
 
 export const upcomingEvents: EventItem[] = [
@@ -142,6 +143,7 @@ export const pastEvents: EventItem[] = [
       "TDAAT'ın ilk resmî etkinliği olarak tarihe geçen söyleşide Akdeniz Üniversitesi öğretim üyesi Prof. Dr. İsmail Yakıt; ateizm ve deizm kavramlarını tarihsel kökleri, felsefi yansımaları ve dilsel karşılıkları bağlamında ele aldı. Türkçede ateizmin tam karşılığının bulunmadığını; Arapça \"ilhad\", Osmanlıca \"zındık\" ve İslam literatüründe \"dehrî/mülhid\" gibi terimlerle ifade edildiğini açıkladı. Etkinlik, EÜ İlahiyat Fakültesi Dekanı Prof. Dr. Hanefi Palabıyık'ın da katılımıyla sona erdi; konuşmacıya Yesevi Mührü takdim edildi.",
     startDate: "2025-05-14T14:00:00+03:00",
     endDate: "2025-05-14T16:00:00+03:00",
+    image: { url: "/soylesi-ateizm-deizm-2025.jpg" },
   },
 ];
 

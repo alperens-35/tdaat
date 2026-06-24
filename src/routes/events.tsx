@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouter } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Calendar, MapPin, Clock, Search, CalendarPlus, Download, ArrowRight, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -91,7 +91,7 @@ function AddToCalendar({ event }: { event: UpcomingEvent }) {
   );
 }
 
-function EventsPage() {
+function EventsList() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("Hepsi");
 
@@ -114,7 +114,7 @@ function EventsPage() {
   }, [query, category]);
 
   return (
-    <div className="flex flex-col">
+    <>
       {/* Header */}
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
@@ -260,10 +260,20 @@ function EventsPage() {
               className="group flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 transition-all hover:border-primary/40 hover:shadow-md"
             >
               <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-accent/40 to-muted/40">
-                <ImageIcon className="h-10 w-10 text-foreground/20" />
-                <span className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground backdrop-blur">
-                  Foto yakında
-                </span>
+                {event.image ? (
+                  <img
+                    src={event.image.url}
+                    alt={event.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <ImageIcon className="h-10 w-10 text-foreground/20" />
+                )}
+                {!event.image && (
+                  <span className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground backdrop-blur">
+                    Foto yakında
+                  </span>
+                )}
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-center justify-between">
@@ -286,6 +296,16 @@ function EventsPage() {
           ))}
         </div>
       </section>
+    </>
+  );
+}
+
+function EventsPage() {
+  const router = useRouter();
+  const isIndex = router.state.location.pathname === "/events";
+  return (
+    <div className="flex flex-col">
+      {isIndex ? <EventsList /> : <Outlet />}
     </div>
   );
 }
