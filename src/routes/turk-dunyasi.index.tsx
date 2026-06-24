@@ -306,9 +306,25 @@ function LiveNewsSection() {
   });
 
   const items: LiveNewsItem[] = useMemo(() => {
-    const all = data ?? [];
+    const all = data?.items ?? [];
     return source === "all" ? all : all.filter((i) => i.source === source);
   }, [data, source]);
+
+  const sourceCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    data?.sources.forEach((s) => map.set(s.name, s.count));
+    return map;
+  }, [data]);
+
+  const activeSources = useMemo(
+    () => (data?.sources ?? []).filter((s) => s.count > 0).map((s) => s.name),
+    [data],
+  );
+
+  const emptySources = useMemo(
+    () => (data?.sources ?? []).filter((s) => s.count === 0).map((s) => s.name),
+    [data],
+  );
 
   return (
     <div className="mb-10 rounded-2xl border border-border/60 bg-card/40 p-5">
@@ -332,20 +348,30 @@ function LiveNewsSection() {
       </div>
 
       <div className="mt-4 flex flex-wrap gap-1.5">
-        {SOURCE_FILTERS.map((s) => (
-          <button
-            key={s.key}
-            onClick={() => setSource(s.key)}
-            className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
-              source === s.key
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {s.label}
-          </button>
-        ))}
+        {SOURCE_FILTERS.map((s) => {
+          const count = s.key === "all" ? items.length : sourceCounts.get(s.key) ?? 0;
+          return (
+            <button
+              key={s.key}
+              onClick={() => setSource(s.key)}
+              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                source === s.key
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {s.label}
+              <span className="text-[9px] opacity-70">({count})</span>
+            </button>
+          );
+        })}
       </div>
+
+      {emptySources.length > 0 && activeSources.length > 1 && (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Şu anda {emptySources.join(", ")} kaynaklarından veri alınamıyor; veri geldiğinde otomatik görünecek.
+        </p>
+      )}
 
       <div className="mt-5">
         {isLoading ? (
@@ -357,7 +383,9 @@ function LiveNewsSection() {
         ) : error ? (
           <p className="text-sm text-muted-foreground">Haberler şu anda yüklenemedi.</p>
         ) : items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Bu kaynaktan Türk dünyası ile ilgili haber bulunamadı.</p>
+          <p className="text-sm text-muted-foreground">
+            Bu kaynaktan Türk dünyası ile ilgili, siyasi olmayan haber bulunamadı.
+          </p>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {items.slice(0, 24).map((item) => (
@@ -390,4 +418,5 @@ function LiveNewsSection() {
     </div>
   );
 }
+
 

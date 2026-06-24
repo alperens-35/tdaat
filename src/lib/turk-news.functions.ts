@@ -10,6 +10,16 @@ export type LiveNewsItem = {
   summary?: string;
 };
 
+export type SourceStatus = {
+  name: string;
+  count: number;
+};
+
+export type TurkWorldNewsResult = {
+  items: LiveNewsItem[];
+  sources: SourceStatus[];
+};
+
 type Feed = {
   source: string;
   country: string;
@@ -52,6 +62,17 @@ const TURK_WORLD_KEYWORDS = [
   "ahiska",
 ];
 
+// Political vocabulary used to drop domestic-politics items from the feeds.
+// Applied after the Turkic-world keyword filter so cooperation/culture/economy
+// items about Turkic states remain whenever possible.
+const POLITICAL_KEYWORDS = [
+  "siyaset", "politika", "siyasi", "seçim", "seçimleri", "milletvekili", "meclis", "tbmm",
+  "bakanlar kurulu", "sayıştay", "danıştay", "yargıtay", "anayasa mahkemesi", "yüksek seçim kurulu", "ysk",
+  "hükümet", "iktidar", "muhalefet", "parti", "partisi", "partisinin", "başbakanlık", "bakanlık", "bakanlığına", "bakanlığı",
+  "cumhurbaşkanlığı", "belediye", "valilik", "vali", "kaymakam", "kaymakamlık",
+  "büyükelçilik", "büyükelçi", "diplomat", "diplomatik",
+];
+
 function normalize(s: string): string {
   return s
     .toLocaleLowerCase("tr")
@@ -63,6 +84,11 @@ function normalize(s: string): string {
 function matchesTurkWorld(item: LiveNewsItem): boolean {
   const hay = normalize(`${item.title} ${item.summary ?? ""}`);
   return TURK_WORLD_KEYWORDS.some((k) => hay.includes(k));
+}
+
+function matchesPolitical(item: LiveNewsItem): boolean {
+  const hay = normalize(`${item.title} ${item.summary ?? ""}`);
+  return POLITICAL_KEYWORDS.some((k) => hay.includes(k));
 }
 
 function decode(s: string): string {
@@ -128,23 +154,28 @@ async function fetchFeed(feed: Feed, signal: AbortSignal): Promise<LiveNewsItem[
       signal,
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (compatible; TDAAT-NewsAggregator/1.0; +https://tdaat.lovable.app)",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
         Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.5",
+        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
       },
     });
     if (!res.ok) return [];
     const xml = await res.text();
     const items = parseRss(xml, feed);
-    return feed.requireKeyword ? items.filter(matchesTurkWorld) : items;
+    let filtered = feed.requireKeyword ? items.filter(matchesTurkWorld) : items;
+    // Drop political items from every feed so the section focuses on
+    // culture, economy, society, science, sport and cooperation.
+    filtered = filtered.filter((i) => !matchesPolitical(i));
+    return filtered;
   } catch {
     return [];
   }
 }
 
 export const getTurkWorldNews = createServerFn({ method: "GET" }).handler(
-  async (): Promise<LiveNewsItem[]> => {
+  async (): Promise<TurkWorldNewsResult> => {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
       const results = await Promise.all(FEEDS.map((f) => fetchFeed(f, controller.signal)));
       const merged = results.flat();
@@ -155,11 +186,15 @@ export const getTurkWorldNews = createServerFn({ method: "GET" }).handler(
       const capped: LiveNewsItem[] = [];
       for (const item of merged) {
         const n = perSource.get(item.source) ?? 0;
-        if (n >= 6) continue;
+        if (n >= 8) continue;
         perSource.set(item.source, n + 1);
         capped.push(item);
       }
-      return capped.slice(0, 60);
+      const sources: SourceStatus[] = FEEDS.map((f) => ({
+        name: f.source,
+        count: results.find((r) => r[0]?.source === f.source)?.length ?? 0,
+      }));
+      return { items: capped.slice(0, 60), sources };
     } finally {
       clearTimeout(timeout);
     }
