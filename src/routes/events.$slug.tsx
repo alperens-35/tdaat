@@ -93,6 +93,14 @@ function EventDetail() {
         {event.title}
       </h1>
 
+      {event.image && (
+        <img
+          src={event.image.url}
+          alt={event.title}
+          className="mt-6 w-full rounded-xl border border-border/60 object-cover shadow-sm"
+        />
+      )}
+
       <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
           <Calendar className="h-4 w-4" /> {event.date}

@@ -259,12 +259,22 @@ function EventsPage() {
               params={{ slug: event.slug }}
               className="group flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 transition-all hover:border-primary/40 hover:shadow-md"
             >
-              <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-accent/40 to-muted/40">
+            <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-accent/40 to-muted/40">
+              {event.image ? (
+                <img
+                  src={event.image.url}
+                  alt={event.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              ) : (
                 <ImageIcon className="h-10 w-10 text-foreground/20" />
+              )}
+              {!event.image && (
                 <span className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground backdrop-blur">
                   Foto yakında
                 </span>
-              </div>
+              )}
+            </div>
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-center justify-between">
                   <Badge variant="outline" className="text-xs">
