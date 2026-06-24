@@ -83,13 +83,12 @@ function TurkDunyasiPage() {
 
       {/* Content */}
       <div className="mt-10">
-        {activeTab === "news" && (
-          <>
-            <LiveNewsSection />
-            <NewsGrid />
-            <CalendarPreview />
-          </>
-        )}
+      {activeTab === "news" && (
+        <>
+          <NewsGrid />
+          <CalendarPreview />
+        </>
+      )}
         {activeTab === "culture" && <CultureGrid />}
         {activeTab === "academic" && <AcademicGrid />}
       </div>
