@@ -316,10 +316,10 @@ function LiveNewsSection() {
         <div className="flex items-center gap-2">
           <Radio className="h-4 w-4 text-primary" />
           <h2 className="font-[var(--font-heading)] text-lg font-semibold">
-            Türk Dünyasından Canlı Haberler
+            Türk Dünyasından Haberler
           </h2>
           <Badge variant="outline" className="text-[10px]">
-            Yalnızca Türk dünyası
+            Türk dünyası
           </Badge>
         </div>
         <button
