@@ -71,6 +71,7 @@ export const pastEvents: EventItem[] = [
       "TDAAT, TDAE ve ÜNİDES iş birliğiyle düzenlenen panelde Türk Dünyasından gazeteciler ve medya temsilcileri bir araya geldi. EÜ Rektörü Prof. Dr. Musa Alcı ve TDAE Müdürü Prof. Dr. Atıf Akgün'ün de katıldığı etkinlikte, Türk devletleri arasındaki enformasyon akışının güçlendirilmesi, küresel dezenformasyonla mücadele ve ortak yayıncılık politikalarının geliştirilmesi tartışıldı. Azerbaycanlı gazeteci Agil Alesger de panelistler arasındaydı. Her iki oturum YouTube kanalımızda yayımlandı.",
     startDate: "2026-04-30T14:00:00+03:00",
     endDate: "2026-04-30T17:30:00+03:00",
+    image: { url: "/__l5e/assets-v1/57a41ffd-5aa0-4855-bd16-acd75a30675b/medya-paneli.jpg" },
   },
   {
     slug: "dogu-turkistan-paneli-2026",
