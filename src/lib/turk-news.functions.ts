@@ -34,19 +34,21 @@ const FEEDS: Feed[] = [
   // Türkiye — Türkçe
   { source: "Anadolu Ajansı", country: "tr", url: "https://www.aa.com.tr/tr/rss/default?cat=guncel", requireKeyword: true },
   { source: "TRT Haber", country: "tr", url: "https://www.trthaber.com/sondakika.rss", requireKeyword: true },
-  { source: "TRT Avaz", country: "tr", url: "https://www.trtavaz.com.tr/rss/anasayfa/tr" },
-  // Azerbaycan — Azerbaycan Türkçesi
-  { source: "AZERTAC", country: "az", url: "https://azertag.az/rss" },
-  // Kazakistan — Kazakça
-  { source: "Kazinform", country: "kz", url: "https://www.inform.kz/kz/rss" },
-  // Özbekistan — Özbekçe
+  { source: "TRT Avaz", country: "tr", url: "https://news.google.com/rss/search?q=site:trtavaz.com.tr&hl=tr&gl=TR&ceid=TR:tr" },
+  // Azerbaycan
+  { source: "AZERTAC", country: "az", url: "https://news.google.com/rss/search?q=site:azertag.az&hl=tr&gl=TR&ceid=TR:tr" },
+  // Kazakistan
+  { source: "Qazinform", country: "kz", url: "https://news.google.com/rss/search?q=site:qazinform.com&hl=tr&gl=TR&ceid=TR:tr" },
+  // Özbekistan
   { source: "UZA", country: "uz", url: "https://uza.uz/oz/rss" },
-  // Kırgızistan — Kırgızca
-  { source: "Kabar", country: "kg", url: "https://kabar.kg/rss/" },
-  // KKTC — Türkçe
-  { source: "TAK (KKTC)", country: "tr", url: "https://www.tak.gov.ct.tr/rss" },
-  // Kırım — Kırım Tatarcası / Türkçe
-  { source: "QHA (Kırım)", country: "tr", url: "https://qha.com.tr/rss" },
+  // Kırgızistan — Türkçe edisyon
+  { source: "Kabar (TR)", country: "kg", url: "https://news.google.com/rss/search?q=site:tr.kabar.kg&hl=tr&gl=TR&ceid=TR:tr" },
+  // KKTC
+  { source: "TAK (KKTC)", country: "tr", url: "https://news.google.com/rss/search?q=site:tak.gov.ct.tr&hl=tr&gl=TR&ceid=TR:tr" },
+  // Kırım
+  { source: "QHA (Kırım)", country: "tr", url: "https://www.qha.com.tr/rss" },
+  // Yeniçağ
+  { source: "Yeniçağ", country: "az", url: "https://yenicag.info/feed/" },
 ];
 
 // Keywords that mark an item as Türk dünyası related. Lower-cased, diacritic-tolerant
