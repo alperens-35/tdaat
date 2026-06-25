@@ -122,8 +122,7 @@ function EventsList() {
             Etkinlikler
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-left">
-            Konferanslar, paneller, makale okumaları, Türk sporları ve daha niceleri seni bekliyor.
-            Kendini geliştir, yeni insanlar tanı, deneyim kazan.
+            Yaklaşan etkinlik görünmüyor.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <div className="rounded-lg border border-border/60 bg-card/50 px-4 py-3">
