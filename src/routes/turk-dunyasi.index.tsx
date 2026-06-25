@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag, MapPin, Radio, ExternalLink, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { FlagIcon } from "@/components/FlagIcon";
 import { CultureIcon } from "@/components/CultureIcon";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
@@ -299,6 +300,7 @@ function formatRelative(iso: string): string {
 
 function LiveNewsSection() {
   const [source, setSource] = useState<string>("all");
+  const [selected, setSelected] = useState<LiveNewsItem | null>(null);
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: ["turk-world-news"],
     queryFn: () => getTurkWorldNews(),
@@ -375,9 +377,9 @@ function LiveNewsSection() {
 
       <div className="mt-5">
         {isLoading ? (
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-24 animate-pulse rounded-lg border border-border/60 bg-muted/30" />
+              <div key={i} className="h-48 animate-pulse rounded-xl border border-border/60 bg-muted/30" />
             ))}
           </div>
         ) : error ? (
@@ -387,34 +389,82 @@ function LiveNewsSection() {
             Bu kaynaktan Türk dünyası ile ilgili, siyasi olmayan haber bulunamadı.
           </p>
         ) : (
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.slice(0, 24).map((item) => (
-              <li key={item.id}>
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex h-full flex-col rounded-lg border border-border/60 bg-background p-3 transition-colors hover:border-primary/40"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
-                      <FlagIcon country={item.country} />
-                      {item.source}
-                    </span>
-                    <span className="text-[10px] text-muted-foreground">{formatRelative(item.pubDate)}</span>
-                  </div>
-                  <p className="mt-1.5 line-clamp-3 text-sm font-medium leading-snug text-foreground group-hover:text-primary">
-                    {item.title}
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setSelected(item)}
+                className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 text-left transition-colors duration-200 hover:border-primary/40"
+              >
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline" className="text-xs">
+                    <Tag className="mr-1 h-2.5 w-2.5" />
+                    {item.source}
+                  </Badge>
+                  <FlagIcon country={item.country} />
+                </div>
+                <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold leading-snug text-foreground group-hover:text-primary">
+                  {item.title}
+                </h3>
+                {item.summary && (
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4">
+                    {item.summary}
                   </p>
-                  <span className="mt-auto inline-flex items-center gap-1 pt-2 text-[11px] text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                    Kaynağa git <ExternalLink className="h-3 w-3" />
+                )}
+                <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {formatRelative(item.pubDate)}
                   </span>
-                </a>
-              </li>
+                  <span className="inline-flex items-center gap-1 text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                    Devamını oku
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </div>
+              </button>
             ))}
-          </ul>
+          </div>
         )}
       </div>
+
+      <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          {selected && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center justify-between gap-2">
+                  <Badge variant="outline" className="text-xs">
+                    <FlagIcon country={selected.country} />
+                    <span className="ml-1">{selected.source}</span>
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">
+                    {formatRelative(selected.pubDate)}
+                  </span>
+                </div>
+                <DialogTitle className="mt-2 text-left font-[var(--font-heading)] text-xl leading-snug">
+                  {selected.title}
+                </DialogTitle>
+                {selected.summary && (
+                  <DialogDescription className="mt-3 text-left text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
+                    {selected.summary}
+                  </DialogDescription>
+                )}
+              </DialogHeader>
+              <div className="mt-4 flex justify-end border-t border-border/60 pt-3">
+                <a
+                  href={selected.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                >
+                  Kaynakta tamamını oku <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
