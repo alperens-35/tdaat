@@ -86,6 +86,7 @@ export const pastEvents: EventItem[] = [
       "Prof. Dr. Alimcan İnayet'in moderatörlüğünde düzenlenen panelde Prof. Dr. Erkin Emet (Ankara Üniversitesi / Dünya Uygur Kurultayı sözcüsü), araştırmacı-yazar Hamit Göktürk ve eğitimci-yazar Gazi Karabulut konuşmacı olarak yer aldı. Etkinlik kapsamında Uygur Türklerine yönelik uygulamaları konu alan bir resim sergisi ile geleneksel Uygur kıyafetlerinden oluşan bir sergi de açıldı. Farklı fakültelerden dekanlar etkinliğe katıldı; Prof. Dr. Erkin Emet topluluğa kitap bağışında bulundu.",
     startDate: "2026-04-16T14:00:00+03:00",
     endDate: "2026-04-16T17:00:00+03:00",
+    image: { url: "/__l5e/assets-v1/0687a86b-093c-4198-8e0b-a38f31206594/dogu-turkistan.jpg" },
   },
   {
     slug: "suriye-turkleri-paneli-2026",
