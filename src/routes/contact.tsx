@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Aidat var mı?",
-    a: "Hayır, TDAAT'a üyelik tamamen ücretsizdir. Bazı özel etkinliklerde sadece organizasyon maliyeti talep edilebilir.",
+    a: "Hayır, TDAAT'a üyelik tamamen ücretsizdir. Hiçbir etkinliğimiz için katılım ücreti veya organizasyon maliyeti talep etmiyoruz.",
   },
   {
     q: "Sadece Ege Üniversitesi öğrencileri mi katılabilir?",
