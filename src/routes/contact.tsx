@@ -134,7 +134,7 @@ function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-[var(--font-heading)] text-sm font-semibold text-foreground">
-                      Lokasyon
+                      Konum
                     </h3>
                     <p className="text-sm text-muted-foreground">
                       İzmir, Türkiye
