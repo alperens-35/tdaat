@@ -58,7 +58,7 @@ export function ArfWidget() {
           localStorage.setItem(key, t.id);
           setThreadId(t.id);
         })
-        .catch((e) => toast.error(e.message || "Sohbet başlatılamadı"));
+        .catch(() => toast.error("Sohbet başlatılamadı"));
 
     if (existing) {
       // Verify the stored thread still exists (it may have been deleted)
