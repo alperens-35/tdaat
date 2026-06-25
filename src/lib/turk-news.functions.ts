@@ -215,22 +215,74 @@ export const getTurkWorldNews = createServerFn({ method: "GET" }).handler(
   },
 );
 
-export async function extractArticleText(url: string): Promise<string[]> {
+async function resolveGoogleNewsUrl(url: string, signal: AbortSignal): Promise<string> {
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 6000);
     const res = await fetch(url, {
-      signal: controller.signal,
+      signal,
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
         Accept: "text/html",
       },
     });
+    if (!res.ok) return url;
+    const html = await res.text();
+    const id = html.match(/data-n-a-id="([^"]+)"/)?.[1];
+    const sg = html.match(/data-n-a-sg="([^"]+)"/)?.[1];
+    const ts = html.match(/data-n-a-ts="([^"]+)"/)?.[1];
+    if (!id || !sg || !ts) return url;
+    const inner = JSON.stringify([
+      "garturlreq",
+      [["X","X",["X","X"],null,null,1,1,"US:en",null,1,null,null,null,null,null,0,1],
+       "X","X",1,[1,1,1],1,1,null,0,0,null,0],
+      id, Number(ts), sg,
+    ]);
+    const freq = JSON.stringify([[["Fbv4je", inner, null, "generic"]]]);
+    const body = new URLSearchParams({ "f.req": freq }).toString();
+    const exec = await fetch(
+      "https://news.google.com/_/DotsSplashUi/data/batchexecute?rpcids=Fbv4je",
+      {
+        signal,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          "User-Agent": "Mozilla/5.0",
+        },
+        body,
+      },
+    );
+    if (!exec.ok) return url;
+    const text = await exec.text();
+    const m = text.match(/"(https?:\\\/\\\/[^"]+)"/);
+    if (m) return m[1].replace(/\\\//g, "/");
+    const m2 = text.match(/"(https?:\/\/[^"\\]+)"/);
+    return m2 ? m2[1] : url;
+  } catch {
+    return url;
+  }
+}
+
+export async function extractArticleText(url: string): Promise<string[]> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+    let target = url;
+    if (/news\.google\.com\/rss\/articles\//.test(url)) {
+      target = await resolveGoogleNewsUrl(url, controller.signal);
+    }
+    const res = await fetch(target, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        Accept: "text/html",
+        "Accept-Language": "tr-TR,tr;q=0.9,en;q=0.7",
+      },
+    });
     clearTimeout(timeout);
     if (!res.ok) return [];
 
-    let html = await res.text();
+    const html = await res.text();
     // Prefer article/main content if available.
     const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
     const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
@@ -252,8 +304,8 @@ export async function extractArticleText(url: string): Promise<string[]> {
     return text
       .split(/\n+/)
       .map((p) => p.trim())
-      .filter((p) => p.length >= 80 && p.length <= 900)
-      .slice(0, 14);
+      .filter((p) => p.length >= 60 && p.length <= 1200)
+      .slice(0, 20);
   } catch {
     return [];
   }
