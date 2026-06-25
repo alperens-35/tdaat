@@ -212,3 +212,48 @@ export const getTurkWorldNews = createServerFn({ method: "GET" }).handler(
     }
   },
 );
+
+export async function extractArticleText(url: string): Promise<string[]> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        Accept: "text/html",
+      },
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return [];
+
+    let html = await res.text();
+    // Prefer article/main content if available.
+    const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+    const mainMatch = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+    const sourceHtml = articleMatch?.[1] ?? mainMatch?.[1] ?? html;
+
+    let text = sourceHtml
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<noscript[\s\S]*?<\/noscript>/gi, "")
+      .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+      .replace(/<header[\s\S]*?<\/header>/gi, "")
+      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
+      .replace(/<aside[\s\S]*?<\/aside>/gi, "")
+      .replace(/<title[\s\S]*?<\/title>/gi, "")
+      .replace(/<h1[\s\S]*?<\/h1>/gi, "");
+
+    text = decode(text);
+
+    return text
+      .split(/\n+/)
+      .map((p) => p.trim())
+      .filter((p) => p.length >= 80 && p.length <= 900)
+      .slice(0, 14);
+  } catch {
+    return [];
+  }
+}
+

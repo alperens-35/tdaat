@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, Tag, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FlagIcon } from "@/components/FlagIcon";
-import { getTurkWorldNews, type LiveNewsItem } from "@/lib/turk-news.functions";
+import { getTurkWorldNews, extractArticleText, type LiveNewsItem } from "@/lib/turk-news.functions";
 
 const countryNames: Record<string, string> = {
   tr: "Türkiye",
@@ -34,18 +34,26 @@ export const Route = createFileRoute("/turk-dunyasi/haber/canli/$id")({
           year: "numeric",
         });
 
-    const allParagraphs = item.content
-      ? item.content
-          .split(/\n+/)
-          .map((p) => p.trim())
-          .filter(Boolean)
-      : item.summary
-        ? [item.summary]
-        : [];
+    const extracted = await extractArticleText(item.link);
 
-    // Avoid showing the same truncated summary twice if it begins the full content.
-    if (item.summary && allParagraphs.length && allParagraphs[0].startsWith(item.summary)) {
-      allParagraphs.shift();
+    // If the extracted text starts with the same summary we already show as the lead, skip it.
+    let bodyParagraphs = extracted;
+    if (item.summary && bodyParagraphs.length && bodyParagraphs[0].startsWith(item.summary)) {
+      bodyParagraphs = bodyParagraphs.slice(1);
+    }
+
+    if (!bodyParagraphs.length) {
+      bodyParagraphs = item.content
+        ? item.content
+            .split(/\n+/)
+            .map((p) => p.trim())
+            .filter(Boolean)
+        : item.summary
+          ? [item.summary]
+          : [];
+      if (item.summary && bodyParagraphs.length && bodyParagraphs[0].startsWith(item.summary)) {
+        bodyParagraphs.shift();
+      }
     }
 
     return {
@@ -53,7 +61,7 @@ export const Route = createFileRoute("/turk-dunyasi/haber/canli/$id")({
       dateText,
       countryName: countryNames[item.country] ?? item.country.toUpperCase(),
       lead: item.summary,
-      paragraphs: allParagraphs,
+      paragraphs: bodyParagraphs,
     };
   },
   head: ({ loaderData }) => ({
