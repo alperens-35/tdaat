@@ -1,14 +1,12 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag, MapPin, Radio, RefreshCw } from "lucide-react";
+import { Newspaper, BookOpen, GraduationCap, Calendar, Globe, ArrowRight, Tag, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FlagIcon } from "@/components/FlagIcon";
 import { CultureIcon } from "@/components/CultureIcon";
 import { newsItems, cultureItems, academicItems } from "@/lib/turk-dunya-data";
 import { calendarEvents, categoryLabels as calCategoryLabels, categoryColors as calCategoryColors } from "@/lib/takvim-data";
 import { useI18n } from "@/lib/i18n";
-import { getTurkWorldNews, type LiveNewsItem } from "@/lib/turk-news.functions";
 
 
 
@@ -87,7 +85,6 @@ function TurkDunyasiPage() {
       <div className="mt-10">
       {activeTab === "news" && (
         <>
-          <LiveNewsSection />
           <NewsGrid />
           <CalendarPreview />
         </>
@@ -273,160 +270,5 @@ function AcademicGrid() {
   );
 }
 
-const SOURCE_FILTERS: { key: string; label: string }[] = [
-  { key: "all", label: "Tümü" },
-  { key: "Anadolu Ajansı", label: "AA" },
-  { key: "TRT Haber", label: "TRT Haber" },
-  { key: "TRT Avaz", label: "TRT Avaz" },
-  { key: "AZERTAC", label: "AZERTAC" },
-  { key: "Kazinform", label: "Kazinform" },
-  { key: "UZA", label: "UZA" },
-  { key: "Kabar", label: "Kabar" },
-  { key: "TAK (KKTC)", label: "TAK" },
-  { key: "QHA (Kırım)", label: "QHA" },
-];
-
-function formatRelative(iso: string): string {
-  const diff = Date.now() - new Date(iso).getTime();
-  const m = Math.round(diff / 60000);
-  if (m < 1) return "şimdi";
-  if (m < 60) return `${m} dk önce`;
-  const h = Math.round(m / 60);
-  if (h < 24) return `${h} sa önce`;
-  const d = Math.round(h / 24);
-  return `${d} g önce`;
-}
-
-function LiveNewsSection() {
-  const [source, setSource] = useState<string>("all");
-  const { data, isLoading, isFetching, refetch, error } = useQuery({
-    queryKey: ["turk-world-news"],
-    queryFn: () => getTurkWorldNews(),
-    staleTime: 5 * 60 * 1000,
-  });
-
-  const items: LiveNewsItem[] = useMemo(() => {
-    const all = data?.items ?? [];
-    return source === "all" ? all : all.filter((i) => i.source === source);
-  }, [data, source]);
-
-  const sourceCounts = useMemo(() => {
-    const map = new Map<string, number>();
-    data?.sources.forEach((s) => map.set(s.name, s.count));
-    return map;
-  }, [data]);
-
-  const activeSources = useMemo(
-    () => (data?.sources ?? []).filter((s) => s.count > 0).map((s) => s.name),
-    [data],
-  );
-
-  const emptySources = useMemo(
-    () => (data?.sources ?? []).filter((s) => s.count === 0).map((s) => s.name),
-    [data],
-  );
-
-  return (
-    <div className="mb-10 rounded-2xl border border-border/60 bg-card/40 p-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Radio className="h-4 w-4 text-primary" />
-          <h2 className="font-[var(--font-heading)] text-lg font-semibold">
-            Türk Dünyasından Haberler
-          </h2>
-          <Badge variant="outline" className="text-[10px]">
-            Türk dünyası
-          </Badge>
-        </div>
-        <button
-          onClick={() => refetch()}
-          className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground"
-        >
-          <RefreshCw className={`h-3 w-3 ${isFetching ? "animate-spin" : ""}`} />
-          Yenile
-        </button>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {SOURCE_FILTERS.map((s) => {
-          const count = s.key === "all" ? items.length : sourceCounts.get(s.key) ?? 0;
-          return (
-            <button
-              key={s.key}
-              onClick={() => setSource(s.key)}
-              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-colors ${
-                source === s.key
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {s.label}
-              <span className="text-[9px] opacity-70">({count})</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {emptySources.length > 0 && activeSources.length > 1 && (
-        <p className="mt-3 text-xs text-muted-foreground">
-          Şu anda {emptySources.join(", ")} kaynaklarından veri alınamıyor; veri geldiğinde otomatik görünecek.
-        </p>
-      )}
-
-      <div className="mt-5">
-        {isLoading ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-48 animate-pulse rounded-xl border border-border/60 bg-muted/30" />
-            ))}
-          </div>
-        ) : error ? (
-          <p className="text-sm text-muted-foreground">Haberler şu anda yüklenemedi.</p>
-        ) : items.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Bu kaynaktan Türk dünyası ile ilgili, siyasi olmayan haber bulunamadı.
-          </p>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.slice(0, 24).map((item) => (
-              <Link
-                key={item.id}
-                to="/turk-dunyasi/haber/canli/$id"
-                params={{ id: item.id }}
-                className="group flex flex-col rounded-xl border border-border/60 bg-card p-5 transition-colors duration-200 hover:border-primary/40"
-              >
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-xs">
-                    <Tag className="mr-1 h-2.5 w-2.5" />
-                    {item.source}
-                  </Badge>
-                  <FlagIcon country={item.country} />
-                </div>
-                <h3 className="mt-3 font-[var(--font-heading)] text-lg font-semibold leading-snug text-foreground group-hover:text-primary">
-                  {item.title}
-                </h3>
-                {item.summary && (
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4">
-                    {item.summary}
-                  </p>
-                )}
-                <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1">
-                    <Calendar className="h-3 w-3" />
-                    {formatRelative(item.pubDate)}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                    Devamını oku
-                    <ArrowRight className="h-3 w-3" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 
