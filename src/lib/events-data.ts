@@ -59,6 +59,7 @@ export const pastEvents: EventItem[] = [
       "TDAE Müdürü Prof. Dr. Atıf Akgün'ün moderatörlüğündeki panelde, Yıldız Teknik Üniversitesi'nden Prof. Dr. Mehmet Akif Okur ve Suriyeli Türkmen Dernekler Federasyonu Başkanı / Halep Milletvekili Dr. Tarık Sülo Cevizci konuşmacı olarak yer aldı. Türkiye'nin güney sınırındaki güvenlik durumu ele alındı ve Türkmenlerin Suriye'nin yeniden yapılanmasında kurucu unsur olarak tanınması gerektiği vurgulandı.",
     startDate: "2026-03-09T14:00:00+03:00",
     endDate: "2026-03-09T16:30:00+03:00",
+    image: { url: "/__l5e/assets-v1/98905381-8601-42fb-9b6d-f7b3b836cc37/suriye-turkleri-paneli-2026.jpg" },
   },
   {
     slug: "ortak-kimlik-paneli-2025",
