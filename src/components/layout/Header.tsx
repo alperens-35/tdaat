@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import logo from "@/assets/logo.png";
 import arfLogo from "@/assets/arf-avatar.png";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
+import { useIsAdmin } from "@/hooks/use-admin";
+
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
