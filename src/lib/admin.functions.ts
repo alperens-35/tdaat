@@ -1,31 +1,28 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
 
-type SB = Awaited<ReturnType<typeof requireSupabaseAuth.server>> extends never
-  ? never
-  : ReturnType<typeof import("@supabase/supabase-js").createClient<Database>>;
+// Any-typed helpers to bypass strict generic inference on the middleware context.
+// The runtime types are enforced by RLS + zod validators below.
+type Ctx = { supabase: any; userId: string };
 
-async function assertAdmin(supabase: SB, userId: string) {
-  const { data, error } = await supabase.rpc("has_role", {
-    _user_id: userId,
-    _role: "admin",
-  } as never);
-  if (error) throw new Error(error.message);
-  if (!data) throw new Error("Forbidden: admin only");
+async function isAdmin(ctx: Ctx): Promise<boolean> {
+  const { data } = await ctx.supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", ctx.userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  return Boolean(data);
 }
 
-// ============ Session role check for client gating ============
+async function assertAdmin(ctx: Ctx) {
+  if (!(await isAdmin(ctx))) throw new Error("Forbidden: admin only");
+}
+
 export const getIsAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    } as never);
-    return { isAdmin: Boolean(data) };
-  });
+  .handler(async ({ context }) => ({ isAdmin: await isAdmin(context as unknown as Ctx) }));
 
 // ============ EVENTS ============
 const eventInput = z.object({
