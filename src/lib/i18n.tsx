@@ -25,7 +25,9 @@ const translations: Record<Lang, Dict> = {
     "nav.contact": "İletişim",
     "nav.toggleMenu": "Menüyü Aç/Kapat",
     "nav.join": "Üye Ol",
+    "nav.signIn": "Giriş Yap",
     "lang.label": "Dil",
+
 
     "footer.tagline": "Üniversite öğrencilerinin öğrenme, üretme ve büyüme yolculuğunda birlikte güçlendikleri bir topluluk.",
     "footer.pages": "Sayfalar",
