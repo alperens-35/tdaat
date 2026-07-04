@@ -74,6 +74,7 @@ export const pastEvents: EventItem[] = [
       "Topluluğun en kapsamlı etkinliklerinden biri olarak gerçekleşen panelin Kültür oturumunu Doç. Dr. Fazıl Özdamar modere etti; Prof. Dr. Metin Ekici (EÜ TDAE), Prof. Dr. Mustafa Aksoy (Munzur Üniversitesi) ve Prof. Dr. Saadettin Yağmur Gömeç (Ankara Üniversitesi) konuşmacı olarak yer aldı. Açılış ve kapanış konuşmalarını EÜ Rektör Yardımcısı Prof. Dr. Mehmet Ersan yaptı. Prof. Dr. Ekici Nevruz, Hıdırellez ve Dede Korkut anlatılarının birleştirici rolüne dikkat çekerken; Prof. Dr. Gömeç kimliğin töre ve millî ruhla ayakta durduğunu vurguladı.",
     startDate: "2025-12-23T14:00:00+03:00",
     endDate: "2025-12-23T17:30:00+03:00",
+    image: { url: "/__l5e/assets-v1/04663dc0-bbde-47c6-8d96-15e368363e68/ortak-kimlik-paneli-2025.jpg" },
   },
   {
     slug: "feto-konferansi-2025",
