@@ -88,6 +88,7 @@ export const pastEvents: EventItem[] = [
       "TDAAT ve TDAE iş birliğiyle düzenlenen konferansa Ankara Üniversitesi İlahiyat Fakültesi'nden Prof. Dr. İbrahim Maraş konuşmacı olarak katıldı. Açılışı TDAE Müdürü Prof. Dr. Abdullah Temizkan yaptı. İstiklal Marşı ve saygı duruşuyla başlayan programda, Türkiye'nin Orta Asya ve Türk coğrafyasıyla kurduğu derin ilişkilerin nasıl sekteye uğratıldığı akademik düzeyde tartışıldı.",
     startDate: "2025-11-21T14:00:00+03:00",
     endDate: "2025-11-21T16:00:00+03:00",
+    image: { url: "/__l5e/assets-v1/715ed3b2-2142-45f0-b17a-5a3cb0f18432/feto-konferansi-2025.png" },
   },
   {
     slug: "ateizm-deizm-soylesisi-2025",
