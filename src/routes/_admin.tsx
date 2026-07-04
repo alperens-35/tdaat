@@ -20,11 +20,11 @@ export const Route = createFileRoute("/_admin")({
 
 const items = [
   { to: "/admin", label: "Özet", icon: LayoutDashboard, exact: true },
-  { to: "/admin/events", label: "Etkinlikler", icon: CalendarDays },
-  { to: "/admin/blog", label: "Blog", icon: FileText },
-  { to: "/admin/news", label: "Haberler", icon: Newspaper },
-  { to: "/admin/gallery", label: "Galeri", icon: Images },
-  { to: "/admin/uyelikler", label: "Üyelikler", icon: Users },
+  { to: "/admin/events", label: "Etkinlikler", icon: CalendarDays, exact: false },
+  { to: "/admin/blog", label: "Blog", icon: FileText, exact: false },
+  { to: "/admin/news", label: "Haberler", icon: Newspaper, exact: false },
+  { to: "/admin/gallery", label: "Galeri", icon: Images, exact: false },
+  { to: "/admin/uyelikler", label: "Üyelikler", icon: Users, exact: false },
 ] as const;
 
 function AdminLayout() {
