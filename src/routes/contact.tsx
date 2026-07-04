@@ -41,6 +41,10 @@ const FAQS = [
     q: "Topluluğa nasıl ulaşırım?",
     a: "Aşağıdaki e-posta veya Instagram hesabımız üzerinden bize her zaman ulaşabilirsin.",
   },
+  {
+    q: "Nasıl destek olabilirim?",
+    a: "Bağış, sponsorluk veya gönüllülükle destek verebilirsin. Detaylar için Destek Ol sayfamıza göz atabilirsin.",
+  },
 ];
 
 export const Route = createFileRoute("/contact")({
