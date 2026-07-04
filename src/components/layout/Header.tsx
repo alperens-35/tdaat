@@ -16,6 +16,8 @@ export function Header() {
   const location = useLocation();
   const { t } = useI18n();
   const { isAdmin } = useIsAdmin();
+  const { user } = useAuthUser();
+
 
 
   const navLinks = [
