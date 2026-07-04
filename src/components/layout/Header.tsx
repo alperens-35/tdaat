@@ -7,6 +7,8 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { useIsAdmin } from "@/hooks/use-admin";
+import { useAuthUser } from "@/hooks/use-auth-user";
+
 
 
 export function Header() {
