@@ -24,17 +24,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - - name: Set up Node.js
-  uses: actions/setup-node@v4
-  with:
-    node-version: "20"  # LTS versiyonu
-    cache: npm
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
 
-- name: Build project
-  run: npm run build
+      - name: Build project
+        run: npm run build
 
-- name: Verify dist folder exists
-  run: test -d ./dist || (echo "Build failed - dist folder not found" && exit 1)
+      - name: Verify dist folder exists
+        run: test -d ./dist || (echo "Build failed - dist folder not found" && exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
