@@ -32,9 +32,11 @@ function AdminLayout() {
       try {
         console.log('[AdminLayout] verifyAdmin başladı');
         
-        // getSession'ı timeout ile sar
+        // 1. Önce getSession'ı dene, 2 saniye timeout
         const sessionPromise = supabase.auth.getSession();
-        
+        let sessionResult: { data: any; error: any } | null = null;
+        let fromCache = false;
+
         const timeoutPromise = new Promise<{ data: any; error: any }>((resolve) => {
           timeoutId = setTimeout(async () => {
             console.warn('[AdminLayout] ⏰ getSession timeout! localStorage\'dan manuel okuma yapılıyor...');
@@ -47,17 +49,28 @@ function AdminLayout() {
                 if (raw) {
                   const parsed = JSON.parse(raw);
                   console.log('[AdminLayout] localStorage\'dan okunan token:', parsed);
+                  
+                  // 🔥 KRİTİK: setSession ile oturumu başlat
+                  console.log('[AdminLayout] supabase.auth.setSession çağrılıyor...');
                   const { data, error } = await supabase.auth.setSession({
                     access_token: parsed.access_token,
                     refresh_token: parsed.refresh_token,
                   });
-                  resolve({ data, error });
+                  console.log('[AdminLayout] setSession sonucu:', { data, error });
+                  
+                  if (error) {
+                    console.error('[AdminLayout] setSession hatası:', error);
+                    resolve({ data: null, error });
+                  } else {
+                    fromCache = true;
+                    resolve({ data, error: null });
+                  }
                 } else {
                   resolve({ data: null, error: null });
                 }
               } catch (e) {
                 console.error('[AdminLayout] localStorage okuma hatası:', e);
-                resolve({ data: null, error: null });
+                resolve({ data: null, error: e as any });
               }
             } else {
               resolve({ data: null, error: null });
@@ -65,17 +78,19 @@ function AdminLayout() {
           }, 2000);
         });
 
-        const result = await Promise.race([sessionPromise, timeoutPromise]);
+        // Yarışı başlat
+        sessionResult = await Promise.race([sessionPromise, timeoutPromise]);
         clearTimeout(timeoutId);
 
-        console.log('[AdminLayout] getSession sonucu:', result);
+        console.log('[AdminLayout] Race sonucu:', sessionResult);
 
-        const { data, error } = result;
+        const { data, error } = sessionResult;
 
         if (error) {
-          console.error('[AdminLayout] getSession hatası:', error);
+          console.error('[AdminLayout] getSession/setSession hatası:', error);
         }
 
+        // Eğer hala oturum yoksa, unauthorized
         if (!data?.session) {
           console.warn('[AdminLayout] Oturum yok, unauthorized');
           if (isMounted) {
@@ -87,6 +102,8 @@ function AdminLayout() {
 
         console.log('[AdminLayout] Oturum mevcut, user_id:', data.session.user.id);
 
+        // Admin rolünü kontrol et
+        console.log('[AdminLayout] user_roles sorgulanıyor...');
         const { data: roleData, error: roleError } = await supabase
           .from("user_roles")
           .select("role")
