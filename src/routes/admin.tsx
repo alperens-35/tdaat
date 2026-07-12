@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect, Link, useRouterState } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard } from "lucide-react";
+import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -25,6 +25,7 @@ const items = [
   { to: "/admin/news", label: "Haberler", icon: Newspaper, exact: false },
   { to: "/admin/gallery", label: "Galeri", icon: Images, exact: false },
   { to: "/admin/uyelikler", label: "Üyelikler", icon: Users, exact: false },
+  { to: "/admin/roller", label: "Rol Yönetimi", icon: Shield, exact: false },
 ] as const;
 
 function AdminLayout() {
