@@ -25,21 +25,19 @@ function AdminLayout() {
   const [status, setStatus] = useState<"loading" | "authorized" | "unauthorized">("loading");
 
   useEffect(() => {
-    console.log('[AdminLayout] useEffect çalıştı, status:', status);
     let isMounted = true;
     let timeoutId: NodeJS.Timeout;
 
     async function verifyAdmin() {
-      console.log('[AdminLayout] verifyAdmin başladı');
       try {
-        // 🔥 KRİTİK: getSession'ı timeout ile sar
-        console.log('[AdminLayout] supabase.auth.getSession() çağrılıyor...');
+        console.log('[AdminLayout] verifyAdmin başladı');
         
+        // getSession'ı timeout ile sar
         const sessionPromise = supabase.auth.getSession();
+        
         const timeoutPromise = new Promise<{ data: any; error: any }>((resolve) => {
-          timeoutId = setTimeout(() => {
+          timeoutId = setTimeout(async () => {
             console.warn('[AdminLayout] ⏰ getSession timeout! localStorage\'dan manuel okuma yapılıyor...');
-            // localStorage'dan token'ı oku
             const storageKey = Object.keys(localStorage).find(key => key.startsWith('sb-') && key.endsWith('-auth-token'));
             console.log('[AdminLayout] localStorage anahtarı:', storageKey);
             
@@ -49,7 +47,6 @@ function AdminLayout() {
                 if (raw) {
                   const parsed = JSON.parse(raw);
                   console.log('[AdminLayout] localStorage\'dan okunan token:', parsed);
-                  // supabase.auth.setSession ile oturumu başlat
                   const { data, error } = await supabase.auth.setSession({
                     access_token: parsed.access_token,
                     refresh_token: parsed.refresh_token,
@@ -68,7 +65,6 @@ function AdminLayout() {
           }, 2000);
         });
 
-        // İlk önce hangisi önce gelirse
         const result = await Promise.race([sessionPromise, timeoutPromise]);
         clearTimeout(timeoutId);
 
@@ -91,8 +87,6 @@ function AdminLayout() {
 
         console.log('[AdminLayout] Oturum mevcut, user_id:', data.session.user.id);
 
-        // Admin rolünü kontrol et
-        console.log('[AdminLayout] user_roles sorgulanıyor...');
         const { data: roleData, error: roleError } = await supabase
           .from("user_roles")
           .select("role")
@@ -128,7 +122,6 @@ function AdminLayout() {
 
     verifyAdmin();
 
-    // Oturum değişikliklerini dinle (güvenlik ağı)
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       console.log('[AdminLayout] onAuthStateChange event:', event, 'session:', session);
       if (event === "SIGNED_OUT" && isMounted) {
@@ -139,14 +132,11 @@ function AdminLayout() {
     });
 
     return () => {
-      console.log('[AdminLayout] cleanup');
       isMounted = false;
       clearTimeout(timeoutId);
       listener?.subscription.unsubscribe();
     };
   }, [navigate]);
-
-  console.log('[AdminLayout] render, status:', status);
 
   if (status === "loading") {
     return (
@@ -157,12 +147,8 @@ function AdminLayout() {
     );
   }
 
-  if (status === "unauthorized") {
-    console.warn('[AdminLayout] unauthorized render, null döndü');
-    return null;
-  }
+  if (status === "unauthorized") return null;
 
-  console.log('[AdminLayout] authorized render, AuthProvider içinde Outlet');
   return (
     <AuthProvider>
       <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
