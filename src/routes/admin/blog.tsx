@@ -21,18 +21,6 @@ export const Route = createFileRoute("/admin/blog")({
   component: AdminBlogPage,
 });
 
-const empty = {
-  slug: "",
-  title: "",
-  excerpt: "",
-  date_label: "",
-  author: "",
-  reading_time: "5 dk",
-  category: "",
-  content: "",
-  cover_url: "" as string | null,
-};
-
 function AdminBlogPage() {
   const qc = useQueryClient();
   const { data: rows } = useQuery({
@@ -105,13 +93,6 @@ function AdminBlogPage() {
                 </td>
               </tr>
             ))}
-            {(!rows || rows.length === 0) && (
-              <tr>
-                <td colSpan={4} className="px-4 py-10 text-center text-muted-foreground">
-                  Henüz yazı bulunmuyor.
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>
@@ -155,7 +136,7 @@ function BlogDialog({ initial, onClose }: { initial: Row | null; onClose: () => 
     try {
       const url = await safeMediaUpload(file, "public-media");
       setF((s) => ({ ...s, cover_url: url }));
-      toast.success("Görsel başarıyla yüklendi.");
+      toast.success("Görsel yüklendi");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Yükleme başarısız");
     } finally {
@@ -163,10 +144,8 @@ function BlogDialog({ initial, onClose }: { initial: Row | null; onClose: () => 
     }
   }
 
-  const canSave = useMemo(
-    () => f.slug && f.title && f.excerpt && f.date_label && f.author && f.category && f.content,
-    [f],
-  );
+  // Sadece kritik alanları zorunlu tutarak kilitlenmeyi önlüyoruz
+  const canSave = useMemo(() => f.slug && f.title && f.content, [f]);
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
@@ -183,12 +162,12 @@ function BlogDialog({ initial, onClose }: { initial: Row | null; onClose: () => 
           
           <div className="grid gap-2 sm:grid-cols-3">
             <Field label="Yazar" v={f.author} on={(v) => setF({ ...f, author: v })} />
-            <Field label="Tarih (Örn: 12 Temmuz 2026)" v={f.date_label} on={(v) => setF({ ...f, date_label: v })} />
+            <Field label="Tarih" v={f.date_label} on={(v) => setF({ ...f, date_label: v })} />
             <Field label="Okuma Süresi" v={f.reading_time} on={(v) => setF({ ...f, reading_time: v })} />
           </div>
 
           <div className="grid gap-2">
-            <Label>İçerik (Güvenli TipTap Editör)</Label>
+            <Label>İçerik</Label>
             <RichTextEditor 
               content={f.content} 
               onChange={(json) => setF({ ...f, content: json })} 
@@ -216,7 +195,10 @@ function BlogDialog({ initial, onClose }: { initial: Row | null; onClose: () => 
           <Button variant="ghost" onClick={onClose}>İptal</Button>
           <Button
             disabled={!canSave || save.isPending}
-            onClick={() => save.mutate({ data: { id: initial?.id, values: { ...f, cover_url: f.cover_url || null } } })}
+            onClick={() => {
+              console.log("Sunucuya gönderilen blog verisi:", f);
+              save.mutate({ data: { id: initial?.id, values: { ...f, cover_url: f.cover_url || null } } });
+            }}
           >
             {save.isPending ? "Kaydediliyor..." : "Kaydet"}
           </Button>
