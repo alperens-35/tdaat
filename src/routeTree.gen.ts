@@ -21,25 +21,20 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TurkDunyasiIndexRouteImport } from './routes/turk-dunyasi.index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as ApiTtsRouteImport } from './routes/api/tts'
-import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AdminUyeliklerRouteImport } from './routes/admin/uyelikler'
+import { Route as AdminRollerRouteImport } from './routes/admin/roller'
 import { Route as AdminNewsRouteImport } from './routes/admin/news'
 import { Route as AdminGalleryRouteImport } from './routes/admin/gallery'
 import { Route as AdminEventsRouteImport } from './routes/admin/events'
 import { Route as AdminBlogRouteImport } from './routes/admin/blog'
-import { Route as AuthenticatedArfRouteImport } from './routes/_authenticated/arf'
-import { Route as AuthenticatedArfIndexRouteImport } from './routes/_authenticated/arf.index'
 import { Route as TurkDunyasiKulturSlugRouteImport } from './routes/turk-dunyasi.kultur.$slug'
 import { Route as TurkDunyasiHaberSlugRouteImport } from './routes/turk-dunyasi.haber.$slug'
 import { Route as TurkDunyasiAkademikSlugRouteImport } from './routes/turk-dunyasi.akademik.$slug'
-import { Route as AuthenticatedArfThreadIdRouteImport } from './routes/_authenticated/arf.$threadId'
 
 const UyeOlRoute = UyeOlRouteImport.update({
   id: '/uye-ol',
@@ -101,10 +96,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -130,19 +121,14 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
-const ApiTtsRoute = ApiTtsRouteImport.update({
-  id: '/api/tts',
-  path: '/api/tts',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiChatRoute = ApiChatRouteImport.update({
-  id: '/api/chat',
-  path: '/api/chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminUyeliklerRoute = AdminUyeliklerRouteImport.update({
   id: '/uyelikler',
   path: '/uyelikler',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRollerRoute = AdminRollerRouteImport.update({
+  id: '/roller',
+  path: '/roller',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminNewsRoute = AdminNewsRouteImport.update({
@@ -165,16 +151,6 @@ const AdminBlogRoute = AdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
-const AuthenticatedArfRoute = AuthenticatedArfRouteImport.update({
-  id: '/arf',
-  path: '/arf',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedArfIndexRoute = AuthenticatedArfIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedArfRoute,
-} as any)
 const TurkDunyasiKulturSlugRoute = TurkDunyasiKulturSlugRouteImport.update({
   id: '/turk-dunyasi/kultur/$slug',
   path: '/turk-dunyasi/kultur/$slug',
@@ -190,12 +166,6 @@ const TurkDunyasiAkademikSlugRoute = TurkDunyasiAkademikSlugRouteImport.update({
   path: '/turk-dunyasi/akademik/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedArfThreadIdRoute =
-  AuthenticatedArfThreadIdRouteImport.update({
-    id: '/$threadId',
-    path: '/$threadId',
-    getParentRoute: () => AuthenticatedArfRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -211,23 +181,19 @@ export interface FileRoutesByFullPath {
   '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
-  '/arf': typeof AuthenticatedArfRouteWithChildren
   '/admin/blog': typeof AdminBlogRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/news': typeof AdminNewsRoute
+  '/admin/roller': typeof AdminRollerRoute
   '/admin/uyelikler': typeof AdminUyeliklerRoute
-  '/api/chat': typeof ApiChatRoute
-  '/api/tts': typeof ApiTtsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
-  '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
-  '/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -246,23 +212,19 @@ export interface FileRoutesByTo {
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/news': typeof AdminNewsRoute
+  '/admin/roller': typeof AdminRollerRoute
   '/admin/uyelikler': typeof AdminUyeliklerRoute
-  '/api/chat': typeof ApiChatRoute
-  '/api/tts': typeof ApiTtsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/turk-dunyasi': typeof TurkDunyasiIndexRoute
-  '/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
-  '/arf': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
@@ -275,23 +237,19 @@ export interface FileRoutesById {
   '/takvim': typeof TakvimRoute
   '/team': typeof TeamRoute
   '/uye-ol': typeof UyeOlRoute
-  '/_authenticated/arf': typeof AuthenticatedArfRouteWithChildren
   '/admin/blog': typeof AdminBlogRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/news': typeof AdminNewsRoute
+  '/admin/roller': typeof AdminRollerRoute
   '/admin/uyelikler': typeof AdminUyeliklerRoute
-  '/api/chat': typeof ApiChatRoute
-  '/api/tts': typeof ApiTtsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/events/$slug': typeof EventsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/turk-dunyasi/': typeof TurkDunyasiIndexRoute
-  '/_authenticated/arf/$threadId': typeof AuthenticatedArfThreadIdRoute
   '/turk-dunyasi/akademik/$slug': typeof TurkDunyasiAkademikSlugRoute
   '/turk-dunyasi/haber/$slug': typeof TurkDunyasiHaberSlugRoute
   '/turk-dunyasi/kultur/$slug': typeof TurkDunyasiKulturSlugRoute
-  '/_authenticated/arf/': typeof AuthenticatedArfIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -309,23 +267,19 @@ export interface FileRouteTypes {
     | '/takvim'
     | '/team'
     | '/uye-ol'
-    | '/arf'
     | '/admin/blog'
     | '/admin/events'
     | '/admin/gallery'
     | '/admin/news'
+    | '/admin/roller'
     | '/admin/uyelikler'
-    | '/api/chat'
-    | '/api/tts'
     | '/blog/$slug'
     | '/events/$slug'
     | '/admin/'
     | '/turk-dunyasi/'
-    | '/arf/$threadId'
     | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
     | '/turk-dunyasi/kultur/$slug'
-    | '/arf/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -344,22 +298,18 @@ export interface FileRouteTypes {
     | '/admin/events'
     | '/admin/gallery'
     | '/admin/news'
+    | '/admin/roller'
     | '/admin/uyelikler'
-    | '/api/chat'
-    | '/api/tts'
     | '/blog/$slug'
     | '/events/$slug'
     | '/admin'
     | '/turk-dunyasi'
-    | '/arf/$threadId'
     | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
     | '/turk-dunyasi/kultur/$slug'
-    | '/arf'
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
     | '/about'
     | '/admin'
     | '/auth'
@@ -372,28 +322,23 @@ export interface FileRouteTypes {
     | '/takvim'
     | '/team'
     | '/uye-ol'
-    | '/_authenticated/arf'
     | '/admin/blog'
     | '/admin/events'
     | '/admin/gallery'
     | '/admin/news'
+    | '/admin/roller'
     | '/admin/uyelikler'
-    | '/api/chat'
-    | '/api/tts'
     | '/blog/$slug'
     | '/events/$slug'
     | '/admin/'
     | '/turk-dunyasi/'
-    | '/_authenticated/arf/$threadId'
     | '/turk-dunyasi/akademik/$slug'
     | '/turk-dunyasi/haber/$slug'
     | '/turk-dunyasi/kultur/$slug'
-    | '/_authenticated/arf/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
@@ -406,8 +351,6 @@ export interface RootRouteChildren {
   TakvimRoute: typeof TakvimRoute
   TeamRoute: typeof TeamRoute
   UyeOlRoute: typeof UyeOlRoute
-  ApiChatRoute: typeof ApiChatRoute
-  ApiTtsRoute: typeof ApiTtsRoute
   TurkDunyasiIndexRoute: typeof TurkDunyasiIndexRoute
   TurkDunyasiAkademikSlugRoute: typeof TurkDunyasiAkademikSlugRoute
   TurkDunyasiHaberSlugRoute: typeof TurkDunyasiHaberSlugRoute
@@ -500,13 +443,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -542,25 +478,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
-    '/api/tts': {
-      id: '/api/tts'
-      path: '/api/tts'
-      fullPath: '/api/tts'
-      preLoaderRoute: typeof ApiTtsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/chat': {
-      id: '/api/chat'
-      path: '/api/chat'
-      fullPath: '/api/chat'
-      preLoaderRoute: typeof ApiChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/uyelikler': {
       id: '/admin/uyelikler'
       path: '/uyelikler'
       fullPath: '/admin/uyelikler'
       preLoaderRoute: typeof AdminUyeliklerRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/roller': {
+      id: '/admin/roller'
+      path: '/roller'
+      fullPath: '/admin/roller'
+      preLoaderRoute: typeof AdminRollerRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/news': {
@@ -591,20 +520,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/_authenticated/arf': {
-      id: '/_authenticated/arf'
-      path: '/arf'
-      fullPath: '/arf'
-      preLoaderRoute: typeof AuthenticatedArfRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/arf/': {
-      id: '/_authenticated/arf/'
-      path: '/'
-      fullPath: '/arf/'
-      preLoaderRoute: typeof AuthenticatedArfIndexRouteImport
-      parentRoute: typeof AuthenticatedArfRoute
-    }
     '/turk-dunyasi/kultur/$slug': {
       id: '/turk-dunyasi/kultur/$slug'
       path: '/turk-dunyasi/kultur/$slug'
@@ -626,46 +541,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TurkDunyasiAkademikSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/arf/$threadId': {
-      id: '/_authenticated/arf/$threadId'
-      path: '/$threadId'
-      fullPath: '/arf/$threadId'
-      preLoaderRoute: typeof AuthenticatedArfThreadIdRouteImport
-      parentRoute: typeof AuthenticatedArfRoute
-    }
   }
 }
-
-interface AuthenticatedArfRouteChildren {
-  AuthenticatedArfThreadIdRoute: typeof AuthenticatedArfThreadIdRoute
-  AuthenticatedArfIndexRoute: typeof AuthenticatedArfIndexRoute
-}
-
-const AuthenticatedArfRouteChildren: AuthenticatedArfRouteChildren = {
-  AuthenticatedArfThreadIdRoute: AuthenticatedArfThreadIdRoute,
-  AuthenticatedArfIndexRoute: AuthenticatedArfIndexRoute,
-}
-
-const AuthenticatedArfRouteWithChildren =
-  AuthenticatedArfRoute._addFileChildren(AuthenticatedArfRouteChildren)
-
-interface AuthenticatedRouteChildren {
-  AuthenticatedArfRoute: typeof AuthenticatedArfRouteWithChildren
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedArfRoute: AuthenticatedArfRouteWithChildren,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
 
 interface AdminRouteChildren {
   AdminBlogRoute: typeof AdminBlogRoute
   AdminEventsRoute: typeof AdminEventsRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
   AdminNewsRoute: typeof AdminNewsRoute
+  AdminRollerRoute: typeof AdminRollerRoute
   AdminUyeliklerRoute: typeof AdminUyeliklerRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -675,6 +559,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminEventsRoute: AdminEventsRoute,
   AdminGalleryRoute: AdminGalleryRoute,
   AdminNewsRoute: AdminNewsRoute,
+  AdminRollerRoute: AdminRollerRoute,
   AdminUyeliklerRoute: AdminUyeliklerRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
@@ -704,7 +589,6 @@ const EventsRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
@@ -717,8 +601,6 @@ const rootRouteChildren: RootRouteChildren = {
   TakvimRoute: TakvimRoute,
   TeamRoute: TeamRoute,
   UyeOlRoute: UyeOlRoute,
-  ApiChatRoute: ApiChatRoute,
-  ApiTtsRoute: ApiTtsRoute,
   TurkDunyasiIndexRoute: TurkDunyasiIndexRoute,
   TurkDunyasiAkademikSlugRoute: TurkDunyasiAkademikSlugRoute,
   TurkDunyasiHaberSlugRoute: TurkDunyasiHaberSlugRoute,

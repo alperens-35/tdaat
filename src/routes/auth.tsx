@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import arfAvatar from "@/assets/arf-avatar.png";
+import { ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Giriş Yap | Arf — TDAAT" },
-      { name: "description", content: "Arf ile sohbet etmek için giriş yap." },
+      { title: "Yönetim Paneli Girişi | TDAAT" },
+      { name: "description", content: "TDAAT yönetim paneline erişmek için giriş yapın." },
     ],
   }),
   component: AuthPage,
@@ -26,38 +26,47 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Başarılı oturumlarda kullanıcıyı doğrudan sildiğimiz /arf yerine /admin paneline uçuruyoruz
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/arf", replace: true });
+      if (data.session) navigate({ to: "/admin", replace: true });
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) navigate({ to: "/arf", replace: true });
+      if (session) navigate({ to: "/admin", replace: true });
     });
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const loading_toast = toast.loading("İşlem yürütülüyor...");
     setLoading(true);
     try {
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({ email, password });
         if (error) throw error;
-        toast.success("Hesap oluşturuldu, giriş yapılıyor...");
+        toast.success("Hesap oluşturuldu, giriş yapılıyor...", { id: loading_toast });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        toast.success("Giriş başarılı!", { id: loading_toast });
+        
+        // --- İŞTE BU KISIM EKSİKTİ ---
+        // İşlem biter bitmez kullanıcıyı admin paneline zorla gönderiyoruz
+        navigate({ to: "/admin", replace: true }); 
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Bir hata oldu");
+      toast.error(err instanceof Error ? err.message : "Bir hata oldu", { id: loading_toast });
     } finally {
       setLoading(false);
     }
   };
+  let loading_toast: any;
 
   const handleGoogle = async () => {
     setLoading(true);
+    // OAuth dönüş adresini de /admin olarak güncelliyoruz
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/arf",
+      redirect_uri: window.location.origin + "/admin",
     });
     if (result.error) {
       toast.error("Google ile giriş başarısız oldu");
@@ -68,12 +77,14 @@ function AuthPage() {
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-md flex-col items-center justify-center px-4 py-12">
       <div className="mb-8 flex flex-col items-center gap-3 text-center">
-        <img src={arfAvatar} alt="Arf" width={64} height={64} className="h-16 w-16" />
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <ShieldCheck className="h-6 w-6" />
+        </div>
         <h1 className="font-[var(--font-heading)] text-2xl font-bold text-foreground">
-          Arf ile tanış
+          TDAAT Yönetim Sistemi
         </h1>
         <p className="text-sm text-muted-foreground">
-          Sohbet geçmişini saklamak için giriş yap.
+          İçerikleri yönetmek ve güncellemek için oturum açın.
         </p>
       </div>
 
