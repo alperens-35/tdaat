@@ -6,7 +6,7 @@ export default defineConfig({
   // ÖNEMLİ: Eğer projeyi bir alt dizinde (örn: github.com/kullanici/kubitet-web) 
   // yayınlayacaksan repo adını buraya yazmalısın: base: '/kubitet-web/'
   // Kendi özel domainini bağlayacaksan base ayarını '/' olarak bırakabilirsin.
-  base: "./", 
+  base: "/", 
   build: {
     outDir: "dist",
     emptyOutDir: true,

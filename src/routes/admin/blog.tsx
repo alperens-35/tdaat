@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { upsertBlogPost, deleteBlogPost } from "@/lib/admin.functions";
-import { uploadPublicMedia } from "@/lib/media-upload";
+import { safeMediaUpload } from "@/lib/media-upload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -155,7 +155,7 @@ function BlogDialog({ initial, onClose }: { initial: Row | null; onClose: () => 
     if (!file) return;
     setUploading(true);
     try {
-      const url = await uploadPublicMedia(file, "blog");
+      const url = await safeMediaUpload(file, "public-media");
       setF((s) => ({ ...s, cover_url: url }));
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Yükleme başarısız");

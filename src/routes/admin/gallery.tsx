@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { upsertGalleryImage, deleteGalleryImage } from "@/lib/admin.functions";
-import { uploadPublicMedia } from "@/lib/media-upload";
+import { safeMediaUpload } from "@/lib/media-upload";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -53,7 +53,7 @@ function AdminGalleryPage() {
     setUploading(true);
     try {
       for (const file of files) {
-        const url = await uploadPublicMedia(file, "gallery");
+        const url = await safeMediaUpload(file, "public-media");
         await create.mutateAsync({
           data: { values: { image_url: url, caption, title: "", sort_order: 0 } },
         });
