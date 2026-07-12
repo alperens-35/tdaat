@@ -26,12 +26,11 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Başarılı oturumlarda kullanıcıyı doğrudan sildiğimiz /arf yerine /admin paneline uçuruyoruz
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin", replace: true });
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) navigate({ to: "/admin", replace: true });
+    // LocalStorage ve sunucu senkronizasyonunu kararlı hale getiren tekil listener yapısı
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        navigate({ to: "/admin", replace: true });
+      }
     });
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
@@ -49,9 +48,6 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Giriş başarılı!", { id: loading_toast });
-        
-        // --- İŞTE BU KISIM EKSİKTİ ---
-        // İşlem biter bitmez kullanıcıyı admin paneline zorla gönderiyoruz
         navigate({ to: "/admin", replace: true }); 
       }
     } catch (err) {
@@ -60,11 +56,9 @@ function AuthPage() {
       setLoading(false);
     }
   };
-  let loading_toast: any;
 
   const handleGoogle = async () => {
     setLoading(true);
-    // OAuth dönüş adresini de /admin olarak güncelliyoruz
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin + "/admin",
     });
@@ -115,8 +109,8 @@ function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
-            />
-          </div>
+                    />
+                  </div>
           <div className="space-y-1.5">
             <Label htmlFor="password">Parola</Label>
             <Input

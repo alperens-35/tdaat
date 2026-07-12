@@ -2,18 +2,41 @@ import { createFileRoute, Outlet, redirect, Link, useRouterState } from "@tansta
 import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield } from "lucide-react";
 
+// Hafızada admin doğrulama durumunu tutarak alt sayfa geçişlerindeki takılma ve git-gelleri sıfıra indiriyoruz.
+let isAdminCached: boolean | null = null;
+let cachedUserId: string | null = null;
+
 export const Route = createFileRoute("/admin")({
   ssr: false,
   beforeLoad: async () => {
     const { data: userData } = await supabase.auth.getUser();
-    if (!userData.user) throw redirect({ to: "/auth" });
+    if (!userData.user) {
+      isAdminCached = null;
+      cachedUserId = null;
+      throw redirect({ to: "/auth" });
+    }
+
+    // Eğer zaten doğrulanmış bir kullanıcıysa ve ID değişmediyse veritabanına tekrar sorma
+    if (isAdminCached && cachedUserId === userData.user.id) {
+      return;
+    }
+
     const { data: role } = await supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", userData.user.id)
       .eq("role", "admin")
       .maybeSingle();
-    if (!role) throw redirect({ to: "/" });
+
+    if (!role) {
+      isAdminCached = false;
+      cachedUserId = null;
+      throw redirect({ to: "/" });
+    }
+
+    // Önbelleği doğrula ve güncelle
+    isAdminCached = true;
+    cachedUserId = userData.user.id;
   },
   component: AdminLayout,
 });
