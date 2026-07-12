@@ -1,43 +1,10 @@
-import { createFileRoute, Outlet, redirect, Link, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield } from "lucide-react";
-
-// Hafızada admin doğrulama durumunu tutarak alt sayfa geçişlerindeki takılma ve git-gelleri sıfıra indiriyoruz.
-let isAdminCached: boolean | null = null;
-let cachedUserId: string | null = null;
+import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
-  beforeLoad: async () => {
-    const { data: userData } = await supabase.auth.getUser();
-    if (!userData.user) {
-      isAdminCached = null;
-      cachedUserId = null;
-      throw redirect({ to: "/auth" });
-    }
-
-    // Eğer zaten doğrulanmış bir kullanıcıysa ve ID değişmediyse veritabanına tekrar sorma
-    if (isAdminCached && cachedUserId === userData.user.id) {
-      return;
-    }
-
-    const { data: role } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userData.user.id)
-      .eq("role", "admin")
-      .maybeSingle();
-
-    if (!role) {
-      isAdminCached = false;
-      cachedUserId = null;
-      throw redirect({ to: "/" });
-    }
-
-    // Önbelleği doğrula ve güncelle
-    isAdminCached = true;
-    cachedUserId = userData.user.id;
-  },
   component: AdminLayout,
 });
 
@@ -52,7 +19,55 @@ const items = [
 ] as const;
 
 function AdminLayout() {
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [checking, setChecking] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    async function verifyAdmin() {
+      try {
+        const { data: userData } = await supabase.auth.getUser();
+        if (!userData.user) {
+          navigate({ to: "/auth", replace: true });
+          return;
+        }
+
+        const { data: role } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userData.user.id)
+          .eq("role", "admin")
+          .maybeSingle();
+
+        if (!role) {
+          navigate({ to: "/", replace: true });
+          return;
+        }
+
+        setAuthorized(true);
+      } catch (err) {
+        console.error("Admin yetkilendirme hatası:", err);
+        navigate({ to: "/", replace: true });
+      } finally {
+        setChecking(false);
+      }
+    }
+
+    verifyAdmin();
+  }, [navigate]);
+
+  if (checking) {
+    return (
+      <div className="flex h-[60vh] w-full flex-col items-center justify-center gap-3 text-sm text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        <span>Yönetici yetkileri kontrol ediliyor...</span>
+      </div>
+    );
+  }
+
+  if (!authorized) return null;
+
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
       <aside className="w-56 shrink-0">
