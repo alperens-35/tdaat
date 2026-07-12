@@ -27,19 +27,60 @@ function AdminLayout() {
   useEffect(() => {
     console.log('[AdminLayout] useEffect çalıştı, status:', status);
     let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
 
     async function verifyAdmin() {
       console.log('[AdminLayout] verifyAdmin başladı');
       try {
+        // 🔥 KRİTİK: getSession'ı timeout ile sar
         console.log('[AdminLayout] supabase.auth.getSession() çağrılıyor...');
-        const { data, error } = await supabase.auth.getSession();
-        console.log('[AdminLayout] getSession sonucu:', { data, error });
+        
+        const sessionPromise = supabase.auth.getSession();
+        const timeoutPromise = new Promise<{ data: any; error: any }>((resolve) => {
+          timeoutId = setTimeout(() => {
+            console.warn('[AdminLayout] ⏰ getSession timeout! localStorage\'dan manuel okuma yapılıyor...');
+            // localStorage'dan token'ı oku
+            const storageKey = Object.keys(localStorage).find(key => key.startsWith('sb-') && key.endsWith('-auth-token'));
+            console.log('[AdminLayout] localStorage anahtarı:', storageKey);
+            
+            if (storageKey) {
+              try {
+                const raw = localStorage.getItem(storageKey);
+                if (raw) {
+                  const parsed = JSON.parse(raw);
+                  console.log('[AdminLayout] localStorage\'dan okunan token:', parsed);
+                  // supabase.auth.setSession ile oturumu başlat
+                  const { data, error } = await supabase.auth.setSession({
+                    access_token: parsed.access_token,
+                    refresh_token: parsed.refresh_token,
+                  });
+                  resolve({ data, error });
+                } else {
+                  resolve({ data: null, error: null });
+                }
+              } catch (e) {
+                console.error('[AdminLayout] localStorage okuma hatası:', e);
+                resolve({ data: null, error: null });
+              }
+            } else {
+              resolve({ data: null, error: null });
+            }
+          }, 2000);
+        });
+
+        // İlk önce hangisi önce gelirse
+        const result = await Promise.race([sessionPromise, timeoutPromise]);
+        clearTimeout(timeoutId);
+
+        console.log('[AdminLayout] getSession sonucu:', result);
+
+        const { data, error } = result;
 
         if (error) {
           console.error('[AdminLayout] getSession hatası:', error);
         }
 
-        if (!data.session) {
+        if (!data?.session) {
           console.warn('[AdminLayout] Oturum yok, unauthorized');
           if (isMounted) {
             setStatus("unauthorized");
@@ -100,6 +141,7 @@ function AdminLayout() {
     return () => {
       console.log('[AdminLayout] cleanup');
       isMounted = false;
+      clearTimeout(timeoutId);
       listener?.subscription.unsubscribe();
     };
   }, [navigate]);
