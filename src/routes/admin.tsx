@@ -1,10 +1,12 @@
+// src/routes/admin.tsx
 import { createFileRoute, Outlet, Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield, Loader2 } from "lucide-react";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const Route = createFileRoute("/admin")({
-  ssr: false, // Admin panelini sunucu taraflı render (SSR) döngüsünden tamamen koparıyoruz.
+  ssr: false,
   component: AdminLayout,
 });
 
@@ -21,19 +23,15 @@ const items = [
 function AdminLayout() {
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  
-  // Durum makinesi: loading -> authorized VEYA unauthorized
   const [status, setStatus] = useState<"loading" | "authorized" | "unauthorized">("loading");
 
   useEffect(() => {
     let isMounted = true;
 
-    async function verifyAdminSession() {
+    async function verifyAdmin() {
       try {
-        // 1. Supabase'in yerel hafızadaki oturumu okumasını bekliyoruz (F5 kilitlenmesini çözer)
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        
-        if (sessionError || !session) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
           if (isMounted) {
             setStatus("unauthorized");
             navigate({ to: "/auth", replace: true });
@@ -41,15 +39,14 @@ function AdminLayout() {
           return;
         }
 
-        // 2. Kullanıcının admin rolünü veritabanından çekiyoruz
-        const { data: roleData, error: roleError } = await supabase
+        const { data: roleData } = await supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", session.user.id)
           .eq("role", "admin")
           .maybeSingle();
 
-        if (roleError || !roleData) {
+        if (!roleData) {
           if (isMounted) {
             setStatus("unauthorized");
             navigate({ to: "/", replace: true });
@@ -57,12 +54,8 @@ function AdminLayout() {
           return;
         }
 
-        // Her şey eksiksiz doğrulandı, geçiş izni verildi
-        if (isMounted) {
-          setStatus("authorized");
-        }
-      } catch (err) {
-        console.error("Mimarî doğrulama hatası:", err);
+        if (isMounted) setStatus("authorized");
+      } catch {
         if (isMounted) {
           setStatus("unauthorized");
           navigate({ to: "/", replace: true });
@@ -70,27 +63,21 @@ function AdminLayout() {
       }
     }
 
-    verifyAdminSession();
+    verifyAdmin();
 
-    // Zaman aşımı sigortası (Failsafe Timeout): Ağ takılırsa sistemi beyaz ekranda sonsuza kadar kilitlemez
-    const timeout = setTimeout(() => {
-      if (status === "loading" && isMounted) {
-        supabase.auth.getUser().then(({ data }) => {
-          if (!data.user && isMounted) {
-            setStatus("unauthorized");
-            navigate({ to: "/auth", replace: true });
-          }
-        });
+    const { data: listener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT" && isMounted) {
+        setStatus("unauthorized");
+        navigate({ to: "/auth", replace: true });
       }
-    }, 1500);
+    });
 
     return () => {
       isMounted = false;
-      clearTimeout(timeout);
+      listener?.subscription.unsubscribe();
     };
   }, [navigate]);
 
-  // Yükleme ekranı
   if (status === "loading") {
     return (
       <div className="flex h-[60vh] w-full flex-col items-center justify-center gap-3 text-sm text-muted-foreground">
@@ -103,38 +90,37 @@ function AdminLayout() {
   if (status === "unauthorized") return null;
 
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
-      <aside className="w-56 shrink-0">
-        <div className="mb-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Yönetim Paneli
-        </div>
-        <nav className="flex flex-col gap-1">
-          {items.map((it) => {
-            const active = it.exact ? pathname === it.to : pathname.startsWith(it.to);
-            const Icon = it.icon;
-            return (
-              <Link
-                key={it.to}
-                to={it.to}
-                className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
-                  active
-                    ? "bg-primary/10 text-primary font-medium"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                {it.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
-      <main className="min-w-0 flex-1">
-        {/* KRİTİK GÜVENLİK FİXİ: Outlet sadece 'authorized' olunca ekrana basılır.
-            Böylece alt sayfaların useQuery sorguları, Supabase oturumu %100 hazır olmadan tetiklenemez.
-            Bu sayede RLS asla boşa düşmez ve veriler inatla '0' görünmez! */}
-        <Outlet />
-      </main>
-    </div>
+    <AuthProvider>
+      <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+        <aside className="w-56 shrink-0">
+          <div className="mb-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Yönetim Paneli
+          </div>
+          <nav className="flex flex-col gap-1">
+            {items.map((it) => {
+              const active = it.exact ? pathname === it.to : pathname.startsWith(it.to);
+              const Icon = it.icon;
+              return (
+                <Link
+                  key={it.to}
+                  to={it.to}
+                  className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
+                    active
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {it.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </aside>
+        <main className="min-w-0 flex-1">
+          <Outlet />
+        </main>
+      </div>
+    </AuthProvider>
   );
 }

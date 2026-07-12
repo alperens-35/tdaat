@@ -1,3 +1,4 @@
+// src/routes/__root.tsx
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -146,7 +147,6 @@ function RootComponent() {
               <Outlet />
             </main>
             <Footer />
-            {/* <ArfWidget /> satırı buradan tamamen kaldırıldı */}
           </div>
         </I18nProvider>
       </ThemeProvider>

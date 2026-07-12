@@ -1,114 +1,103 @@
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { upsertGalleryImage, deleteGalleryImage } from "@/lib/admin.functions";
-import { safeMediaUpload } from "@/lib/media-upload";
+import { useAuth } from "@/contexts/AuthContext";
+import { Plus, Edit, Trash2, ImageIcon, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { Trash2, Upload, ImagePlus } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import type { Database } from "@/integrations/supabase/types";
 
-type Row = Database["public"]["Tables"]["gallery_images"]["Row"];
+type GalleryItemRow = Database["public"]["Tables"]["gallery_items"]["Row"];
 
 export const Route = createFileRoute("/admin/gallery")({
+  ssr: false,
   component: AdminGalleryPage,
 });
 
 function AdminGalleryPage() {
-  const qc = useQueryClient();
-  const [uploading, setUploading] = useState(false);
-  const [caption, setCaption] = useState("");
+  const { isReady } = useAuth();
 
-  const { data: rows } = useQuery({
+  const { data: items = [], isLoading } = useQuery({
     queryKey: ["admin-gallery"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("gallery_images")
+        .from("gallery_items")
         .select("*")
-        .order("sort_order", { ascending: true })
         .order("created_at", { ascending: false });
-      if (error) throw new Error(error.message);
-      return (data ?? []) as Row[];
+      if (error) throw error;
+      return data as GalleryItemRow[];
     },
+    enabled: isReady,
   });
 
-  const create = useMutation({
-    mutationFn: useServerFn(upsertGalleryImage),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-gallery"] }),
-    onError: (e: Error) => toast.error(e.message),
-  });
-
-  const del = useMutation({
-    mutationFn: useServerFn(deleteGalleryImage),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-gallery"] }); toast.success("Silindi"); },
-    onError: (e: Error) => toast.error(e.message),
-  });
-
-  async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files ?? []);
-    if (files.length === 0) return;
-    setUploading(true);
-    try {
-      for (const file of files) {
-        const url = await safeMediaUpload(file, "public-media");
-        await create.mutateAsync({
-          data: { values: { image_url: url, caption, title: "", sort_order: 0 } },
-        });
-      }
-      setCaption("");
-      toast.success(`${files.length} görsel eklendi`);
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Yükleme başarısız");
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
+  if (!isReady || isLoading) {
+    return (
+      <div className="flex h-40 items-center justify-center">
+        <span className="text-muted-foreground">Yükleniyor...</span>
+      </div>
+    );
   }
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-[var(--font-heading)] text-2xl font-bold">Galeri</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-[var(--font-heading)] text-2xl font-bold text-foreground">
+          Galeri Yönetimi
+        </h1>
+        <Button asChild>
+          <Link to="/admin/gallery/new">
+            <Plus className="mr-1.5 h-4 w-4" />
+            Yeni Görsel
+          </Link>
+        </Button>
       </div>
 
-      <div className="mb-6 rounded-xl border border-dashed border-border/60 bg-card/50 p-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-          <div className="flex-1">
-            <label className="text-xs font-medium text-muted-foreground">Açıklama (opsiyonel)</label>
-            <Input className="mt-1" value={caption} onChange={(e) => setCaption(e.target.value)}
-              placeholder="Örn. Açılış buluşması" />
-          </div>
-          <label className={`inline-flex cursor-pointer items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 ${uploading ? "opacity-60" : ""}`}>
-            <Upload className="h-4 w-4" />
-            {uploading ? "Yükleniyor..." : "Görsel(ler) yükle"}
-            <input type="file" accept="image/*" multiple className="hidden" onChange={onPick} disabled={uploading} />
-          </label>
-        </div>
-      </div>
-
-      {(!rows || rows.length === 0) ? (
-        <div className="rounded-xl border border-border/60 bg-card p-16 text-center text-muted-foreground">
-          <ImagePlus className="mx-auto h-8 w-8 opacity-40" />
-          <p className="mt-3 text-sm">Henüz galeri görseli yok.</p>
-        </div>
+      {items.length === 0 ? (
+        <p className="mt-6 text-sm text-muted-foreground">Henüz galeri öğesi eklenmemiş.</p>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {rows.map((r) => (
-            <div key={r.id} className="group relative overflow-hidden rounded-xl border border-border/60 bg-card">
-              <img src={r.image_url} alt={r.caption} className="aspect-[4/3] w-full object-cover" />
-              {r.caption && (
-                <div className="p-3 text-sm text-foreground">{r.caption}</div>
-              )}
-              <Button
-                size="sm" variant="destructive"
-                className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={() => { if (confirm("Görsel silinsin mi?")) del.mutate({ data: { id: r.id } }); }}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="group relative overflow-hidden rounded-xl border border-border/60 bg-card transition-all hover:shadow-md"
+            >
+              <div className="aspect-video w-full bg-accent/30">
+                {item.image_url ? (
+                  <img
+                    src={item.image_url}
+                    alt={item.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center">
+                    <ImageIcon className="h-12 w-12 text-muted-foreground/30" />
+                  </div>
+                )}
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold text-foreground">{item.title}</h3>
+                {item.description && (
+                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                    {item.description}
+                  </p>
+                )}
+                <div className="mt-2 flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">
+                    <Calendar className="mr-1 inline h-3 w-3" />
+                    {item.created_at ? new Date(item.created_at).toLocaleDateString("tr-TR") : ""}
+                  </span>
+                  <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/admin/gallery/$id/edit" params={{ id: item.id }}>
+                        <Edit className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-destructive">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
