@@ -1,24 +1,40 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X, Shield } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
+import { Menu, X, Shield, LogOut } from "lucide-react";
 import logo from "@/assets/logo.png";
-import arfLogo from "@/assets/arf-avatar.png";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { useIsAdmin } from "@/hooks/use-admin";
 import { useAuthUser } from "@/hooks/use-auth-user";
-
-
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useI18n();
   const { isAdmin } = useIsAdmin();
   const { user } = useAuthUser();
 
-
+  const handleSignOut = async () => {
+    try {
+      // Çıkış işleminin tamamlanmasını bekle
+      await supabase.auth.signOut();
+      
+      // Bildirimi göster
+      toast.success("Oturum başarıyla kapatıldı.");
+      
+      // Kullanıcıyı ana sayfaya gönder ve geçmişi temizle
+      // replace: true ile kullanıcının geri tuşuyla admin paneline dönmesi engellenir
+      await navigate({ to: "/", replace: true });
+    } catch (error) {
+      toast.error("Çıkış yapılırken bir sorun oluştu.");
+      console.error("Sign out error:", error);
+    }
+  };
 
   const navLinks = [
     { to: "/", label: t("nav.home") },
@@ -27,104 +43,48 @@ export function Header() {
     { to: "/events", label: t("nav.events") },
     { to: "/blog", label: t("nav.blog") },
     { to: "/team", label: t("nav.team") },
-    { to: "/arf", label: t("nav.arf") },
     { to: "/contact", label: t("nav.contact") },
   ];
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
-
   return (
-    <header className="sticky top-0 z-50 w-full transform-gpu border-b border-border/50 bg-background/80 backdrop-blur-lg [will-change:transform] [contain:paint]">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link
-          to="/"
-          className="flex items-center gap-2 font-[var(--font-heading)] text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary"
-        >
-          <img src={logo} alt="Türk Dünyası Akademik Araştırmalar Topluluğu Logosu" className="h-9 w-9 object-contain" />
+        <Link to="/" className="flex items-center gap-2 font-bold text-xl">
+          <img src={logo} alt="Logo" className="h-9 w-9" />
           <span className="hidden sm:inline">TDAAT</span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop Nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              activeProps={{ className: "bg-primary/10 text-primary font-medium" }}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent"
             >
-              {link.to === "/arf" ? (
-                <span className="flex items-center gap-1.5">
-                  {link.label}
-                  <img src={arfLogo} alt="Arf" className="h-4 w-4 rounded-full object-cover" />
-                </span>
-              ) : (
-                link.label
-              )}
+              {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Right side */}
-        <div className="flex items-center gap-1">
+        {/* Right Actions */}
+        <div className="flex items-center gap-2">
           {isAdmin && (
-            <Link
-              to="/admin"
-              className="hidden items-center gap-1.5 rounded-md border border-primary/30 bg-primary/5 px-3 py-1.5 text-sm font-medium text-primary transition-colors hover:bg-primary/10 md:inline-flex"
-            >
-              <Shield className="h-4 w-4" />
-              Yönetim
+            <Link to="/admin" className="hidden md:flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+              <Shield className="h-4 w-4" /> Yönetim
             </Link>
           )}
-          {!user && (
-            <Link
-              to="/auth"
-              className="hidden rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 md:inline-flex"
-            >
-              {t("nav.signIn")}
-            </Link>
+
+          {user && (
+            <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground">
+              <LogOut className="h-4 w-4 mr-2" /> Çıkış
+            </Button>
           )}
 
           <LanguageSwitcher />
-
           <ThemeToggle />
-          <button
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={t("nav.toggleMenu")}
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
       </div>
-
-      {/* Mobile nav */}
-      {mobileOpen && (
-        <div className="border-t border-border/50 bg-background/95 backdrop-blur-lg md:hidden">
-          <nav className="flex flex-col gap-1 px-4 py-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                activeProps={{ className: "bg-primary/10 text-primary font-medium" }}
-                className="rounded-md px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.to === "/arf" ? (
-                  <span className="flex items-center gap-1.5">
-                    {link.label}
-                    <img src={arfLogo} alt="Arf" className="h-4 w-4 rounded-full object-cover" />
-                  </span>
-                ) : (
-                  link.label
-                )}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
