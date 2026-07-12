@@ -26,73 +26,17 @@ function AdminLayout() {
 
   useEffect(() => {
     let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
 
     async function verifyAdmin() {
       try {
         console.log('[AdminLayout] verifyAdmin başladı');
         
-        // 1. Önce getSession'ı dene, 2 saniye timeout
-        const sessionPromise = supabase.auth.getSession();
-        let sessionResult: { data: any; error: any } | null = null;
-        let fromCache = false;
-
-        const timeoutPromise = new Promise<{ data: any; error: any }>((resolve) => {
-          timeoutId = setTimeout(async () => {
-            console.warn('[AdminLayout] ⏰ getSession timeout! localStorage\'dan manuel okuma yapılıyor...');
-            const storageKey = Object.keys(localStorage).find(key => key.startsWith('sb-') && key.endsWith('-auth-token'));
-            console.log('[AdminLayout] localStorage anahtarı:', storageKey);
-            
-            if (storageKey) {
-              try {
-                const raw = localStorage.getItem(storageKey);
-                if (raw) {
-                  const parsed = JSON.parse(raw);
-                  console.log('[AdminLayout] localStorage\'dan okunan token:', parsed);
-                  
-                  // 🔥 KRİTİK: setSession ile oturumu başlat
-                  console.log('[AdminLayout] supabase.auth.setSession çağrılıyor...');
-                  const { data, error } = await supabase.auth.setSession({
-                    access_token: parsed.access_token,
-                    refresh_token: parsed.refresh_token,
-                  });
-                  console.log('[AdminLayout] setSession sonucu:', { data, error });
-                  
-                  if (error) {
-                    console.error('[AdminLayout] setSession hatası:', error);
-                    resolve({ data: null, error });
-                  } else {
-                    fromCache = true;
-                    resolve({ data, error: null });
-                  }
-                } else {
-                  resolve({ data: null, error: null });
-                }
-              } catch (e) {
-                console.error('[AdminLayout] localStorage okuma hatası:', e);
-                resolve({ data: null, error: e as any });
-              }
-            } else {
-              resolve({ data: null, error: null });
-            }
-          }, 2000);
-        });
-
-        // Yarışı başlat
-        sessionResult = await Promise.race([sessionPromise, timeoutPromise]);
-        clearTimeout(timeoutId);
-
-        console.log('[AdminLayout] Race sonucu:', sessionResult);
-
-        const { data, error } = sessionResult;
-
-        if (error) {
-          console.error('[AdminLayout] getSession/setSession hatası:', error);
-        }
-
-        // Eğer hala oturum yoksa, unauthorized
-        if (!data?.session) {
-          console.warn('[AdminLayout] Oturum yok, unauthorized');
+        // 1. localStorage'dan token'ı oku
+        const storageKey = Object.keys(localStorage).find(key => key.startsWith('sb-') && key.endsWith('-auth-token'));
+        console.log('[AdminLayout] storageKey:', storageKey);
+        
+        if (!storageKey) {
+          console.warn('[AdminLayout] localStorage\'da auth token yok');
           if (isMounted) {
             setStatus("unauthorized");
             navigate({ to: "/auth", replace: true });
@@ -100,14 +44,47 @@ function AdminLayout() {
           return;
         }
 
-        console.log('[AdminLayout] Oturum mevcut, user_id:', data.session.user.id);
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) {
+          console.warn('[AdminLayout] localStorage\'da raw token yok');
+          if (isMounted) {
+            setStatus("unauthorized");
+            navigate({ to: "/auth", replace: true });
+          }
+          return;
+        }
 
-        // Admin rolünü kontrol et
-        console.log('[AdminLayout] user_roles sorgulanıyor...');
+        const parsed = JSON.parse(raw);
+        console.log('[AdminLayout] localStorage\'dan token okundu:', parsed);
+
+        // 2. 🚀 KRİTİK: setSession'ı bypass et, internal session'ı manuel set et
+        // @ts-ignore - internal kullanım (Supabase client'ının internal state'i)
+        supabase.auth._session = {
+          access_token: parsed.access_token,
+          refresh_token: parsed.refresh_token,
+          user: parsed.user,
+          expires_at: parsed.expires_at,
+        };
+        // @ts-ignore - listener'ları tetikle
+        supabase.auth._notifyAllSubscribers('SIGNED_IN', supabase.auth._session);
+        console.log('[AdminLayout] Internal session manuel olarak set edildi');
+
+        // 3. Şimdi session'ı kullanarak admin rolünü kontrol et
+        const userId = parsed.user?.id;
+        if (!userId) {
+          console.warn('[AdminLayout] user id yok');
+          if (isMounted) {
+            setStatus("unauthorized");
+            navigate({ to: "/auth", replace: true });
+          }
+          return;
+        }
+
+        console.log('[AdminLayout] user_roles sorgulanıyor, userId:', userId);
         const { data: roleData, error: roleError } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", data.session.user.id)
+          .eq("user_id", userId)
           .eq("role", "admin")
           .maybeSingle();
 
@@ -139,6 +116,7 @@ function AdminLayout() {
 
     verifyAdmin();
 
+    // Oturum değişikliklerini dinle (güvenlik ağı)
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       console.log('[AdminLayout] onAuthStateChange event:', event, 'session:', session);
       if (event === "SIGNED_OUT" && isMounted) {
@@ -150,7 +128,6 @@ function AdminLayout() {
 
     return () => {
       isMounted = false;
-      clearTimeout(timeoutId);
       listener?.subscription.unsubscribe();
     };
   }, [navigate]);
