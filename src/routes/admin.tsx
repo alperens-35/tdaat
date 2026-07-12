@@ -1,11 +1,10 @@
-import { createFileRoute, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from "@tanstack/react-router"; // KRİTİK FİX: Link importu eklendi
 import { useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays, FileText, Newspaper, Images, Users, LayoutDashboard, Shield, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
-  ssr: false, // Endüstri Standardı 1: Admin panelini SSR döngüsünden tamamen koparıp saf SPA moduna alıyoruz.
+  ssr: false, // Admin panelini SSR döngüsünden tamamen koparıp saf SPA yapıyoruz.
   component: AdminLayout,
 });
 
@@ -21,14 +20,13 @@ const items = [
 
 function AdminLayout() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   
   const [mounted, setMounted] = useState(false);
   const [checking, setChecking] = useState(true);
   const [authorized, setAuthorized] = useState(false);
 
-  // DOM kilitlenmesini (Hydration Mismatch) önlemek için ilk mount kontrolü
+  // Hydration dondurmasını engellemek için tarayıcı kontrolü
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -38,11 +36,7 @@ function AdminLayout() {
 
     async function checkAdminSession() {
       try {
-        // Endüstri Standardı 2: Zehirlenmiş anonim önbellekleri temizle
-        // Bu işlem RLS'in önceden hafızaya aldığı "0" verilerini tamamen sıfırlar.
-        queryClient.clear();
-
-        // En güncel lokal oturumu anında çek
+        // En güncel lokal oturumu çek
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
@@ -50,7 +44,7 @@ function AdminLayout() {
           return;
         }
 
-        // Rol doğrulaması
+        // Kullanıcının admin rolünü veritabanından doğrula
         const { data: role } = await supabase
           .from("user_roles")
           .select("role")
@@ -63,7 +57,6 @@ function AdminLayout() {
           return;
         }
 
-        // Her şey başarıyla doğrulandıysa içeri al
         setAuthorized(true);
       } catch (err) {
         console.error("Doğrulama hatası:", err);
@@ -74,9 +67,8 @@ function AdminLayout() {
     }
 
     checkAdminSession();
-  }, [mounted, navigate, queryClient]);
+  }, [mounted, navigate]);
 
-  // Sayfa sunucuda render edilmeye çalışıyorsa veya mount olmadıysa dondurma, boş geç
   if (!mounted) return null;
 
   if (checking) {
@@ -118,8 +110,7 @@ function AdminLayout() {
         </nav>
       </aside>
       <main className="min-w-0 flex-1">
-        {/* Endüstri Standardı 3: Alt sayfaları (Outlet) SADECE yetki bittiğinde render et.
-            Böylece alt sorgular (blog, event) asla erken ateşlenmez ve RLS'e takılıp 0 dönmez! */}
+        {/* Sadece yetki verildikten sonra Outlet açılır, alt bileşenler sorunsuz render olur */}
         <Outlet />
       </main>
     </div>
