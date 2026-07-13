@@ -1,103 +1,96 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { listMemberships, updateMembershipStatus } from "@/lib/admin.functions";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { Plus, Edit, Trash2, Mail, Calendar, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import { Check, X, Clock } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import type { Database } from "@/integrations/supabase/types";
+
+type MemberRow = Database["public"]["Tables"]["members"]["Row"];
 
 export const Route = createFileRoute("/admin/uyelikler")({
-  component: AdminMembershipsPage,
+  ssr: false,
+  component: AdminMembersPage,
 });
 
-function AdminMembershipsPage() {
-  const qc = useQueryClient();
-  const list = useServerFn(listMemberships);
-  const { data } = useQuery({
-    queryKey: ["admin-memberships"],
-    queryFn: () => list(),
+function AdminMembersPage() {
+  const { isReady } = useAuth();
+
+  const { data: members = [], isLoading } = useQuery({
+    queryKey: ["admin-members"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("members")
+        .select("*")
+        .order("joined_at", { ascending: false });
+      if (error) throw error;
+      return data as MemberRow[];
+    },
+    enabled: isReady,
   });
 
-  const update = useMutation({
-    mutationFn: useServerFn(updateMembershipStatus),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-memberships"] }); toast.success("Güncellendi"); },
-    onError: (e: Error) => toast.error(e.message),
-  });
+  if (!isReady || isLoading) {
+    return (
+      <div className="flex h-40 items-center justify-center">
+        <span className="text-muted-foreground">Yükleniyor...</span>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h1 className="mb-6 font-[var(--font-heading)] text-2xl font-bold">Üyelik Başvuruları</h1>
-      <div className="overflow-hidden rounded-xl border border-border/60 bg-card">
-        <table className="w-full text-sm">
-          <thead className="bg-muted/40 text-xs uppercase text-muted-foreground">
-            <tr>
-              <th className="px-4 py-2 text-left">Ad Soyad</th>
-              <th className="px-4 py-2 text-left">İletişim</th>
-              <th className="px-4 py-2 text-left">Bölüm</th>
-              <th className="px-4 py-2 text-left">Durum</th>
-              <th className="px-4 py-2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {(data ?? []).map((r) => (
-              <tr key={r.id} className="border-t border-border/40 align-top">
-                <td className="px-4 py-3">
-                  <div className="font-medium">{r.full_name}</div>
-                  <div className="text-xs text-muted-foreground">{new Date(r.created_at).toLocaleString("tr-TR")}</div>
-                </td>
-                <td className="px-4 py-3 text-xs text-muted-foreground">
-                  <div>{r.email}</div>
-                  {r.phone && <div>{r.phone}</div>}
-                </td>
-                <td className="px-4 py-3 text-xs text-muted-foreground">
-                  {r.faculty}<br />
-                  {r.department} • {r.year}
-                </td>
-                <td className="px-4 py-3">
-                  <StatusBadge status={r.status} />
-                  {r.motivation && (
-                    <details className="mt-2 max-w-xs">
-                      <summary className="cursor-pointer text-xs text-primary">Motivasyonu gör</summary>
-                      <p className="mt-1 text-xs text-muted-foreground">{r.motivation}</p>
-                    </details>
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex justify-end gap-1">
-                    <Button size="sm" variant="ghost"
-                      disabled={r.status === "approved"}
-                      onClick={() => update.mutate({ data: { id: r.id, status: "approved" } })}>
-                      <Check className="h-4 w-4 text-emerald-600" />
-                    </Button>
-                    <Button size="sm" variant="ghost"
-                      disabled={r.status === "rejected"}
-                      onClick={() => update.mutate({ data: { id: r.id, status: "rejected" } })}>
-                      <X className="h-4 w-4 text-destructive" />
-                    </Button>
-                    <Button size="sm" variant="ghost"
-                      disabled={r.status === "pending"}
-                      onClick={() => update.mutate({ data: { id: r.id, status: "pending" } })}>
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {(!data || data.length === 0) && (
-              <tr><td colSpan={5} className="px-4 py-10 text-center text-muted-foreground">Başvuru yok.</td></tr>
-            )}
-          </tbody>
-        </table>
+      <div className="flex items-center justify-between">
+        <h1 className="font-[var(--font-heading)] text-2xl font-bold text-foreground">
+          Üyelik Yönetimi
+        </h1>
+        <Button asChild>
+          <Link to="/admin/uyelikler/new">
+            <Plus className="mr-1.5 h-4 w-4" />
+            Yeni Üye Ekle
+          </Link>
+        </Button>
       </div>
+
+      {members.length === 0 ? (
+        <p className="mt-6 text-sm text-muted-foreground">Henüz üye kaydı yok.</p>
+      ) : (
+        <div className="mt-6 grid gap-4">
+          {members.map((member) => (
+            <div
+              key={member.id}
+              className="flex items-center justify-between rounded-xl border border-border/60 bg-card p-4"
+            >
+              <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <h3 className="font-semibold text-foreground">{member.name}</h3>
+                  <Badge variant="outline">{member.role}</Badge>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Mail className="h-3 w-3" />
+                    {member.email}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {member.joined_at ? new Date(member.joined_at).toLocaleDateString("tr-TR") : ""}
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/admin/uyelikler/$id/edit" params={{ id: member.id }}>
+                    <Edit className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-destructive">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const style =
-    status === "approved" ? "bg-emerald-500/10 text-emerald-600"
-    : status === "rejected" ? "bg-destructive/10 text-destructive"
-    : "bg-muted text-muted-foreground";
-  const label = status === "approved" ? "Onaylandı" : status === "rejected" ? "Reddedildi" : "Bekliyor";
-  return <span className={`rounded px-2 py-0.5 text-xs font-medium ${style}`}>{label}</span>;
 }
